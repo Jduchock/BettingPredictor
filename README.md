@@ -1,0 +1,2 @@
+# BettingPredictor
+Fictitious betting predictor
