@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rugby Nations Cup — Final Round Card (Draft)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --rugby:  #7A2E8D;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+  .site-header { background: var(--steel); border-bottom: 3px solid var(--rugby); padding: 24px 20px 16px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(122,46,141,.4) 0%, transparent 70%); pointer-events: none; }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: #C98FD9; margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  .draft-banner {
+    background: linear-gradient(135deg, #231A00 0%, #1F1A0D 100%);
+    border: 2px solid var(--amber);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .draft-banner .db-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 700; }
+  .draft-banner .db-sub { font-size: 13px; color: var(--fog); margin-top: 6px; line-height: 1.5; }
+
+  .matchlist { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--rugby); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .ml-header, .ml-row { display: grid; grid-template-columns: 1fr 90px 110px 90px; gap: 8px; padding: 11px 16px; align-items: center; }
+  .ml-header { padding: 8px 16px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ml-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ml-header span:not(:first-child) { text-align: center; }
+  .ml-row { border-bottom: 1px solid var(--mid); font-size: 13px; }
+  .ml-row:last-child { border-bottom: none; }
+  .ml-row.feature { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .ml-match { color: var(--white); font-weight: 600; }
+  .ml-match .sub { font-size: 11px; color: var(--silver); font-weight: 400; margin-top: 2px; }
+  .ml-time { text-align: center; font-size: 11px; color: var(--fog); }
+  .ml-lean { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--gold); }
+  .ml-conf { text-align: center; }
+  .conf-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .conf-badge.high { background: rgba(40,167,69,.2); color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .conf-badge.med  { background: rgba(212,160,23,.2); color: var(--gold); border: 1px solid rgba(212,160,23,.4); }
+  .conf-badge.low  { background: rgba(136,136,170,.15); color: var(--silver); border: 1px solid var(--dim); }
+
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; color: var(--gold); }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--rugby); }
+
+  .scenario-box { background: var(--steel); border: 1px solid var(--dim); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .scenario-box strong { color: var(--gold); }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">World Rugby Nations Cup · Final Round · Test 7 (Draft)</p>
+  <h1 class="event-title">RUGBY <span>NATIONS</span> CUP</h1>
+  <p class="event-meta">Saturday July 18, 2026 · 6 matches · $1,000 Bankroll — stakes assigned when lines post</p>
+</header>
+
+<div class="container">
+
+  <!-- DRAFT BANNER -->
+  <div class="draft-banner">
+    <div class="db-tag">📝 DRAFT CARD — ODDS NOT YET POSTED</div>
+    <div class="db-sub">Books haven't hung tier-2 rugby lines for the July 18 round yet (typically 1–3 days out). Analysis and leans are locked below; odds, stakes, and the mandatory longshot get assigned when lines post — target: Friday July 17. No money is at risk yet and the account dashboard counts this card as QUEUED, not active.</div>
+  </div>
+
+  <!-- MATCH LIST -->
+  <div class="section-head"><span class="section-head-text">Final Round Board · Saturday July 18 (US times)</span></div>
+  <div class="matchlist">
+    <div class="ml-header">
+      <span>Match</span><span>Time (CT)</span><span>Lean</span><span>Confidence</span>
+    </div>
+    <div class="ml-row">
+      <div class="ml-match">Samoa vs Romania<div class="sub">Samoa's athleticism vs Romania's set piece</div></div>
+      <div class="ml-time">~9:30 AM</div>
+      <div class="ml-lean">Samoa</div>
+      <div class="ml-conf"><span class="conf-badge med">Medium</span></div>
+    </div>
+    <div class="ml-row">
+      <div class="ml-match">Uruguay vs Hong Kong<div class="sub">Biggest class gap of the round</div></div>
+      <div class="ml-time">~12:00 PM</div>
+      <div class="ml-lean">Uruguay big</div>
+      <div class="ml-conf"><span class="conf-badge high">High</span></div>
+    </div>
+    <div class="ml-row feature">
+      <div class="ml-match">Chile vs Georgia<div class="sub">★ Pool decider — Georgia unbeaten with two statement wins</div></div>
+      <div class="ml-time">~2:00 PM</div>
+      <div class="ml-lean">Georgia -hcp</div>
+      <div class="ml-conf"><span class="conf-badge high">High</span></div>
+    </div>
+    <div class="ml-row">
+      <div class="ml-match">Tonga vs Portugal<div class="sub">Portugal's ball movement torched Canada 38–14</div></div>
+      <div class="ml-time">~3:45 PM</div>
+      <div class="ml-lean">Portugal</div>
+      <div class="ml-conf"><span class="conf-badge med">Medium</span></div>
+    </div>
+    <div class="ml-row feature">
+      <div class="ml-match">USA vs Spain<div class="sub">★ Centerpiece — USA 2-0 but by 1 pt & 16; Spain unbeaten (W+D)</div></div>
+      <div class="ml-time">~6:30 PM</div>
+      <div class="ml-lean">USA close / Spain +hcp value</div>
+      <div class="ml-conf"><span class="conf-badge med">Medium</span></div>
+    </div>
+    <div class="ml-row">
+      <div class="ml-match">Canada vs Zimbabwe<div class="sub">Canada reeling after Portugal loss; Zimbabwe feisty vs Tonga</div></div>
+      <div class="ml-time">~7:00 PM</div>
+      <div class="ml-lean">Canada</div>
+      <div class="ml-conf"><span class="conf-badge low">Low</span></div>
+    </div>
+  </div>
+
+  <!-- FORM ANALYSIS -->
+  <div class="section-head"><span class="section-head-text">Form Through Two Rounds</span></div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">The Unbeatens</div>
+      <ul>
+        <li><strong>Georgia 2-0:</strong> beat Uruguay 41–34 away-style shootout, then dismantled Samoa 33–12 — clear class of the field</li>
+        <li><strong>USA 2-0:</strong> survived Portugal 30–29, handled Zimbabwe 31–15 — winning but not dominant</li>
+        <li><strong>Chile 2-0:</strong> 48–31 over Romania, 38–17 over Hong Kong — untested vs the top</li>
+        <li><strong>Spain 1-0-1:</strong> 42–42 draw at Canada, then 32–19 over Tonga — improving weekly</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Angles To Price On Friday</div>
+      <ul>
+        <li>Georgia's handicap vs Chile — books may under-rate the gap (Georgia is a Tier-1-adjacent side)</li>
+        <li>USA-Spain total — USA games have been tight & high-ish; Spain's attack traveled well</li>
+        <li>Portugal -hcp vs Tonga — Tonga has faded in second halves both weeks</li>
+        <li>Longshot candidate: exact-margin or Spain outright upset, depending on prices</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PLAN -->
+  <div class="scenario-box">
+    <strong>Finalization plan.</strong> Friday July 17: pull posted lines (moneylines, handicaps, totals), assign the $1,000 across the leans above with estimated win probabilities vs de-vigged market — same method as every card — and designate the 🎲 longshot. If books hang lines on fewer than four of the six matches, the card shrinks to what's priced and the remainder stays in the account. This card only becomes ACTIVE (and counts against the 4-card cap) when money is assigned.
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    DRAFT as of Sunday July 12 · results through Round 2 via All.Rugby / World Rugby · odds pending.<br>
+    Will settle Saturday July 18 night · tracker tab created at finalization.
+  </p>
+
+</div>
+</body>
+</html>

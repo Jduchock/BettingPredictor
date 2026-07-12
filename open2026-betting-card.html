@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Open Championship 2026 — Betting Card</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --links:  #1E6B4E;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+  .site-header { background: var(--steel); border-bottom: 3px solid var(--links); padding: 24px 20px 16px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(30,107,78,.4) 0%, transparent 70%); pointer-events: none; }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--links); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  .race-info { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--links); border-radius: 4px; padding: 16px 20px; margin-top: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  @media (max-width: 480px) { .race-info { grid-template-columns: 1fr 1fr; } }
+  .ri-val { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; color: var(--white); line-height: 1.1; }
+  .ri-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); margin-top: 4px; }
+
+  .hazard { background: linear-gradient(135deg, #0D2416 0%, #0D1B14 100%); border: 2px solid var(--links); border-radius: 4px; padding: 16px 20px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .hazard-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--links); margin-bottom: 6px; font-weight: 700; }
+  .hazard strong { color: var(--gold); }
+
+  .board { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .board-row { display: grid; grid-template-columns: 1fr 80px 1fr 80px; gap: 8px; padding: 8px 16px; border-bottom: 1px solid var(--mid); align-items: center; font-size: 13px; }
+  .board-row:last-child { border-bottom: none; }
+  .board-name { color: var(--fog); }
+  .board-name strong { color: var(--white); }
+  .board-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--amber); text-align: center; }
+
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; color: var(--gold); }
+  .analysis-card .card-sub { font-size: 10px; color: var(--silver); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--links); }
+  .analysis-card .the-pick { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--mid); font-size: 12px; }
+  .analysis-card .the-pick strong { color: var(--gold); }
+
+  .bankroll-banner { background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%); border: 2px solid var(--green); border-radius: 4px; padding: 18px 20px; margin-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .bankroll-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 2px; }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-section-label { background: var(--mid); padding: 7px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); border-bottom: 1px solid var(--dim); }
+  .ct-header, .ct-row { display: grid; grid-template-columns: 1fr 62px 58px 62px 84px 66px; gap: 8px; padding: 12px 14px; align-items: center; }
+  .ct-header { padding: 8px 14px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ct-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row { border-bottom: 1px solid var(--mid); }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .ct-row.reserved { opacity: .6; border-left: 3px solid var(--blue); }
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-prob { text-align: center; }
+  .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-type { text-align: center; }
+  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .type-badge.anchor { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.story  { background: rgba(30,107,78,.35); color: #7BC9A8;      border: 1px solid rgba(30,107,78,.7); }
+  .type-badge.dog    { background: rgba(193,18,31,.25); color: #FF6B6B;      border: 1px solid rgba(193,18,31,.5); }
+  .type-badge.tbd    { background: rgba(74,158,255,.2); color: var(--blue);  border: 1px solid rgba(74,158,255,.4); }
+
+  .scenario-box { background: var(--steel); border: 1px solid var(--dim); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .scenario-box strong { color: var(--gold); }
+
+  .summary-bar { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 16px 20px; margin-top: 4px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-header, .ct-row { grid-template-columns: 1fr 48px 46px 50px 64px 52px; gap: 4px; padding: 10px 8px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .board-row { grid-template-columns: 1fr 64px 1fr 64px; }
+  }
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">The 154th Open Championship · Royal Birkdale · Test 6</p>
+  <h1 class="event-title">LINKS <span>GOLF</span> MAJOR</h1>
+  <p class="event-meta">July 16–19, 2026 · Southport, England · $1,000 Bankroll ($600 deployed · $400 reserved for props)</p>
+</header>
+
+<div class="container">
+
+  <!-- INFO -->
+  <div class="race-info">
+    <div><div class="ri-val">156 players</div><div class="ri-lbl">Field · 4 rounds</div></div>
+    <div><div class="ri-val">Royal Birkdale</div><div class="ri-lbl">First Open here since 2017</div></div>
+    <div><div class="ri-val">Scheffler</div><div class="ri-lbl">Defending Champion</div></div>
+    <div><div class="ri-val">Thu 16th</div><div class="ri-lbl">First Tee</div></div>
+  </div>
+
+  <!-- STRATEGY NOTE -->
+  <div class="hazard">
+    <div class="hazard-title">⛳ How This Card Works — Two-Phase Build</div>
+    Golf majors settle over four days against a 156-man field — even the favorite is only ~15% to win, so an outright card is a <strong>basket of longshots by nature</strong>. Phase 1 (now): $600 across six outrights, odds locked at build. Phase 2 (Wednesday, before the first tee): <strong>$400 reserved</strong> for finishing-position markets — top-10s, head-to-head matchups, make-cut props — which books post closer to Thursday. Those are where the "middle/safe" money lives in golf.
+  </div>
+
+  <!-- ODDS BOARD -->
+  <div class="section-head"><span class="section-head-text">Outright Board (DK / consensus at build)</span></div>
+  <div class="board">
+    <div class="board-row">
+      <span class="board-name"><strong>Scottie Scheffler</strong> (def. champ)</span><span class="board-odds">+450</span>
+      <span class="board-name"><strong>Rory McIlroy</strong></span><span class="board-odds">+750</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Jon Rahm</strong></span><span class="board-odds">+1600</span>
+      <span class="board-name"><strong>Tommy Fleetwood</strong> (Southport)</span><span class="board-odds">+1600</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Xander Schauffele</strong> ('24 champ)</span><span class="board-odds">+1600</span>
+      <span class="board-name"><strong>Matt Fitzpatrick</strong></span><span class="board-odds">+2000</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Cameron Young</strong></span><span class="board-odds">+2500</span>
+      <span class="board-name"><strong>Collin Morikawa</strong> ('21 champ)</span><span class="board-odds">+2800</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Viktor Hovland</strong></span><span class="board-odds">+3000</span>
+      <span class="board-name"><strong>Brooks Koepka</strong></span><span class="board-odds">+5000</span>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="section-head"><span class="section-head-text">The Angles</span></div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Scheffler +450 · The Anchor</div>
+      <div class="card-sub">World No. 1 · defending Open champion</div>
+      <ul>
+        <li>Best player alive, though winless in 13 starts — the price got longer than his true chance</li>
+        <li>Opened +400, drifted to +450; markets over-punish "droughts" for elite iron players</li>
+        <li>Links golf rewards flushed irons + flighted wedges — his exact profile</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 18%</strong> vs ~15% market — the rare positive-EV favorite</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Fleetwood +1600 · The Hometown Story With Teeth</div>
+      <div class="card-sub">Born in Southport — Birkdale is literally his home course</div>
+      <ul>
+        <li>Grew up playing Royal Birkdale; no player knows these dunes better</li>
+        <li>Elite links pedigree: multiple top-fives in Opens, best ball-striking season of his career</li>
+        <li>The narrative price and the golf price agree for once</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 7%</strong> vs 5.9% market</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">The English Contingent</div>
+      <div class="card-sub">Fitzpatrick +2000 · home major motivation</div>
+      <ul>
+        <li>Fitzpatrick: three wins this season, best year of his career, home country major</li>
+        <li>Knock: 94th in strokes-gained putting — links greens neutralize that gap</li>
+        <li>Rahm +1600: two-time major champ, near-misses at both 2026 majors, built for wind</li>
+      </ul>
+      <div class="the-pick"><strong>Rahm est. 7% · Fitzpatrick est. 5.5%</strong> — both above market</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Morikawa + The Longshot</div>
+      <div class="card-sub">Proven Open winners at long prices</div>
+      <ul>
+        <li>Morikawa +2800: 2021 Open champion, just shot a Sunday 61 at Travelers</li>
+        <li>Koepka +5000: five majors, big-game hunter, priced at career-long odds</li>
+        <li>Majors are where Koepka's focus shows up — 50/1 is a stats-vs-narrative bet</li>
+      </ul>
+      <div class="the-pick"><strong>Morikawa est. 4.5% · Koepka est. 2.5%</strong> — the 🎲 longshot lives here</div>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">$600 deployed on 6 outrights · $400 reserved for Wednesday props</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">Basket Coverage</div>
+      <div class="bankroll-amount" style="color:var(--green);">~44%</div>
+      <div class="bankroll-subtitle" style="text-align:right;">chance one of our six lifts the Claret Jug</div>
+    </div>
+  </div>
+
+  <!-- BET TABLE -->
+  <div class="card-table">
+    <div class="ct-section-label">★ Phase 1 · Outright Winner Basket (mutually exclusive — max one cashes)</div>
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>Est. Win</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">1 · Scottie Scheffler</div>
+        <div class="pick-sub">Defending champ · drought discount on the best player alive</div>
+      </div>
+      <div class="ct-odds pos">+450</div>
+      <div class="ct-stake">$200</div>
+      <div class="ct-prob"><div class="p-est">18%</div><div class="p-mkt">mkt 15%</div></div>
+      <div class="ct-win">+$900.00</div>
+      <div class="ct-type"><span class="type-badge anchor">Anchor</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">2 · Jon Rahm</div>
+        <div class="pick-sub">Two majors · near-misses all season · wind player</div>
+      </div>
+      <div class="ct-odds pos">+1600</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-prob"><div class="p-est">7%</div><div class="p-mkt">mkt 5.9%</div></div>
+      <div class="ct-win">+$1,600.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">3 · Tommy Fleetwood</div>
+        <div class="pick-sub">Southport native — Birkdale is his home course</div>
+      </div>
+      <div class="ct-odds pos">+1600</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-prob"><div class="p-est">7%</div><div class="p-mkt">mkt 5.9%</div></div>
+      <div class="ct-win">+$1,600.00</div>
+      <div class="ct-type"><span class="type-badge story">Home Turf</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">4 · Matt Fitzpatrick</div>
+        <div class="pick-sub">3 wins this season · English home major</div>
+      </div>
+      <div class="ct-odds pos">+2000</div>
+      <div class="ct-stake">$80</div>
+      <div class="ct-prob"><div class="p-est">5.5%</div><div class="p-mkt">mkt 4.8%</div></div>
+      <div class="ct-win">+$1,600.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">5 · Collin Morikawa</div>
+        <div class="pick-sub">2021 Open champ · Sunday 61 at Travelers</div>
+      </div>
+      <div class="ct-odds pos">+2800</div>
+      <div class="ct-stake">$70</div>
+      <div class="ct-prob"><div class="p-est">4.5%</div><div class="p-mkt">mkt 3.4%</div></div>
+      <div class="ct-win">+$1,960.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">6 · 🎲 Brooks Koepka</div>
+        <div class="pick-sub">The longshot — 5 majors, career-long price, big-game DNA</div>
+      </div>
+      <div class="ct-odds pos">+5000</div>
+      <div class="ct-stake">$50</div>
+      <div class="ct-prob"><div class="p-est">2.5%</div><div class="p-mkt">mkt 2%</div></div>
+      <div class="ct-win">+$2,500.00</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+
+    <div class="ct-section-label">Phase 2 · Wednesday (before first tee)</div>
+    <div class="ct-row reserved">
+      <div>
+        <div class="pick-name">7 · RESERVED — Finishing-position props</div>
+        <div class="pick-sub">Top-10s, 72-hole head-to-heads, make-cut props — lines post midweek</div>
+      </div>
+      <div class="ct-odds" style="color:var(--blue);">TBD</div>
+      <div class="ct-stake">$400</div>
+      <div class="ct-prob"><div class="p-est">—</div></div>
+      <div class="ct-win">TBD</div>
+      <div class="ct-type"><span class="type-badge tbd">Pending</span></div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="scenario-box">
+    <strong>Portfolio note.</strong> The six outrights are mutually exclusive — at most one cashes, but any one of them pays for the entire card several times over (Scheffler +$900 minimum, Koepka +$2,500 maximum). Combined coverage: ~44% that one of ours wins the Jug. The reserved $400 converts into higher-probability props Wednesday so the card isn't pure lottery.
+    <strong>McIlroy +750 is our biggest deliberate fade</strong> — playing too infrequently this year to trust at half Fleetwood's price.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item"><div class="sum-val" style="color:var(--white);">$600</div><div class="sum-lbl">Deployed (of $1,000)</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--gold);">6 + props</div><div class="sum-lbl">Bets</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--blue);">~44%</div><div class="sum-lbl">Basket Coverage</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--green);">+$2,500</div><div class="sum-lbl">Best Single Payout</div></div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Odds: DraftKings / consensus boards + Golf Digest reporting, locked at build (Sun Jul 12). Phase 2 props added Wednesday Jul 15.<br>
+    Settlement Sunday Jul 19 · tracked in betting_tracker.xlsx, tab "The Open".
+  </p>
+
+</div>
+</body>
+</html>
