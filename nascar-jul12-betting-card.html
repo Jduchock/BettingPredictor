@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaker State 400 Betting Card — July 12, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --race:   #E86A17;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+
+  .site-header {
+    background: var(--steel);
+    border-bottom: 3px solid var(--race);
+    padding: 24px 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(232,106,23,.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--race); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  /* RACE INFO */
+  .race-info { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--race); border-radius: 4px; padding: 16px 20px; margin-top: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  @media (max-width: 480px) { .race-info { grid-template-columns: 1fr 1fr; } }
+  .ri-val { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); line-height: 1.1; }
+  .ri-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); margin-top: 4px; }
+
+  /* HAZARD BOX */
+  .hazard {
+    background: linear-gradient(135deg, #2E1505 0%, #24160D 100%);
+    border: 2px solid var(--amber);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--fog);
+    line-height: 1.6;
+  }
+  .hazard-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; font-weight: 700; }
+  .hazard strong { color: var(--amber); }
+
+  /* ODDS BOARD */
+  .board { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .board-row { display: grid; grid-template-columns: 1fr 90px 1fr 90px; gap: 8px; padding: 8px 16px; border-bottom: 1px solid var(--mid); align-items: center; font-size: 13px; }
+  .board-row:last-child { border-bottom: none; }
+  .board-name { color: var(--fog); }
+  .board-name strong { color: var(--white); }
+  .board-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--amber); text-align: center; }
+
+  /* ANALYSIS */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; color: var(--gold); }
+  .analysis-card .card-sub { font-size: 10px; color: var(--silver); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--race); }
+  .analysis-card .the-pick { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--mid); font-size: 12px; }
+  .analysis-card .the-pick strong { color: var(--gold); }
+
+  /* BANKROLL */
+  .bankroll-banner {
+    background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bankroll-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 2px; }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  /* BET TABLE */
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-section-label { background: var(--mid); padding: 7px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); border-bottom: 1px solid var(--dim); }
+  .ct-header, .ct-row { display: grid; grid-template-columns: 1fr 62px 58px 62px 78px 66px; gap: 8px; padding: 12px 14px; align-items: center; }
+  .ct-header { padding: 8px 14px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ct-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row { border-bottom: 1px solid var(--mid); }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-prob { text-align: center; }
+  .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-type { text-align: center; }
+  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.stab   { background: rgba(232,106,23,.2); color: var(--race);  border: 1px solid rgba(232,106,23,.4); }
+  .type-badge.dog    { background: rgba(193,18,31,.25); color: #FF6B6B;      border: 1px solid rgba(193,18,31,.5); }
+
+  .scenario-box { background: var(--steel); border: 1px solid var(--dim); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .scenario-box strong { color: var(--gold); }
+
+  .summary-bar { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 16px 20px; margin-top: 4px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-header, .ct-row { grid-template-columns: 1fr 48px 46px 50px 60px 52px; gap: 4px; padding: 10px 8px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .board-row { grid-template-columns: 1fr 70px 1fr 70px; }
+  }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">NASCAR Cup Series · EchoPark Speedway (Atlanta) · Test 4</p>
+  <h1 class="event-title">QUAKER STATE <span>400</span></h1>
+  <p class="event-meta">Sunday July 12, 2026 · 7:00 PM ET on TNT · 260 laps / 400.4 miles · $1,000 Bankroll</p>
+</header>
+
+<div class="container">
+
+  <!-- RACE INFO -->
+  <div class="race-info">
+    <div><div class="ri-val">Blaney</div><div class="ri-lbl">Pole (Penske 1-2)</div></div>
+    <div><div class="ri-val">60 / 100 / 100</div><div class="ri-lbl">Stage Lengths</div></div>
+    <div><div class="ri-val">Elliott</div><div class="ri-lbl">Defending Winner</div></div>
+    <div><div class="ri-val">Chevy 4 of 5</div><div class="ri-lbl">Recent Manufacturer Wins</div></div>
+  </div>
+
+  <!-- HAZARD -->
+  <div class="hazard">
+    <div class="hazard-title">⚠ Track Variance Warning — Read Before Judging This Card</div>
+    Since its repave, Atlanta races like a <strong>mini-superspeedway</strong>: pack drafting, constant lead changes, and mass wrecks. <strong>38 cars have DNF'd across the last four races here</strong>, and 47.5% of recent wins came from outside the top-5 starting spots. The betting favorite is only ~10% to win. Expect a low hit rate by design — this card leans on finishing-position markets and spreads small stakes across a basket of drafting specialists rather than trusting any single outcome.
+  </div>
+
+  <!-- ODDS BOARD -->
+  <div class="section-head"><span class="section-head-text">Outright Winner Board (Covers / VSiN consensus)</span></div>
+  <div class="board">
+    <div class="board-row">
+      <span class="board-name"><strong>Ryan Blaney</strong> (pole)</span><span class="board-odds">+900</span>
+      <span class="board-name"><strong>Tyler Reddick</strong></span><span class="board-odds">+1150</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Chase Elliott</strong> (def. winner)</span><span class="board-odds">+1150</span>
+      <span class="board-name"><strong>Denny Hamlin</strong></span><span class="board-odds">+1329</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>William Byron</strong></span><span class="board-odds">+1567</span>
+      <span class="board-name"><strong>Christopher Bell</strong></span><span class="board-odds">+1567</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Brad Keselowski</strong></span><span class="board-odds">+1800</span>
+      <span class="board-name"><strong>Joey Logano</strong> (P2)</span><span class="board-odds">+1567</span>
+    </div>
+    <div class="board-row">
+      <span class="board-name"><strong>Carson Hocevar</strong></span><span class="board-odds">+1567</span>
+      <span class="board-name"><strong>Kyle Larson</strong> (P3)</span><span class="board-odds">+1900</span>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="section-head"><span class="section-head-text">Where the Edges Are</span></div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Blaney H2H over Byron · The Anchor</div>
+      <div class="card-sub">Head-to-head matchup · -113</div>
+      <ul>
+        <li>Blaney: 7 top-10s in his last 8 Atlanta starts</li>
+        <li>Crash math: 1 wreck in 16 starts vs Byron's 4 in 14</li>
+        <li>H2H only needs Blaney to beat one car — survives the chaos better than any outright</li>
+        <li>Note: CBS's model fades Blaney to WIN; irrelevant here — he only has to out-finish Byron</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 58%</strong> vs 53% market — the safest structure available at this track</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Suárez Top-5 · The Track Specialist</div>
+      <div class="card-sub">Finishing position prop · +456</div>
+      <ul>
+        <li>Top-5 finishes in 4 of his last 6 Atlanta races</li>
+        <li>Drafting-track specialist profile; style fits the pack racing</li>
+        <li>+456 implies just 18% — his own track record says it hits far more often</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 24%</strong> vs 18% market — biggest percentage edge on the card</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">The Winner Basket · 4 Small Stabs</div>
+      <div class="card-sub">Elliott · Hocevar · Keselowski · Reddick</div>
+      <ul>
+        <li>Elliott +1150: defending winner of this race, Georgia native, Chevy (4 of last 5 wins)</li>
+        <li>Hocevar +1567: three straight top-10s here, best young drafter in the field</li>
+        <li>Keselowski +1800: 2 career Atlanta wins, 6 top-3s; CBS model's top call, RFK trending</li>
+        <li>Reddick +1150: FOX's "hot hand" pick — but Toyota sacrificed qualifying for race trim</li>
+      </ul>
+      <div class="the-pick"><strong>~33% that one of the four wins</strong> — mutually exclusive by design; one cashing pays for the whole basket</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Larson +1900 · The Longshot</div>
+      <div class="card-sub">Outright winner · P3 start</div>
+      <ul>
+        <li>Best pure driver in the series priced at his longest odds of the year</li>
+        <li>Hendrick Chevy in a Chevy-dominant race; starts on row 2</li>
+        <li>Atlanta's draft neutralizes talent — which is exactly why the price got this long</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 5%</strong> — the mandatory longshot, sized accordingly</div>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">2 finishing-position bets + 4-driver winner basket + longshot</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">Best-Case Scenario</div>
+      <div class="bankroll-amount" style="color:var(--green);">+$2,678</div>
+      <div class="bankroll-subtitle" style="text-align:right;">basket is mutually exclusive — see note</div>
+    </div>
+  </div>
+
+  <!-- BET TABLE -->
+  <div class="card-table">
+    <div class="ct-section-label">★ The Card · Est. Win % is our judgment vs de-vigged market %</div>
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>Est. Win</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">1 · Blaney beats Byron (H2H)</div>
+        <div class="pick-sub">Finishing-position matchup · survives the wrecks best</div>
+      </div>
+      <div class="ct-odds neg">-113</div>
+      <div class="ct-stake">$300</div>
+      <div class="ct-prob"><div class="p-est">58%</div><div class="p-mkt">mkt 53%</div></div>
+      <div class="ct-win">+$265.49</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">2 · Daniel Suárez Top-5</div>
+        <div class="pick-sub">Top-5 in 4 of last 6 Atlanta trips</div>
+      </div>
+      <div class="ct-odds pos">+456</div>
+      <div class="ct-stake">$200</div>
+      <div class="ct-prob"><div class="p-est">24%</div><div class="p-mkt">mkt 18%</div></div>
+      <div class="ct-win">+$912.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">3 · Chase Elliott to Win</div>
+        <div class="pick-sub">Defending race winner · home state · Chevy</div>
+      </div>
+      <div class="ct-odds pos">+1150</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-prob"><div class="p-est">10%</div><div class="p-mkt">mkt 8%</div></div>
+      <div class="ct-win">+$1,725.00</div>
+      <div class="ct-type"><span class="type-badge stab">Basket</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">4 · Carson Hocevar to Win</div>
+        <div class="pick-sub">3 straight Atlanta top-10s · elite in the draft</div>
+      </div>
+      <div class="ct-odds pos">+1567</div>
+      <div class="ct-stake">$120</div>
+      <div class="ct-prob"><div class="p-est">8%</div><div class="p-mkt">mkt 6%</div></div>
+      <div class="ct-win">+$1,880.40</div>
+      <div class="ct-type"><span class="type-badge stab">Basket</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">5 · Brad Keselowski to Win</div>
+        <div class="pick-sub">2 Atlanta wins, 6 top-3s · CBS model's top pick</div>
+      </div>
+      <div class="ct-odds pos">+1800</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-prob"><div class="p-est">7%</div><div class="p-mkt">mkt 5%</div></div>
+      <div class="ct-win">+$1,800.00</div>
+      <div class="ct-type"><span class="type-badge stab">Basket</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">6 · Tyler Reddick to Win</div>
+        <div class="pick-sub">Drafting ace, but Toyota gambled setup on race trim</div>
+      </div>
+      <div class="ct-odds pos">+1150</div>
+      <div class="ct-stake">$90</div>
+      <div class="ct-prob"><div class="p-est">8%</div><div class="p-mkt">mkt 8%</div></div>
+      <div class="ct-win">+$1,035.00</div>
+      <div class="ct-type"><span class="type-badge stab">Basket</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">7 · 🎲 Kyle Larson to Win</div>
+        <div class="pick-sub">The mandatory longshot — best driver, longest fair price</div>
+      </div>
+      <div class="ct-odds pos">+1900</div>
+      <div class="ct-stake">$40</div>
+      <div class="ct-prob"><div class="p-est">5%</div><div class="p-mkt">mkt 5%</div></div>
+      <div class="ct-win">+$760.00</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+  </div>
+
+  <!-- SCENARIO -->
+  <div class="scenario-box">
+    <strong>Portfolio note.</strong> Bets 3–7 are five different drivers to win the same race — at most ONE can cash, by design. Together they cover an estimated <strong>~38% of the win market</strong> for $500; any single winner from the basket pays for the entire card.
+    <br><br>
+    <strong>Best case (+$2,678):</strong> Blaney out-finishes Byron, Suárez top-5, and Hocevar wins the race.
+    <strong>Realistic good day (+$400 to +$900):</strong> the H2H and Suárez hit plus one mid-basket winner.
+    <strong>Worst case (−$1,000):</strong> the Big One collects our whole basket.
+    Expected hits: ~1.2 of 7 — normal for this track type; the payouts, not the hit rate, carry the card.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--white);">$1,000</div>
+      <div class="sum-lbl">Deployed</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--gold);">7</div>
+      <div class="sum-lbl">Bets (5 = win basket)</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--blue);">~1.2</div>
+      <div class="sum-lbl">Expected Wins</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">+$2,678</div>
+      <div class="sum-lbl">Best-Case P/L</div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Odds: Covers / VSiN / CBS Sports (FanDuel) consensus as of Sunday afternoon; race ~7:00 PM ET on TNT.<br>
+    High-variance event by design — logged as a chaos-sport data point for trend analysis vs. structured cards.<br>
+    Settlement tracked in betting_tracker.xlsx, tab "NASCAR Jul 12".
+  </p>
+
+</div>
+</body>
+</html>

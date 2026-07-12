@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betting Predictor — Claude Intelligence Test</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #D4A017; --ink: #0D0D0D; --steel: #1A1A2E; --mid: #2A2A3E; --dim: #3D3D55;
+    --silver: #8888AA; --fog: #CCCCDD; --white: #F5F5F8; --green: #28A745; --amber: #FFC107; --blue: #4A9EFF; --red: #C1121F;
+  }
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+  .site-header { background: var(--steel); border-bottom: 3px solid var(--gold); padding: 28px 20px 18px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(212,160,23,.28) 0%, transparent 70%); pointer-events: none; }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(30px, 7vw, 50px); font-weight: 900; text-transform: uppercase; line-height: 1; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+  .container { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 24px 0 12px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+  .card-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--steel); border: 1px solid var(--dim); border-left: 4px solid var(--dim); border-radius: 4px; padding: 16px; margin-bottom: 10px; text-decoration: none; transition: border-color .15s; }
+  .card-link:hover { border-color: var(--gold); }
+  .card-link.hero { border-left-color: var(--gold); background: linear-gradient(135deg, var(--steel) 0%, #1F1A05 100%); }
+  .card-link.active { border-left-color: var(--green); }
+  .card-link.archive { border-left-color: var(--dim); opacity: .75; }
+  .cl-name { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; color: var(--white); line-height: 1.1; }
+  .cl-sub { font-size: 11.5px; color: var(--silver); margin-top: 3px; }
+  .cl-right { text-align: right; flex-shrink: 0; }
+  .status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; font-weight: 700; }
+  .status-badge.live { background: rgba(40,167,69,.2); color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .status-badge.done { background: rgba(136,136,170,.15); color: var(--silver); border: 1px solid var(--dim); }
+  .status-badge.dash { background: rgba(212,160,23,.2); color: var(--gold); border: 1px solid rgba(212,160,23,.4); }
+  .cl-pdf { display: block; font-size: 10.5px; color: var(--blue); margin-top: 5px; text-decoration: none; }
+  .cl-pdf:hover { text-decoration: underline; }
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">Claude Intelligence Betting Test</p>
+  <h1 class="event-title">BETTING <span>PREDICTOR</span></h1>
+  <p class="event-meta">Fictitious $5,000 account · no real money · updates hourly while cards are live</p>
+</header>
+
+<div class="container">
+
+  <div class="section-head"><span class="section-head-text">Account</span></div>
+  <a class="card-link hero" href="account-dashboard.html">
+    <div>
+      <div class="cl-name">📊 Account Dashboard</div>
+      <div class="cl-sub">Balance, card slots, and account impact over time</div>
+      <a class="cl-pdf" href="account-dashboard.pdf">PDF version ↗</a>
+    </div>
+    <div class="cl-right"><span class="status-badge dash">Roll-Up</span></div>
+  </a>
+
+  <div class="section-head"><span class="section-head-text">Active Cards</span></div>
+  <a class="card-link active" href="wc2026-betting-card.html">
+    <div>
+      <div class="cl-name">⚽ World Cup 2026 — Final Four</div>
+      <div class="cl-sub">Semis Jul 14–15 · Final Jul 19 · $1,000 · 7 hedged bets</div>
+      <a class="cl-pdf" href="wc2026-betting-card.pdf">PDF version ↗</a>
+    </div>
+    <div class="cl-right"><span class="status-badge live">Active</span></div>
+  </a>
+  <a class="card-link active" href="mlb-jul12-betting-card.html">
+    <div>
+      <div class="cl-name">⚾ MLB Sunday Slate — Jul 12</div>
+      <div class="cl-sub">15-game board · 1–0 so far (+$135.20) · grading tonight</div>
+      <a class="cl-pdf" href="mlb-jul12-betting-card.pdf">PDF version ↗</a>
+    </div>
+    <div class="cl-right"><span class="status-badge live">Active</span></div>
+  </a>
+  <a class="card-link active" href="nascar-jul12-betting-card.html">
+    <div>
+      <div class="cl-name">🏁 NASCAR Quaker State 400</div>
+      <div class="cl-sub">Atlanta · tonight ~7 PM ET · high-variance chaos test</div>
+      <a class="cl-pdf" href="nascar-jul12-betting-card.pdf">PDF version ↗</a>
+    </div>
+    <div class="cl-right"><span class="status-badge live">Active</span></div>
+  </a>
+
+  <div class="section-head"><span class="section-head-text">Archive (past 7 days)</span></div>
+  <a class="card-link archive" href="ufc329-betting-card.html">
+    <div>
+      <div class="cl-name">🥊 UFC 329: McGregor vs Holloway 2</div>
+      <div class="cl-sub">Settled Jul 11 · 6–3 (66.7%) · +$165.11</div>
+      <a class="cl-pdf" href="ufc329-betting-card.pdf">PDF version ↗</a>
+    </div>
+    <div class="cl-right"><span class="status-badge done">Settled</span></div>
+  </a>
+
+  <div class="section-head"><span class="section-head-text">Data</span></div>
+  <a class="card-link" href="betting_tracker.xlsx">
+    <div>
+      <div class="cl-name">📈 Betting Tracker (Excel)</div>
+      <div class="cl-sub">Full bet-level detail, dashboard, references — download</div>
+    </div>
+    <div class="cl-right"><span class="status-badge dash">XLSX</span></div>
+  </a>
+
+  <p class="disclaimer">
+    Fictitious bankroll experiment testing AI betting analysis — no real money is wagered.<br>
+    For entertainment purposes only. Gambling involves risk — bet responsibly.
+  </p>
+
+</div>
+</body>
+</html>

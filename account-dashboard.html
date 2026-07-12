@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betting Test Account — Roll-Up Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+
+  .site-header {
+    background: var(--steel);
+    border-bottom: 3px solid var(--gold);
+    padding: 24px 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(212,160,23,.28) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 48px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  /* ACCOUNT TILES */
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+  @media (max-width: 560px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px 10px; text-align: center; }
+  .tile.hero { border-color: var(--green); background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%); }
+  .tile-val { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; line-height: 1; color: var(--white); }
+  .tile.hero .tile-val { color: var(--green); }
+  .tile-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); margin-top: 5px; }
+  .tile-sub { font-size: 10px; color: var(--fog); margin-top: 3px; }
+
+  /* RULES */
+  .rules {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--fog);
+  }
+  .rules strong { color: var(--gold); }
+
+  /* TIMELINE TABLE */
+  .tl { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .tl-header, .tl-row {
+    display: grid;
+    grid-template-columns: 26px 1fr 74px 64px 62px 74px 78px 88px;
+    gap: 6px;
+    padding: 10px 12px;
+    align-items: center;
+  }
+  .tl-header { padding: 8px 12px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .tl-header span { font-size: 8.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .tl-header span:not(:nth-child(2)) { text-align: center; }
+  .tl-row { border-bottom: 1px solid var(--mid); font-size: 13px; }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-row.active { background: rgba(40,167,69,.06); border-left: 3px solid var(--green); }
+  .tl-row.archive { opacity: .75; border-left: 3px solid var(--dim); }
+  .tl-num { text-align: center; color: var(--silver); font-weight: 600; }
+  .tl-event { color: var(--white); font-weight: 600; line-height: 1.2; }
+  .tl-event .sub { font-size: 10px; color: var(--silver); font-weight: 400; margin-top: 2px; }
+  .tl-date { text-align: center; font-size: 11px; color: var(--fog); }
+  .tl-status { text-align: center; }
+  .status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .status-badge.active  { background: rgba(40,167,69,.2); color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .status-badge.settled { background: rgba(136,136,170,.15); color: var(--silver); border: 1px solid var(--dim); }
+  .tl-money { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--fog); }
+  .tl-pl { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; }
+  .tl-pl.pos { color: var(--green); }
+  .tl-pl.neg { color: #FF6B6B; }
+  .tl-pl.zero { color: var(--silver); }
+  .tl-bal { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 900; color: var(--white); }
+  .tl-bal.up { color: var(--green); }
+
+  /* SLOTS */
+  .slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 4px; }
+  @media (max-width: 560px) { .slots { grid-template-columns: repeat(2, 1fr); } }
+  .slot { border-radius: 4px; padding: 12px; text-align: center; border: 1px dashed var(--dim); }
+  .slot.used { border: 1px solid var(--green); background: rgba(40,167,69,.07); }
+  .slot-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); }
+  .slot-stake { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .slot.open .slot-name { color: var(--dim); }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">Claude Intelligence Betting Test · Account Roll-Up</p>
+  <h1 class="event-title">ACCOUNT <span>DASHBOARD</span></h1>
+  <p class="event-meta">$5,000 fictitious account · updated Sunday July 12, 2026 ~3:30 PM CT</p>
+</header>
+
+<div class="container">
+
+  <!-- ACCOUNT TILES -->
+  <div class="tiles">
+    <div class="tile">
+      <div class="tile-val">$5,000</div>
+      <div class="tile-lbl">Starting Account</div>
+    </div>
+    <div class="tile hero">
+      <div class="tile-val">$5,300.31</div>
+      <div class="tile-lbl">Current Balance</div>
+      <div class="tile-sub">+$300.31 (+6.0%)</div>
+    </div>
+    <div class="tile">
+      <div class="tile-val" style="color:var(--amber);">$2,870</div>
+      <div class="tile-lbl">At Risk (pending)</div>
+    </div>
+    <div class="tile">
+      <div class="tile-val" style="color:var(--blue);">$2,430</div>
+      <div class="tile-lbl">Available to Deploy</div>
+    </div>
+    <div class="tile">
+      <div class="tile-val" style="color:var(--gold);">3 / 4</div>
+      <div class="tile-lbl">Active Card Slots</div>
+    </div>
+  </div>
+
+  <div class="rules">
+    <strong>House rules:</strong> $5,000 total account · max <strong>$1,000</strong> per card · max <strong>4 cards active</strong> at once. Settled cards stay on the dashboard for 7 days, then archive. (UFC card staked $1,050 — placed before the cap existed; grandfathered.)
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-head"><span class="section-head-text">Card Timeline — Account Impact</span></div>
+  <div class="tl">
+    <div class="tl-header">
+      <span>#</span><span>Card</span><span>Date(s)</span><span>Status</span><span>Staked</span><span>Pending</span><span>P/L to Date</span><span>Balance After</span>
+    </div>
+
+    <div class="tl-row archive">
+      <div class="tl-num">1</div>
+      <div class="tl-event">UFC 329: McGregor vs Holloway 2<div class="sub">6–3 (66.7%) · method call correct · archives Jul 18</div></div>
+      <div class="tl-date">Jul 11</div>
+      <div class="tl-status"><span class="status-badge settled">Settled</span></div>
+      <div class="tl-money">$1,050</div>
+      <div class="tl-money">—</div>
+      <div class="tl-pl pos">+$165.11</div>
+      <div class="tl-bal up">$5,165.11</div>
+    </div>
+
+    <div class="tl-row active">
+      <div class="tl-num">2</div>
+      <div class="tl-event">World Cup 2026 — Final Four<div class="sub">7 hedged bets · France anchor · semis Tue/Wed, final Sun</div></div>
+      <div class="tl-date">Jul 14–19</div>
+      <div class="tl-status"><span class="status-badge active">Active</span></div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-pl zero">$0.00</div>
+      <div class="tl-bal">$5,165.11</div>
+    </div>
+
+    <div class="tl-row active">
+      <div class="tl-num">3</div>
+      <div class="tl-event">MLB Sunday Slate<div class="sub">1–0 so far — Pirates 14–5 ✓ (+$135.20) · 7 bets pending</div></div>
+      <div class="tl-date">Jul 12</div>
+      <div class="tl-status"><span class="status-badge active">Active</span></div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-money">$870</div>
+      <div class="tl-pl pos">+$135.20</div>
+      <div class="tl-bal up">$5,300.31</div>
+    </div>
+
+    <div class="tl-row active">
+      <div class="tl-num">4</div>
+      <div class="tl-event">NASCAR Quaker State 400<div class="sub">High-variance chaos test · green flag ~6:15 PM CT</div></div>
+      <div class="tl-date">Jul 12</div>
+      <div class="tl-status"><span class="status-badge active">Active</span></div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-pl zero">$0.00</div>
+      <div class="tl-bal">$5,300.31</div>
+    </div>
+  </div>
+
+  <!-- SLOTS -->
+  <div class="section-head"><span class="section-head-text">Active Card Slots (max 4)</span></div>
+  <div class="slots">
+    <div class="slot used">
+      <div class="slot-name">World Cup 2026</div>
+      <div class="slot-stake">$1,000 at risk · thru Jul 19</div>
+    </div>
+    <div class="slot used">
+      <div class="slot-name">MLB Jul 12</div>
+      <div class="slot-stake">$870 still pending</div>
+    </div>
+    <div class="slot used">
+      <div class="slot-name">NASCAR Jul 12</div>
+      <div class="slot-stake">$1,000 at risk · tonight</div>
+    </div>
+    <div class="slot open">
+      <div class="slot-name">OPEN SLOT</div>
+      <div class="slot-stake">up to $1,000 available</div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious account — no real money wagered. For entertainment/testing purposes only.<br>
+    Balance moves as individual bets settle, not just when whole cards close. Full bet-level detail in betting_tracker.xlsx.<br>
+    Auto-refreshes hourly while cards are active · PDF counterpart regenerated on each update.
+  </p>
+
+</div>
+</body>
+</html>

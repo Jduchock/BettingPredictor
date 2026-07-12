@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UFC 329 Betting Card</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:    #C1121F;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--steel);
+    border-bottom: 3px solid var(--red);
+    padding: 24px 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(193,18,31,.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .event-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .event-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--white);
+  }
+  .event-title span { color: var(--gold); }
+  .event-meta {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--silver);
+    letter-spacing: 1px;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 16px 48px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+  }
+  .section-head::before, .section-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--dim);
+  }
+  .section-head-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    white-space: nowrap;
+  }
+
+  /* ── MATCHUP HERO ── */
+  .matchup {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-top: 3px solid var(--red);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .matchup-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .fighters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .fighter { flex: 1; text-align: center; }
+  .fighter-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(20px, 5vw, 30px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .fighter-name.red  { color: var(--red); }
+  .fighter-name.blue { color: var(--blue); }
+  .fighter-record { font-size: 12px; color: var(--silver); margin-top: 3px; }
+  .fighter-nickname { font-size: 11px; font-style: italic; color: var(--fog); margin-top: 2px; }
+  .vs-block { text-align: center; flex-shrink: 0; }
+  .vs-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .weight-class { font-size: 10px; color: var(--silver); letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── ODDS BAR ── */
+  .odds-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    gap: 8px;
+  }
+  .odds-chip { flex: 1; background: var(--mid); border-radius: 4px; padding: 10px; text-align: center; }
+  .odds-chip.fav { border: 1px solid var(--green); }
+  .odds-chip.dog { border: 1px solid var(--dim); }
+  .odds-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+  }
+  .odds-chip.fav .odds-value { color: var(--green); }
+  .odds-chip.dog .odds-value { color: var(--amber); }
+  .odds-label { font-size: 11px; color: var(--silver); margin-top: 3px; }
+
+  /* ── STAT BARS ── */
+  .stat-compare { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .stat-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; }
+  .stat-val { font-size: 13px; font-weight: 600; }
+  .stat-val.left { text-align: right; color: var(--red); }
+  .stat-val.right { text-align: left; color: var(--blue); }
+  .stat-name { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); text-align: center; white-space: nowrap; }
+
+  /* ── ANALYSIS CARDS ── */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .analysis-card.mcg .card-title { color: var(--red); }
+  .analysis-card.hol .card-title { color: var(--blue); }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; }
+  .analysis-card.mcg ul li::before { color: var(--red); }
+  .analysis-card.hol ul li::before { color: var(--blue); }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, var(--steel) 0%, #0D1B2A 100%);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(212,160,23,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .verdict-winner {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(32px, 8vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1;
+    position: relative;
+  }
+  .verdict-method {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .verdict-round {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+  .verdict-rationale { font-size: 13px; color: var(--fog); margin-top: 14px; line-height: 1.6; text-align: left; position: relative; }
+  .confidence-bar-wrap { margin-top: 14px; text-align: left; }
+  .conf-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); margin-bottom: 6px; }
+  .conf-track { background: var(--mid); border-radius: 2px; height: 8px; overflow: hidden; }
+  .conf-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 2px; width: 78%; }
+  .conf-value { font-size: 11px; color: var(--gold); margin-top: 4px; text-align: right; }
+
+  /* ── ROUND TIMELINE ── */
+  .rounds { display: flex; gap: 8px; margin-top: 4px; }
+  .round-block {
+    flex: 1;
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .round-num { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; color: var(--silver); }
+  .round-block.active .round-num { color: var(--red); }
+  .round-block.active { border-color: var(--red); background: rgba(193,18,31,.08); }
+  .round-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); margin-bottom: 6px; }
+  .round-desc { font-size: 11px; color: var(--fog); line-height: 1.4; }
+  .round-block.active .round-desc { color: var(--white); }
+
+  /* ══════════════════════════════════
+     $1,000 BANKROLL SECTION
+  ══════════════════════════════════ */
+  .bankroll-banner {
+    background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bankroll-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .bankroll-amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+  }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bankroll-totals .tot-row { display: flex; gap: 24px; justify-content: flex-end; margin-top: 6px; }
+  .tot-item { text-align: center; }
+  .tot-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+  }
+  .tot-val.green { color: var(--green); }
+  .tot-val.amber { color: var(--amber); }
+  .tot-val.gold  { color: var(--gold); }
+  .tot-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+  /* FULL CARD TABLE */
+  .card-table {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .ct-section-label {
+    background: var(--mid);
+    padding: 7px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    border-bottom: 1px solid var(--dim);
+  }
+  .ct-header {
+    display: grid;
+    grid-template-columns: 1fr 80px 70px 70px 80px;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(0,0,0,.3);
+    border-bottom: 1px solid var(--dim);
+  }
+  .ct-header span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--silver);
+    font-weight: 600;
+  }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 70px 70px 80px;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--mid);
+    align-items: center;
+  }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .ct-row.skip { opacity: 0.45; }
+
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .pick-conf {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    margin-top: 3px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); }
+  .dot.on { background: var(--gold); }
+
+  .ct-odds {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-odds.skip-odds { color: var(--dim); font-size: 16px; }
+
+  .ct-stake {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--white);
+  }
+  .ct-stake.skip-stake { color: var(--dim); font-size: 14px; }
+
+  .ct-win {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--green);
+  }
+  .ct-win.skip-win { color: var(--dim); font-size: 13px; }
+
+  .ct-type {
+    text-align: center;
+  }
+  .type-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.dog    { background: rgba(193,18,31,.2);  color: #FF6B6B;      border: 1px solid rgba(193,18,31,.4); }
+  .type-badge.parlay { background: rgba(74,158,255,.2); color: var(--blue);  border: 1px solid rgba(74,158,255,.4); }
+  .type-badge.skip   { background: rgba(60,60,80,.2);   color: var(--dim);   border: 1px solid var(--dim); }
+
+  /* PARLAY BOX */
+  .parlay-box {
+    background: linear-gradient(135deg, #0D0D2E 0%, #0D1B2A 100%);
+    border: 2px solid var(--blue);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+  }
+  .parlay-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .parlay-legs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .parlay-leg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(74,158,255,.07);
+    border: 1px solid rgba(74,158,255,.2);
+    border-radius: 3px;
+    padding: 8px 12px;
+  }
+  .parlay-leg-name { font-size: 13px; color: var(--white); }
+  .parlay-leg-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; color: var(--blue); font-weight: 700; }
+  .parlay-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(74,158,255,.3);
+    padding-top: 12px;
+  }
+  .parlay-result-label { font-size: 12px; color: var(--silver); }
+  .parlay-result-right { text-align: right; }
+  .parlay-combined {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .parlay-payout { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+  /* SUMMARY BAR */
+  .summary-bar {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    text-align: center;
+  }
+  .sum-item {}
+  .sum-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-row, .ct-header { grid-template-columns: 1fr 60px 60px 60px 60px; gap: 4px; padding: 10px 10px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .bankroll-totals { width: 100%; }
+    .bankroll-totals .tot-row { justify-content: flex-start; }
+  }
+
+  /* ── RESULTS (settled) ── */
+  .result-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: 900;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .result-badge.win  { background: var(--green); color: #06230C; }
+  .result-badge.loss { background: var(--red); color: var(--white); }
+  .result-badge.nobet{ background: var(--dim); color: var(--fog); }
+  .pl-pos { color: var(--green) !important; }
+  .pl-neg { color: #FF6B6B !important; }
+
+  .settled-banner {
+    background: linear-gradient(135deg, #0A1F0A 0%, #12240F 100%);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .settled-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .settled-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(30px, 7vw, 48px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--green);
+    line-height: 1.05;
+    margin-top: 6px;
+  }
+  .settled-sub { font-size: 13px; color: var(--fog); margin-top: 8px; }
+  .settled-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  @media (max-width: 480px) { .settled-grid { grid-template-columns: 1fr 1fr; } }
+  .settled-cell { background: rgba(40,167,69,.08); border: 1px solid rgba(40,167,69,.3); border-radius: 3px; padding: 10px; }
+  .settled-cell .sc-val { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; color: var(--white); line-height: 1; }
+  .settled-cell .sc-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); margin-top: 4px; }
+
+  .actual-result {
+    background: rgba(40,167,69,.08);
+    border: 1px solid var(--green);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    text-align: left;
+    font-size: 13px;
+    color: var(--fog);
+    position: relative;
+  }
+  .actual-result strong { color: var(--green); }
+
+  .disclaimer {
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--dim);
+    text-align: center;
+    border-top: 1px solid var(--mid);
+    padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">UFC 329 · International Fight Week · Las Vegas</p>
+  <h1 class="event-title">McGREGOR <span>VS</span> HOLLOWAY 2</h1>
+  <p class="event-meta">T-Mobile Arena · July 11, 2026 · Welterweight · 5 × 5 min</p>
+</header>
+
+<div class="container">
+
+  <!-- SETTLED RESULTS BANNER -->
+  <div class="settled-banner">
+    <div class="settled-tag">✓ Event Settled · July 11, 2026</div>
+    <div class="settled-headline">+$165.11 Profit</div>
+    <div class="settled-sub">6 wins · 3 losses (66.7% hit rate) · $1,050 staked → $1,215.11 returned · ROI +15.7%</div>
+    <div class="settled-grid">
+      <div class="settled-cell"><div class="sc-val">6–3</div><div class="sc-lbl">Record</div></div>
+      <div class="settled-cell"><div class="sc-val">66.7%</div><div class="sc-lbl">Hit Rate</div></div>
+      <div class="settled-cell"><div class="sc-val" style="color:var(--green);">+$165.11</div><div class="sc-lbl">Net P/L</div></div>
+      <div class="settled-cell"><div class="sc-val" style="color:var(--green);">+15.7%</div><div class="sc-lbl">ROI</div></div>
+    </div>
+  </div>
+
+  <!-- MATCHUP HERO -->
+  <div class="matchup">
+    <p class="matchup-tag">★ Main Event</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name red">McGregor</div>
+        <div class="fighter-nickname">"The Notorious"</div>
+        <div class="fighter-record">22-6 · Age 37</div>
+      </div>
+      <div class="vs-block">
+        <span class="vs-text">VS</span>
+        <div class="weight-class">170 LBS</div>
+      </div>
+      <div class="fighter">
+        <div class="fighter-name blue">Holloway</div>
+        <div class="fighter-nickname">"Blessed"</div>
+        <div class="fighter-record">27-9 · Age 34</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip dog">
+        <span class="odds-value">+215</span>
+        <div class="odds-label">McGregor (Underdog)</div>
+      </div>
+      <div class="odds-chip fav">
+        <span class="odds-value">-265</span>
+        <div class="odds-label">Holloway (Favorite)</div>
+      </div>
+    </div>
+    <div class="section-head" style="margin:18px 0 10px"><span class="section-head-text">Key Stats</span></div>
+    <div class="stat-compare">
+      <div class="stat-row">
+        <span class="stat-val left">1-3</span>
+        <span class="stat-name">last 4 fights</span>
+        <span class="stat-val right">5-3</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">5 yrs</span>
+        <span class="stat-name">last fight</span>
+        <span class="stat-val right">Mar '26</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">~4.1</span>
+        <span class="stat-name">sig. strikes/min</span>
+        <span class="stat-val right">6.91</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">74"</span>
+        <span class="stat-name">reach</span>
+        <span class="stat-val right">69"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="section-head"><span class="section-head-text">Fighter Analysis</span></div>
+  <div class="analysis-grid">
+    <div class="analysis-card mcg">
+      <div class="card-title">McGregor — Paths to Win</div>
+      <ul>
+        <li>Left-hand counter KO power remains elite at 37</li>
+        <li>5-inch reach advantage could pay off at welterweight</li>
+        <li>Bigger at 170 lbs — may hit harder than at 145/155</li>
+        <li>Holloway's chin has been tested; Topuria KO a concern</li>
+        <li>Most motivated camp in years per camp reports</li>
+      </ul>
+    </div>
+    <div class="analysis-card hol">
+      <div class="card-title">Holloway — Paths to Win</div>
+      <ul>
+        <li>6.91 sig. strikes/min — highest volume in the division</li>
+        <li>Active 3 months ago; McGregor hasn't fought since 2021</li>
+        <li>Bigger, stronger build at WW per training footage</li>
+        <li>McGregor fades hard after R1 — all 3 recent losses TKO</li>
+        <li>Trained with Jack Della Maddalena for WW sparring</li>
+      </ul>
+    </div>
+    <div class="analysis-card mcg" style="border-color:#5A2020;background:rgba(193,18,31,.07);">
+      <div class="card-title" style="color:var(--silver);">McGregor — Red Flags</div>
+      <ul>
+        <li>5-year ring rust — last won Jan 2020</li>
+        <li>Broken tibia never fully stress-tested vs active elite</li>
+        <li>Historically no gas tank past R1 at heavier weights</li>
+        <li>0 takedowns in last 11 fights — one-dimensional</li>
+        <li>Off-octagon issues raise question marks on camp quality</li>
+      </ul>
+    </div>
+    <div class="analysis-card hol" style="border-color:#1A3A5A;background:rgba(74,158,255,.05);">
+      <div class="card-title" style="color:var(--silver);">Holloway — Red Flags</div>
+      <ul>
+        <li>First welterweight fight — unknown cardio at 170</li>
+        <li>Dominated by Oliveira's grappling in last outing</li>
+        <li>Chin has been tested by Topuria and Gaethje</li>
+        <li>Alternating W/L pattern over last 4 fights</li>
+        <li>Punching power may diminish at new weight</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROUND PROJECTION -->
+  <div class="section-head"><span class="section-head-text">Round-by-Round Projection</span></div>
+  <div class="rounds">
+    <div class="round-block">
+      <div class="round-label">Round</div>
+      <div class="round-num">1</div>
+      <div class="round-desc">McGregor dangerous. Feeling out. Conor hunts the early KO.</div>
+    </div>
+    <div class="round-block">
+      <div class="round-label">Round</div>
+      <div class="round-num">2</div>
+      <div class="round-desc">Holloway volume picks up. McGregor slows. Pace tilts Max's way.</div>
+    </div>
+    <div class="round-block active">
+      <div class="round-label">Round</div>
+      <div class="round-num">3</div>
+      <div class="round-desc">⚡ McGregor fades. Holloway overwhelming. Stoppage likely.</div>
+    </div>
+    <div class="round-block">
+      <div class="round-label">Round</div>
+      <div class="round-num">4–5</div>
+      <div class="round-desc">If we get here, Holloway by wide decision. McGregor likely stopped before.</div>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="section-head"><span class="section-head-text">Main Event Prediction</span></div>
+  <div class="verdict">
+    <div class="verdict-winner">Max Holloway</div>
+    <div class="verdict-method">TKO / KO Victory</div>
+    <div class="verdict-round">Predicted Round: 3</div>
+    <p class="verdict-rationale">
+      The narrative is compelling but the math is brutal for McGregor. Holloway averages nearly 7 significant strikes per minute against an opponent who hasn't felt Octagon speed since 2021 and has been stopped in all six career losses — three of the last four after the opening round. McGregor's best and arguably only realistic path is a first-round stoppage via that iconic left hand. If the fight exits R1 with Holloway upright, the odds of a McGregor victory drop dramatically. Holloway's relentless forward pressure, superior conditioning, and vastly superior recent activity form a combination McGregor's fading gas tank cannot overcome.
+    </p>
+    <div class="confidence-bar-wrap">
+      <div class="conf-label">Confidence</div>
+      <div class="conf-track"><div class="conf-fill"></div></div>
+      <div class="conf-value">78% — Holloway</div>
+    </div>
+    <div class="actual-result">
+      <strong>✓ ACTUAL RESULT — Holloway def. McGregor, TKO, R1 1:09.</strong>
+      Winner and method called correctly (round missed: predicted R3, ended R1). McGregor blew out his knee attempting a jumping kick seconds into the fight — the official result stands as a TKO. Grading note: method-of-victory bets follow the official result (TKO), so Holloway by KO/TKO cashes, though a few books void injury stoppages.
+    </div>
+  </div>
+
+  <!-- $1,000 BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">Allocated across 7 bets · 14-fight card</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">Actual Return · Settled</div>
+      <div class="bankroll-amount" style="color:var(--green);">$1,215.11</div>
+      <div class="bankroll-subtitle" style="text-align:right;">+$165.11 profit on $1,050 staked</div>
+    </div>
+  </div>
+
+  <!-- FULL CARD TABLE -->
+  <div class="card-table" style="margin-top:12px;">
+
+    <!-- MAIN CARD -->
+    <div class="ct-section-label">★ Main Card</div>
+    <div class="ct-header">
+      <span>Pick</span>
+      <span>Odds</span>
+      <span>Stake</span>
+      <span>To Win</span>
+      <span>Type</span>
+    </div>
+
+    <!-- Holloway ML -->
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">Max Holloway ML <span class="result-badge win">Win +$100</span></div>
+        <div class="pick-sub">vs Conor McGregor · WW Main Event · ✓ Holloway TKO R1 1:09</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-265</div>
+      <div class="ct-stake">$265</div>
+      <div class="ct-win">+$100</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <!-- Holloway KO/TKO -->
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">Holloway by KO/TKO <span class="result-badge win">Win +$143</span></div>
+        <div class="pick-sub">Method of victory prop · ✓ Official result TKO (injury stoppage R1)</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>
+      </div>
+      <div class="ct-odds neg">-140</div>
+      <div class="ct-stake">$200</div>
+      <div class="ct-win">+$143</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <!-- Saint-Denis ML -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Benoît Saint-Denis ML <span class="result-badge loss">Loss −$148</span></div>
+        <div class="pick-sub">vs Paddy Pimblett · LW Co-Main · ✗ Pimblett D'Arce choke R1 0:52</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-148</div>
+      <div class="ct-stake">$148</div>
+      <div class="ct-win">+$100</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <!-- Bautista ML -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Mario Bautista ML <span class="result-badge win">Win +$114</span></div>
+        <div class="pick-sub">vs Cory Sandhagen · BW · ✓ Bautista UD 29-28 ×3</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+114</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-win">+$114</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <!-- Kavanagh ML -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Lone'er Kavanagh ML <span class="result-badge loss">Loss −$100</span></div>
+        <div class="pick-sub">vs Brandon Royval · FW · ✗ Royval rear-naked choke R3 3:39</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-218</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-win">+$46</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <!-- McKinney SKIP -->
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Terrance McKinney <span class="result-badge nobet">Good Skip</span></div>
+        <div class="pick-sub">vs King Green · SKIP — coin flip · Green TKO R1: McKinney side lost</div>
+      </div>
+      <div class="ct-odds skip-odds">-115</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <!-- PRELIMS -->
+    <div class="ct-section-label">Prelims</div>
+
+    <!-- Whittaker -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Robert Whittaker ML <span class="result-badge win">Win +$60</span></div>
+        <div class="pick-sub">vs Nikita Krylov · LHW · ✓ Whittaker KO (punch) R3 1:01</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-125</div>
+      <div class="ct-stake">$75</div>
+      <div class="ct-win">+$60</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <!-- Steveson SKIP (juice) -->
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Gable Steveson <span class="result-badge nobet">Skip · Won</span></div>
+        <div class="pick-sub">vs Ellison · SKIP — -1450 juice · Steveson TKO R1 (payout would've been tiny)</div>
+      </div>
+      <div class="ct-odds skip-odds">-1450</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <!-- Yanez SKIP -->
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Adrian Yanez <span class="result-badge nobet">Skip · Won</span></div>
+        <div class="pick-sub">vs Garbrandt · SKIP — -425 too juiced · Yanez TKO R1 (skip cost nothing)</div>
+      </div>
+      <div class="ct-odds skip-odds">-425</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <!-- Riley -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Luke Riley ML <span class="result-badge win">Win +$22</span></div>
+        <div class="pick-sub">vs Kamaka III · FW · ✓ Riley TKO (punches & knees) R1 3:03</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-225</div>
+      <div class="ct-stake">$50</div>
+      <div class="ct-win">+$22</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <!-- EARLY PRELIMS -->
+    <div class="ct-section-label">Early Prelims</div>
+
+    <!-- Pinas -->
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Damian Pinas ML <span class="result-badge win">Win +$24</span></div>
+        <div class="pick-sub">vs Cesar Almeida · MW · ✓ Pinas KO (punch) R1 4:44</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-258</div>
+      <div class="ct-stake">$62</div>
+      <div class="ct-win">+$24</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <!-- Basharat SKIP (too juiced) -->
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Farid Basharat <span class="result-badge nobet">Skip · Won</span></div>
+        <div class="pick-sub">vs Garza · SKIP — -675 unplayable · Basharat UD (tiny payout anyway)</div>
+      </div>
+      <div class="ct-odds skip-odds">-675</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <!-- Wang Cong -->
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Wang Cong / Tracy Cortez <span class="result-badge nobet">Skip</span></div>
+        <div class="pick-sub">vs each other · FW Women's · SKIP — pick'em · Wang Cong UD 29-27 ×3</div>
+      </div>
+      <div class="ct-odds skip-odds">-118</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <!-- LONGSHOT -->
+    <div class="ct-section-label">🎲 Longshot Unit</div>
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">McGregor KO/TKO/Sub R1 <span class="result-badge nobet">$0 · No Hit</span></div>
+        <div class="pick-sub">vs Holloway · Didn't hit — McGregor lost in R1 · $0 staked was the right call</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+250</div>
+      <div class="ct-stake">$0</div>
+      <div class="ct-win" style="color:var(--amber);">—</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+
+  </div>
+
+  <!-- PARLAY -->
+  <div class="section-head"><span class="section-head-text">Bonus: 3-Leg Parlay Play</span></div>
+  <div class="parlay-box">
+    <div class="parlay-title">🔗 Value Parlay · $50 stake <span class="result-badge loss">Loss −$50</span></div>
+    <div style="font-size:12px;color:var(--fog);margin-bottom:12px;">✗ Dead after 52 seconds — Saint-Denis leg lost. (Holloway KO/TKO ✓ and Bautista ML ✓ both hit.)</div>
+    <div class="parlay-legs">
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Holloway by KO/TKO</span>
+        <span class="parlay-leg-odds">-140</span>
+      </div>
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Saint-Denis ML</span>
+        <span class="parlay-leg-odds">-148</span>
+      </div>
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Bautista ML</span>
+        <span class="parlay-leg-odds">+114</span>
+      </div>
+    </div>
+    <div class="parlay-result">
+      <div>
+        <div class="parlay-result-label">Combined odds</div>
+        <div class="parlay-result-label" style="margin-top:4px;">Stake</div>
+      </div>
+      <div class="parlay-result-right">
+        <div class="parlay-combined">≈ +443</div>
+        <div class="parlay-payout">$50 stake → returns ~$271</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Final Settlement</span></div>
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--white);">$1,050</div>
+      <div class="sum-lbl">Total Staked</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">$1,215.11</div>
+      <div class="sum-lbl">Returned</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--gold);">6–3</div>
+      <div class="sum-lbl">Record · 66.7%</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">+$165.11</div>
+      <div class="sum-lbl">Net P/L · +15.7% ROI</div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    This analysis is for entertainment purposes only — fictitious bankroll test, no real money wagered.<br>
+    Odds sourced from DraftKings / BetMGM / CBS Sports as of July 11, 2026.<br>
+    SETTLED July 11, 2026: 6W–3L (66.7%) · $1,050 staked · $1,215.11 returned · net +$165.11 (+15.7% ROI).<br>
+    Results per UFC.com / MMA Weekly official results. Detailed grading in betting_tracker.xlsx.
+  </p>
+
+</div>
+</body>
+</html>

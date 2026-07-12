@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLB Sunday Card — July 12, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --mlbred:  #BF0D3E;
+    --mlbblue: #005A9C;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+  }
+
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+
+  .site-header {
+    background: var(--steel);
+    border-bottom: 3px solid var(--mlbred);
+    padding: 24px 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(191,13,62,.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--mlbred); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  /* SLATE BOARD */
+  .board { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--mlbred); border-radius: 4px; overflow: hidden; margin-top: 20px; }
+  .board-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 90px;
+    gap: 8px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--mid);
+    align-items: center;
+    font-size: 13px;
+  }
+  .board-row:last-child { border-bottom: none; }
+  .board-row.onplay { background: rgba(212,160,23,.07); border-left: 3px solid var(--gold); }
+  .board-row.offplay { opacity: .45; }
+  .board-game { color: var(--fog); }
+  .board-game strong { color: var(--white); }
+  .board-pitchers { font-size: 11px; color: var(--silver); }
+  .board-line { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--amber); text-align: center; }
+  .board-play { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+  .board-play.yes { color: var(--gold); }
+  .board-play.no { color: var(--dim); }
+
+  /* ANALYSIS */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; color: var(--gold); }
+  .analysis-card .card-sub { font-size: 10px; color: var(--silver); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--mlbred); }
+  .analysis-card .the-pick { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--mid); font-size: 12px; }
+  .analysis-card .the-pick strong { color: var(--gold); }
+
+  /* BANKROLL */
+  .bankroll-banner {
+    background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bankroll-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 2px; }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  /* BET TABLE (6 col with win probability) */
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-section-label { background: var(--mid); padding: 7px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); border-bottom: 1px solid var(--dim); }
+  .ct-header, .ct-row {
+    display: grid;
+    grid-template-columns: 1fr 62px 58px 62px 72px 66px;
+    gap: 8px;
+    padding: 12px 14px;
+    align-items: center;
+  }
+  .ct-header { padding: 8px 14px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ct-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row { border-bottom: 1px solid var(--mid); }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-prob { text-align: center; }
+  .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-type { text-align: center; }
+  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.dog    { background: rgba(191,13,62,.25); color: #FF6B8A;      border: 1px solid rgba(191,13,62,.5); }
+
+  /* LONGSHOT */
+  .parlay-box { background: linear-gradient(135deg, #2E0D16 0%, #1F0D2A 100%); border: 2px solid var(--mlbred); border-radius: 4px; padding: 18px 20px; margin-top: 4px; }
+  .parlay-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #FF6B8A; margin-bottom: 12px; }
+  .parlay-legs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .parlay-leg { display: flex; justify-content: space-between; align-items: center; background: rgba(191,13,62,.1); border: 1px solid rgba(191,13,62,.3); border-radius: 3px; padding: 8px 12px; }
+  .parlay-leg-name { font-size: 13px; color: var(--white); }
+  .parlay-leg-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; color: #FF6B8A; font-weight: 700; }
+  .parlay-result { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(191,13,62,.4); padding-top: 12px; }
+  .parlay-result-label { font-size: 12px; color: var(--silver); }
+  .parlay-result-right { text-align: right; }
+  .parlay-combined { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; color: #FF6B8A; line-height: 1; }
+  .parlay-payout { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+  .scenario-box {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--fog);
+    line-height: 1.6;
+  }
+  .scenario-box strong { color: var(--gold); }
+
+  .summary-bar { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 16px 20px; margin-top: 4px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-header, .ct-row { grid-template-columns: 1fr 48px 46px 50px 56px 52px; gap: 4px; padding: 10px 8px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .board-row { grid-template-columns: 1fr 80px 60px; }
+  }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+
+  /* LIVE RESULTS */
+  .result-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: 900;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .result-badge.win  { background: var(--green); color: #06230C; }
+  .result-badge.loss { background: #C1121F; color: var(--white); }
+  .result-badge.live { background: var(--amber); color: #231A00; }
+  .live-banner {
+    background: linear-gradient(135deg, #231A00 0%, #1F1A0D 100%);
+    border: 2px solid var(--amber);
+    border-radius: 4px;
+    padding: 14px 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .live-banner .lb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
+  .live-banner .lb-main { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(22px, 5vw, 34px); font-weight: 900; text-transform: uppercase; color: var(--white); margin-top: 4px; }
+  .live-banner .lb-main span { color: var(--green); }
+  .live-banner .lb-sub { font-size: 12px; color: var(--silver); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">MLB Sunday Slate · 15 Games · Test 3</p>
+  <h1 class="event-title">SUNDAY <span>BASEBALL</span> CARD</h1>
+  <p class="event-meta">July 12, 2026 · $1,000 Bankroll · 7 core bets + 1 longshot · lines as of Sunday AM</p>
+</header>
+
+<div class="container">
+
+  <!-- LIVE STATUS -->
+  <div class="live-banner">
+    <div class="lb-tag">⚡ Live Tracking · 1 of 8 Settled · updated ~2:00 PM CT</div>
+    <div class="lb-main">Card: 1–0 · <span>+$135.20</span></div>
+    <div class="lb-sub">Pirates 14–5 Brewers FINAL — Skenes W (5.1 IP, 7 K), Gasser chased in the 3rd · Parlay leg 1 of 3 ✓ · Full grading tonight ~10 PM CT</div>
+  </div>
+
+  <!-- FULL SLATE BOARD -->
+  <div class="board">
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Brewers @ Pirates</strong><div class="board-pitchers">✓ FINAL: PIT 14–5 · Skenes W, 7 K · Gasser 7 ER</div></div>
+      <div class="board-line">PIT +104</div>
+      <div class="board-play yes">✓ WON</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Royals @ Orioles</strong><div class="board-pitchers">Lugo (4.56) vs Baz (4.21) · 1:35p ET</div></div>
+      <div class="board-line">U 9.5 -114</div>
+      <div class="board-play yes">▶ Bet 4</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Yankees @ Nationals</strong><div class="board-pitchers">Warren (4.15) vs Cavalli (3.88)</div></div>
+      <div class="board-line">NYY -114</div>
+      <div class="board-play no">Skip · coin flip</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Red Sox @ Mets</strong><div class="board-pitchers">Tolle (3.14) vs Thornton (4.35)</div></div>
+      <div class="board-line">BOS -126</div>
+      <div class="board-play no">Skip · fair line</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Cubs @ Reds</strong><div class="board-pitchers">Boyd (4.31) vs Abbott (3.92) · 1:45p ET</div></div>
+      <div class="board-line">CIN +108</div>
+      <div class="board-play yes">▶ Bet 6</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Guardians @ Marlins</strong><div class="board-pitchers">Cantillo (3.66) vs Phillips (3.28)</div></div>
+      <div class="board-line">MIA -115</div>
+      <div class="board-play no">Skip · no edge</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Phillies @ Tigers</strong><div class="board-pitchers">Wheeler (2.28) vs Skubal (3.06) · 1:40p ET</div></div>
+      <div class="board-line">DET -115</div>
+      <div class="board-play yes">▶ Bet 3</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Mariners @ Rays</strong><div class="board-pitchers">Hancock (3.23) vs Seymour (4.11) · 1:40p ET</div></div>
+      <div class="board-line">SEA +108</div>
+      <div class="board-play yes">▶ Bet 7</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Angels @ Twins</strong><div class="board-pitchers">Soriano (3.40) vs Bradley (3.67)</div></div>
+      <div class="board-line">MIN -136</div>
+      <div class="board-play no">Skip · no edge</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Athletics @ White Sox</strong><div class="board-pitchers">Ginn (3.10) vs Schultz (6.00) · 2:10p ET</div></div>
+      <div class="board-line">ATH -104</div>
+      <div class="board-play yes">▶ Bet 2</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Braves @ Cardinals</strong><div class="board-pitchers">Ritchie (4.60) vs May (4.55)</div></div>
+      <div class="board-line">STL -136</div>
+      <div class="board-play no">Skip · two 4.5+ ERAs</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Astros @ Rangers</strong><div class="board-pitchers">Javier (10.22) vs Gore (4.72)</div></div>
+      <div class="board-line">TEX -131</div>
+      <div class="board-play no">Skip · Javier unknown</div>
+    </div>
+    <div class="board-row onplay">
+      <div class="board-game"><strong>Rockies @ Giants</strong><div class="board-pitchers">Lorenzen (6.46) vs McDonald (5.46) · 4:05p ET</div></div>
+      <div class="board-line">SF -155</div>
+      <div class="board-play yes">▶ Bet 1</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>D-backs @ Dodgers</strong><div class="board-pitchers">Bratt (3.00) vs Sheehan (4.91)</div></div>
+      <div class="board-line">LAD -219</div>
+      <div class="board-play no">Skip · too juiced</div>
+    </div>
+    <div class="board-row offplay">
+      <div class="board-game"><strong>Blue Jays @ Padres</strong><div class="board-pitchers">Gausman (4.32) vs Marquez (5.02)</div></div>
+      <div class="board-line">TOR -126</div>
+      <div class="board-play no">Skip · no edge</div>
+    </div>
+  </div>
+
+  <!-- FEATURED ANALYSIS -->
+  <div class="section-head"><span class="section-head-text">Featured Game Analysis</span></div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Giants ML −155 · Safest Play</div>
+      <div class="card-sub">Rockies @ Giants · Oracle Park</div>
+      <ul>
+        <li>Lorenzen is 3-9 with a 6.46 ERA and 1.4 HR/9 — worst starter on the slate</li>
+        <li>McDonald's 3.98 FIP says he's much better than his 5.46 ERA</li>
+        <li>Rockies remain MLB's worst road team; Oracle suppresses their contact profile</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 62%</strong> vs 58% market — biggest gap between team quality and price</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Athletics ML −104 · Pitching Mismatch</div>
+      <div class="card-sub">Athletics @ White Sox</div>
+      <ul>
+        <li>J.T. Ginn: 3.10 ERA overall, a sparkling 2.49 ERA on the road</li>
+        <li>Schultz is 2-6, 6.00 ERA with 5.4 BB/9 — command has collapsed</li>
+        <li>Book still prices this near even; the gap is the bet</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 54%</strong> vs 49% market — clearest starter mismatch priced as a coin flip</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Tigers ML −115 · The Ace Duel</div>
+      <div class="card-sub">Phillies @ Tigers · Wheeler vs Skubal</div>
+      <ul>
+        <li>Skubal at home: 10.7 K/9, 1.3 BB/9 — best strikeout-to-walk profile in the AL</li>
+        <li>Wheeler (9-1, 2.28) is elite too — this hinges on the bullpens</li>
+        <li>Detroit pen since June 1: 3.10 ERA (3rd). Philly pen: 5.41 (26th)</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 55%</strong> vs 51% market — late innings decide it, and Detroit's pen is far better</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Pirates ML +104 · Skenes Day</div>
+      <div class="card-sub">Brewers @ Pirates · PNC Park</div>
+      <ul>
+        <li>Skenes' 2.98 FIP beats his 3.58 ERA; 7+ Ks in 8 straight Sunday day starts</li>
+        <li>Gasser's 4.98 FIP flags regression; Brewers lost 3 of last 4</li>
+        <li>Pirates swept Saturday's doubleheader, lead MLB in home scoring (5.5 R/G), rank 2nd in team AVG (.261)</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 52%</strong> vs 47% market — plus money on the best pitcher on today's slate at home</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Reds ML +108 · The Streak</div>
+      <div class="card-sub">Cubs @ Reds · Great American Ball Park</div>
+      <ul>
+        <li>Abbott has allowed 3 ER or fewer in 14 consecutive starts</li>
+        <li>Boyd's 4.31 ERA is trending the wrong way since June</li>
+        <li>Home dog with the more reliable starter — classic value profile</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 50%</strong> vs 46% market — a true coin flip priced at plus money</div>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Under 9.5 −114 · Royals @ Orioles</div>
+      <div class="card-sub">Totals play · Camden Yards</div>
+      <ul>
+        <li>Royals are dead last in road scoring at 3.8 runs per game</li>
+        <li>Baz's 3.78 FIP is solid despite the 4-9 record</li>
+        <li>9.5 is a high bar when one lineup barely scores on the road</li>
+      </ul>
+      <div class="the-pick"><strong>Est. win: 55%</strong> vs 52% market — the number is set for Camden's park factor, not this KC lineup</div>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">7 core bets + 1 longshot parlay · fully deployed</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">If All 8 Hit</div>
+      <div class="bankroll-amount" style="color:var(--green);">$2,226</div>
+      <div class="bankroll-subtitle" style="text-align:right;">+$1,226 profit · expected value ≈ +$45</div>
+    </div>
+  </div>
+
+  <!-- BET TABLE -->
+  <div class="card-table">
+    <div class="ct-section-label">★ The Card · Est. Win % is our model vs de-vigged market %</div>
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>Est. Win</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">1 · Giants ML</div>
+        <div class="pick-sub">vs Rockies · Lorenzen 6.46 ERA is the fade</div>
+      </div>
+      <div class="ct-odds neg">-155</div>
+      <div class="ct-stake">$200</div>
+      <div class="ct-prob"><div class="p-est">62%</div><div class="p-mkt">mkt 58%</div></div>
+      <div class="ct-win">+$129.03</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">2 · Athletics ML</div>
+        <div class="pick-sub">@ White Sox · Ginn 2.49 road ERA vs Schultz 5.4 BB/9</div>
+      </div>
+      <div class="ct-odds neg">-104</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-prob"><div class="p-est">54%</div><div class="p-mkt">mkt 49%</div></div>
+      <div class="ct-win">+$144.23</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">3 · Tigers ML</div>
+        <div class="pick-sub">vs Phillies · Skubal + a bullpen edge (3.10 vs 5.41 ERA)</div>
+      </div>
+      <div class="ct-odds neg">-115</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-prob"><div class="p-est">55%</div><div class="p-mkt">mkt 51%</div></div>
+      <div class="ct-win">+$130.43</div>
+      <div class="ct-type"><span class="type-badge value">Mid</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">4 · Royals @ Orioles Under 9.5</div>
+        <div class="pick-sub">KC last in road scoring (3.8 R/G) · Baz 3.78 FIP</div>
+      </div>
+      <div class="ct-odds neg">-114</div>
+      <div class="ct-stake">$120</div>
+      <div class="ct-prob"><div class="p-est">55%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$105.26</div>
+      <div class="ct-type"><span class="type-badge value">Mid</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">5 · Pirates ML <span class="result-badge win">Win +$135.20</span></div>
+        <div class="pick-sub">vs Brewers · ✓ FINAL 14–5 · Skenes W, Gasser 7 ER in 2.2 IP</div>
+      </div>
+      <div class="ct-odds pos">+104</div>
+      <div class="ct-stake">$130</div>
+      <div class="ct-prob"><div class="p-est">52%</div><div class="p-mkt">mkt 47%</div></div>
+      <div class="ct-win">+$135.20</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">6 · Reds ML</div>
+        <div class="pick-sub">vs Cubs · Abbott: ≤3 ER in 14 straight starts</div>
+      </div>
+      <div class="ct-odds pos">+108</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-prob"><div class="p-est">50%</div><div class="p-mkt">mkt 46%</div></div>
+      <div class="ct-win">+$108.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">7 · Mariners ML</div>
+        <div class="pick-sub">@ Rays · Hancock 3.23 ERA vs Seymour's soft 6-1 (4.11)</div>
+      </div>
+      <div class="ct-odds pos">+108</div>
+      <div class="ct-stake">$100</div>
+      <div class="ct-prob"><div class="p-est">50%</div><div class="p-mkt">mkt 46%</div></div>
+      <div class="ct-win">+$108.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">8 · Longshot Parlay (3 legs)</div>
+        <div class="pick-sub">Pirates ML + Reds ML + Athletics ML · details below</div>
+      </div>
+      <div class="ct-odds pos">+732</div>
+      <div class="ct-stake">$50</div>
+      <div class="ct-prob"><div class="p-est">14%</div><div class="p-mkt">mkt 10%</div></div>
+      <div class="ct-win">+$366.18</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+  </div>
+
+  <!-- LONGSHOT DETAIL -->
+  <div class="section-head"><span class="section-head-text">🎲 The Mandatory Longshot</span></div>
+  <div class="parlay-box">
+    <div class="parlay-title">🎲 "Value Stack" 3-Leg Parlay · $50 stake</div>
+    <div class="parlay-legs">
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Pirates ML (Skenes at home) <span class="result-badge win">✓ Hit</span></span>
+        <span class="parlay-leg-odds">+104</span>
+      </div>
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Reds ML (Abbott's streak)</span>
+        <span class="parlay-leg-odds">+108</span>
+      </div>
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Athletics ML (Ginn vs Schultz)</span>
+        <span class="parlay-leg-odds">-104</span>
+      </div>
+    </div>
+    <div class="parlay-result">
+      <div>
+        <div class="parlay-result-label">Combined odds</div>
+        <div class="parlay-result-label" style="margin-top:4px;">Est. hit probability: 14% (52% × 50% × 54%)</div>
+      </div>
+      <div class="parlay-result-right">
+        <div class="parlay-combined">+732</div>
+        <div class="parlay-payout">$50 stake → returns $416.18</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATH NOTE -->
+  <div class="scenario-box">
+    <strong>The math behind the card.</strong> Every bet lists our estimated win probability next to the de-vigged market probability — we only bet where our number beats the market's. Summing the probabilities, we expect <strong>~3.9 of 8 bets to cash</strong> on an average day, and the card's total expected value is <strong>≈ +$45</strong> (+4.5% on the bankroll). If all 8 hit: <strong>$2,226 returned (+$1,226)</strong>. If everything dies: −$1,000. The longshot doubles down on our three value legs — if the card has a great day, it has a <em>very</em> great day.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--white);">$1,000</div>
+      <div class="sum-lbl">Deployed</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--gold);">8</div>
+      <div class="sum-lbl">Bets (7 + longshot)</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--blue);">~3.9</div>
+      <div class="sum-lbl">Expected Wins</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">$2,226</div>
+      <div class="sum-lbl">Max Return</div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Lines: ESPN consensus board, Sunday July 12 AM (some books show Pirates near even/-118 — we recorded +104).<br>
+    Research: VSiN (Peterson), PickDawgz, DraftKings Network, MLB.com probables. Est. win % is our judgment, not a guarantee.<br>
+    Settlement tracked in betting_tracker.xlsx, tab "MLB Jul 12".
+  </p>
+
+</div>
+</body>
+</html>

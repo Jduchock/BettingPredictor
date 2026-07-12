@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Cup 2026 Betting Card — Final Four</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pitch:  #1B7A3D;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--steel);
+    border-bottom: 3px solid var(--pitch);
+    padding: 24px 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(27,122,61,.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .event-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pitch);
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .event-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--white);
+    position: relative;
+  }
+  .event-title span { color: var(--gold); }
+  .event-meta {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--silver);
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    white-space: nowrap;
+  }
+
+  /* ── BRACKET ── */
+  .bracket {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-top: 3px solid var(--pitch);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 20px;
+  }
+  .bracket-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--mid);
+    font-size: 13px;
+  }
+  .bracket-row:last-child { border-bottom: none; }
+  .bracket-stage { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); width: 110px; flex-shrink: 0; }
+  .bracket-match { flex: 1; color: var(--fog); }
+  .bracket-match strong { color: var(--white); }
+  .bracket-date { font-size: 11px; color: var(--silver); text-align: right; width: 90px; flex-shrink: 0; }
+  .done { color: var(--green); }
+
+  /* ── MATCHUP ── */
+  .matchup {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-top: 3px solid var(--pitch);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 4px;
+  }
+  .matchup-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pitch);
+    margin-bottom: 14px;
+  }
+  .fighters { display: flex; align-items: center; gap: 12px; }
+  .fighter { flex: 1; text-align: center; }
+  .fighter-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(20px, 5vw, 30px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .fighter-name.red  { color: var(--red); }
+  .fighter-name.blue { color: var(--blue); }
+  .fighter-record { font-size: 12px; color: var(--silver); margin-top: 3px; }
+  .fighter-nickname { font-size: 11px; font-style: italic; color: var(--fog); margin-top: 2px; }
+  .vs-block { text-align: center; flex-shrink: 0; }
+  .vs-text { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold); display: block; line-height: 1; }
+  .weight-class { font-size: 10px; color: var(--silver); letter-spacing: 1px; margin-top: 4px; }
+
+  .odds-row { display: flex; justify-content: space-between; margin-top: 16px; gap: 8px; }
+  .odds-chip { flex: 1; background: var(--mid); border-radius: 4px; padding: 10px; text-align: center; }
+  .odds-chip.fav { border: 1px solid var(--green); }
+  .odds-chip.dog { border: 1px solid var(--dim); }
+  .odds-value { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; display: block; line-height: 1; }
+  .odds-chip.fav .odds-value { color: var(--green); }
+  .odds-chip.dog .odds-value { color: var(--amber); }
+  .odds-label { font-size: 11px; color: var(--silver); margin-top: 3px; }
+
+  .stat-compare { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .stat-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; }
+  .stat-val { font-size: 13px; font-weight: 600; }
+  .stat-val.left { text-align: right; color: var(--red); }
+  .stat-val.right { text-align: left; color: var(--blue); }
+  .stat-name { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--silver); text-align: center; white-space: nowrap; }
+
+  /* ── ANALYSIS CARDS ── */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .analysis-card.a .card-title { color: var(--red); }
+  .analysis-card.b .card-title { color: var(--blue); }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; }
+  .analysis-card.a ul li::before { color: var(--red); }
+  .analysis-card.b ul li::before { color: var(--blue); }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, var(--steel) 0%, #0D2416 100%);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(212,160,23,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .verdict-winner {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(30px, 7vw, 50px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1;
+    position: relative;
+  }
+  .verdict-method {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .verdict-rationale { font-size: 13px; color: var(--fog); margin-top: 14px; line-height: 1.6; text-align: left; position: relative; }
+  .confidence-bar-wrap { margin-top: 14px; text-align: left; }
+  .conf-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); margin-bottom: 6px; }
+  .conf-track { background: var(--mid); border-radius: 2px; height: 8px; overflow: hidden; }
+  .conf-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 2px; }
+  .conf-value { font-size: 11px; color: var(--gold); margin-top: 4px; text-align: right; }
+
+  /* ── BANKROLL ── */
+  .bankroll-banner {
+    background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bankroll-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  /* ── CARD TABLE ── */
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-section-label {
+    background: var(--mid);
+    padding: 7px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    border-bottom: 1px solid var(--dim);
+  }
+  .ct-header {
+    display: grid;
+    grid-template-columns: 1fr 80px 70px 70px 80px;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(0,0,0,.3);
+    border-bottom: 1px solid var(--dim);
+  }
+  .ct-header span { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 70px 70px 80px;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--mid);
+    align-items: center;
+  }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .ct-row.skip { opacity: 0.45; }
+
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .pick-conf { display: flex; gap: 2px; margin-top: 3px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); }
+  .dot.on { background: var(--gold); }
+
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-odds.skip-odds { color: var(--dim); font-size: 16px; }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-stake.skip-stake { color: var(--dim); font-size: 14px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-win.skip-win { color: var(--dim); font-size: 13px; }
+  .ct-type { text-align: center; }
+  .type-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.dog    { background: rgba(193,18,31,.2);  color: #FF6B6B;      border: 1px solid rgba(193,18,31,.4); }
+  .type-badge.parlay { background: rgba(74,158,255,.2); color: var(--blue);  border: 1px solid rgba(74,158,255,.4); }
+  .type-badge.skip   { background: rgba(60,60,80,.2);   color: var(--dim);   border: 1px solid var(--dim); }
+
+  /* ── PARLAY ── */
+  .parlay-box {
+    background: linear-gradient(135deg, #0D0D2E 0%, #0D1B2A 100%);
+    border: 2px solid var(--blue);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-top: 4px;
+  }
+  .parlay-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+  .parlay-legs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .parlay-leg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(74,158,255,.07);
+    border: 1px solid rgba(74,158,255,.2);
+    border-radius: 3px;
+    padding: 8px 12px;
+  }
+  .parlay-leg-name { font-size: 13px; color: var(--white); }
+  .parlay-leg-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; color: var(--blue); font-weight: 700; }
+  .parlay-result { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(74,158,255,.3); padding-top: 12px; }
+  .parlay-result-label { font-size: 12px; color: var(--silver); }
+  .parlay-result-right { text-align: right; }
+  .parlay-combined { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .parlay-payout { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+  /* ── SCENARIO NOTE ── */
+  .scenario-box {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--fog);
+    line-height: 1.6;
+  }
+  .scenario-box strong { color: var(--gold); }
+
+  /* ── SUMMARY ── */
+  .summary-bar {
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    text-align: center;
+  }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-row, .ct-header { grid-template-columns: 1fr 60px 60px 60px 60px; gap: 4px; padding: 10px 10px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .bankroll-totals { width: 100%; }
+  }
+
+  .disclaimer {
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--dim);
+    text-align: center;
+    border-top: 1px solid var(--mid);
+    padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">FIFA World Cup 2026 · The Final Four · Test 2</p>
+  <h1 class="event-title">ROAD TO <span>METLIFE</span></h1>
+  <p class="event-meta">Semifinals July 14–15 · Final July 19 · East Rutherford, NJ · $1,000 Bankroll</p>
+</header>
+
+<div class="container">
+
+  <!-- BRACKET STATE -->
+  <div class="bracket">
+    <div class="bracket-row">
+      <span class="bracket-stage">Quarterfinals</span>
+      <span class="bracket-match done">✓ France 2–0 Morocco · Spain 2–1 Belgium · England 2–1 Norway (AET) · Argentina 3–1 Switzerland</span>
+      <span class="bracket-date">Jul 9–11</span>
+    </div>
+    <div class="bracket-row">
+      <span class="bracket-stage">Semifinal 1</span>
+      <span class="bracket-match"><strong>France vs Spain</strong></span>
+      <span class="bracket-date">Tue Jul 14</span>
+    </div>
+    <div class="bracket-row">
+      <span class="bracket-stage">Semifinal 2</span>
+      <span class="bracket-match"><strong>Argentina vs England</strong> · Atlanta</span>
+      <span class="bracket-date">Wed Jul 15</span>
+    </div>
+    <div class="bracket-row">
+      <span class="bracket-stage">Third Place</span>
+      <span class="bracket-match">SF losers</span>
+      <span class="bracket-date">Sat Jul 18</span>
+    </div>
+    <div class="bracket-row">
+      <span class="bracket-stage">Final</span>
+      <span class="bracket-match"><strong>MetLife Stadium</strong></span>
+      <span class="bracket-date">Sun Jul 19</span>
+    </div>
+  </div>
+
+  <!-- SEMIFINAL 1 -->
+  <div class="section-head"><span class="section-head-text">Semifinal 1 · Tuesday July 14</span></div>
+  <div class="matchup">
+    <p class="matchup-tag">★ Heavyweight Bout — Offense vs Defense</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name red">France</div>
+        <div class="fighter-nickname">Les Bleus</div>
+        <div class="fighter-record">3rd straight WC semifinal</div>
+      </div>
+      <div class="vs-block">
+        <span class="vs-text">VS</span>
+        <div class="weight-class">SEMI 1</div>
+      </div>
+      <div class="fighter">
+        <div class="fighter-name blue">Spain</div>
+        <div class="fighter-nickname">La Roja</div>
+        <div class="fighter-record">Unbeaten in knockouts</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip fav">
+        <span class="odds-value">-144</span>
+        <div class="odds-label">France to advance (~59%)</div>
+      </div>
+      <div class="odds-chip dog">
+        <span class="odds-value">+118</span>
+        <div class="odds-label">Spain to advance (~41%)</div>
+      </div>
+    </div>
+    <div class="stat-compare">
+      <div class="stat-row">
+        <span class="stat-val left">+130</span>
+        <span class="stat-name">90-min moneyline (draw +220)</span>
+        <span class="stat-val right">+220</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">2-0, 2-0</span>
+        <span class="stat-name">knockout results</span>
+        <span class="stat-val right">1 GA all tournament</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">Mbappé attack</span>
+        <span class="stat-name">identity</span>
+        <span class="stat-val right">possession + block</span>
+      </div>
+    </div>
+  </div>
+  <div class="analysis-grid" style="margin-top:12px;">
+    <div class="analysis-card a">
+      <div class="card-title">France — Case For</div>
+      <ul>
+        <li>Most complete squad in the field; Mbappé peaking</li>
+        <li>Hasn't conceded in the knockout rounds</li>
+        <li>Third consecutive WC semifinal — knows this stage</li>
+        <li>Books & prediction markets agree: clear #1 (~40% outright)</li>
+      </ul>
+    </div>
+    <div class="analysis-card b">
+      <div class="card-title">Spain — Case For</div>
+      <ul>
+        <li>One goal conceded all tournament — elite block</li>
+        <li>Beat France 5–4 in 2025 Nations League semi</li>
+        <li>Leads all-time H2H 18-13-7</li>
+        <li>Can strangle tempo and drag France to penalties</li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top:12px;">
+    <div class="verdict-winner">France Advance</div>
+    <div class="verdict-method">Tight, low-scoring · lean 2–1 or ET</div>
+    <p class="verdict-rationale">
+      Spain's defensive block is real (1 goal against all tournament), but France has answered every knockout question without conceding, and Mbappé is the best single matchup-breaker left in the field. Expect caginess — Under 2.5 is juiced to -122 for a reason. We take France on the "to advance" line (ET/pens insurance included) rather than the 90-minute moneyline, and pair it with the under.
+    </p>
+    <div class="confidence-bar-wrap">
+      <div class="conf-label">Confidence</div>
+      <div class="conf-track"><div class="conf-fill" style="width:62%"></div></div>
+      <div class="conf-value">62% — France advance</div>
+    </div>
+  </div>
+
+  <!-- SEMIFINAL 2 -->
+  <div class="section-head"><span class="section-head-text">Semifinal 2 · Wednesday July 15 · Atlanta</span></div>
+  <div class="matchup">
+    <p class="matchup-tag">★ Near Coin Flip — Messi vs the Three Lions</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name red">Argentina</div>
+        <div class="fighter-nickname">La Albiceleste · defending champs</div>
+        <div class="fighter-record">Won all 6 · Messi 8 goals</div>
+      </div>
+      <div class="vs-block">
+        <span class="vs-text">VS</span>
+        <div class="weight-class">SEMI 2</div>
+      </div>
+      <div class="fighter">
+        <div class="fighter-name blue">England</div>
+        <div class="fighter-nickname">Three Lions</div>
+        <div class="fighter-record">Bellingham 2 goals in QF</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip fav">
+        <span class="odds-value">+175</span>
+        <div class="odds-label">Argentina (90 min)</div>
+      </div>
+      <div class="odds-chip dog">
+        <span class="odds-value">+205</span>
+        <div class="odds-label">Draw (90 min)</div>
+      </div>
+      <div class="odds-chip dog">
+        <span class="odds-value">+180</span>
+        <div class="odds-label">England (90 min)</div>
+      </div>
+    </div>
+    <div class="stat-compare">
+      <div class="stat-row">
+        <span class="stat-val left">6-0-0</span>
+        <span class="stat-name">tournament record</span>
+        <span class="stat-val right">needed AET in QF</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">Messi: scored every game</span>
+        <span class="stat-name">form line</span>
+        <span class="stat-val right">Kane + Bellingham hot</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-val left">3-2, 3-2 escapes</span>
+        <span class="stat-name">warning signs</span>
+        <span class="stat-val right">extra 30 min in legs</span>
+      </div>
+    </div>
+  </div>
+  <div class="analysis-grid" style="margin-top:12px;">
+    <div class="analysis-card a">
+      <div class="card-title">Argentina — Case For</div>
+      <ul>
+        <li>Messi has scored in every match (8 goals) — historic farewell run</li>
+        <li>Perfect 6-0-0; just handled Switzerland 3–1</li>
+        <li>Scaloni is 2-0 in WC knockout rounds vs European sides in '22/'26</li>
+        <li>England burned an extra 30 minutes vs Norway</li>
+      </ul>
+    </div>
+    <div class="analysis-card b">
+      <div class="card-title">England — Case For</div>
+      <ul>
+        <li>Bellingham twice + Kane producing in knockouts</li>
+        <li>Argentina's two 3–2 escapes show a leaky midfield press</li>
+        <li>Deeper, younger legs across the squad</li>
+        <li>+180 in 90 minutes is live in a true coin flip</li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict" style="margin-top:12px;">
+    <div class="verdict-winner">Argentina Advance</div>
+    <div class="verdict-method">Razor thin · draw after 90 very live</div>
+    <p class="verdict-rationale">
+      The books opened this a virtual pick'em (+175 / +205 / +180) and that's honest. Our edge play: structure the position against <em>England winning in 90 minutes only</em>. We take Argentina +175 as the larger side and the 90-minute draw at +205 as a second position — if it goes to extra time (very plausible in a semi this tight, with the under juiced to -155) the draw ticket cashes, and if Messi's run continues in regulation the Argentina ticket cashes. Both lose only if England wins inside 90.
+    </p>
+    <div class="confidence-bar-wrap">
+      <div class="conf-label">Confidence</div>
+      <div class="conf-track"><div class="conf-fill" style="width:55%"></div></div>
+      <div class="conf-value">55% — Argentina advance (either path)</div>
+    </div>
+  </div>
+
+  <!-- TOURNAMENT VERDICT -->
+  <div class="section-head"><span class="section-head-text">Tournament Winner Prediction</span></div>
+  <div class="verdict">
+    <div class="verdict-winner">France</div>
+    <div class="verdict-method">Champions · beat Argentina in the final</div>
+    <p class="verdict-rationale">
+      France is the market's clear #1 (+160 at BetMGM; Kalshi's prediction market has them 40.7%) and nothing in the knockout rounds argues otherwise — two clean 2–0s without conceding. The +160 outright is the rare case where the sportsbook price (38.5% implied) sits <em>below</em> the prediction-market probability, i.e., a small genuine value edge on the most likely champion. Spain +300 is the opposite case: books imply 25% while Kalshi trades them at just 17% — that's the futures trap on this board, and we pass. England +500 gets a small hedge ticket that pays if the coin flip semi goes wrong for us.
+    </p>
+    <div class="confidence-bar-wrap">
+      <div class="conf-label">Confidence</div>
+      <div class="conf-track"><div class="conf-fill" style="width:40%"></div></div>
+      <div class="conf-value">40% — France lift the trophy (field is 60%)</div>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">7 bets · semis + futures · fully deployed</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">Best-Case Scenario</div>
+      <div class="bankroll-amount" style="color:var(--green);">+$929</div>
+      <div class="bankroll-subtitle" style="text-align:right;">portfolio is hedged — see scenario note</div>
+    </div>
+  </div>
+
+  <!-- CARD TABLE -->
+  <div class="card-table">
+    <div class="ct-section-label">★ Semifinal Positions</div>
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">France to Advance to Final</div>
+        <div class="pick-sub">vs Spain · Tue Jul 14 · includes ET/penalties</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-144</div>
+      <div class="ct-stake">$300</div>
+      <div class="ct-win">+$208</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">France vs Spain Under 2.5 Goals</div>
+        <div class="pick-sub">Spain: 1 GA all tournament · France: 0 GA in knockouts</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds neg">-122</div>
+      <div class="ct-stake">$120</div>
+      <div class="ct-win">+$98</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">Argentina ML (90 min)</div>
+        <div class="pick-sub">vs England · Wed Jul 15 · Messi scored in every game</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+175</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-win">+$263</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">Argentina vs England Draw (90 min)</div>
+        <div class="pick-sub">Structured pair with Arg ML — only an England 90' win beats both</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+205</div>
+      <div class="ct-stake">$80</div>
+      <div class="ct-win">+$164</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-section-label">Futures</div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">France to Win World Cup</div>
+        <div class="pick-sub">Book 38.5% implied vs Kalshi 40.7% — value on the favorite</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+160</div>
+      <div class="ct-stake">$250</div>
+      <div class="ct-win">+$400</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">England to Win World Cup</div>
+        <div class="pick-sub">Hedge ticket — pays if the coin-flip semi goes against us</div>
+        <div class="pick-conf"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="ct-odds pos">+500</div>
+      <div class="ct-stake">$50</div>
+      <div class="ct-win">+$250</div>
+      <div class="ct-type"><span class="type-badge dog">Hedge</span></div>
+    </div>
+
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Spain to Win World Cup</div>
+        <div class="pick-sub">SKIP — book implies 25%, prediction markets say 17%. Worst price on the board.</div>
+      </div>
+      <div class="ct-odds skip-odds">+300</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+
+    <div class="ct-row skip">
+      <div>
+        <div class="pick-name">Argentina to Win World Cup</div>
+        <div class="pick-sub">SKIP — +400 fair per markets, but exposure already via Arg ML; avoid doubling up</div>
+      </div>
+      <div class="ct-odds skip-odds">+400</div>
+      <div class="ct-stake skip-stake">—</div>
+      <div class="ct-win skip-win">—</div>
+      <div class="ct-type"><span class="type-badge skip">Skip</span></div>
+    </div>
+  </div>
+
+  <!-- PARLAY -->
+  <div class="section-head"><span class="section-head-text">Bonus: 2-Leg Parlay Play</span></div>
+  <div class="parlay-box">
+    <div class="parlay-title">🔗 Chalk + Under Parlay · $50 stake</div>
+    <div class="parlay-legs">
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">France to Advance (vs Spain)</span>
+        <span class="parlay-leg-odds">-144</span>
+      </div>
+      <div class="parlay-leg">
+        <span class="parlay-leg-name">Argentina vs England Under 2.5 (90 min)</span>
+        <span class="parlay-leg-odds">-155</span>
+      </div>
+    </div>
+    <div class="parlay-result">
+      <div>
+        <div class="parlay-result-label">Combined odds</div>
+        <div class="parlay-result-label" style="margin-top:4px;">Stake</div>
+      </div>
+      <div class="parlay-result-right">
+        <div class="parlay-combined">≈ +179</div>
+        <div class="parlay-payout">$50 stake → returns ~$139</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO NOTE -->
+  <div class="scenario-box">
+    <strong>Portfolio note — these bets hedge each other, so "all hit" is impossible by design.</strong>
+    Arg ML and the Draw can't both cash; France outright and England outright can't both cash.
+    <br><br>
+    <strong>Best case (+$929):</strong> France advances in an under game, Argentina beats England ~1–0 in 90', France beats Argentina in the final → 5 of 7 tickets cash ($1,929 returned on $1,000).
+    <strong>Worst case (−$1,000):</strong> Spain advances in a 3+ goal game and England wins the final — every ticket dies.
+    The bankroll is weighted so the most probable outcomes (France advancing / France lifting the trophy) carry the most money.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--white);">$1,000</div>
+      <div class="sum-lbl">Total Budget</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">$1,000</div>
+      <div class="sum-lbl">Deployed</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--gold);">7</div>
+      <div class="sum-lbl">Active Bets</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-val" style="color:var(--green);">+$929</div>
+      <div class="sum-lbl">Best-Case P/L</div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Odds: BetMGM outrights (Jul 11) · FanDuel/DK semifinal lines (opening, Jul 11–12) · Kalshi prediction-market probabilities (Jul 9). Lines move — record uses these numbers.<br>
+    Settlement tracked in betting_tracker.xlsx, tab "World Cup 2026".
+  </p>
+
+</div>
+</body>
+</html>
