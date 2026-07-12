@@ -128,6 +128,43 @@
     .cl-name { font-size: 16px; }
   }
 
+  /* REFRESH BAR */
+  .refresh-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: var(--steel);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-top: 16px;
+  }
+  .rb-timer { font-size: 12px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; }
+  .rb-timer strong { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; color: var(--gold); letter-spacing: 2px; }
+  .rb-btn {
+    background: var(--gold);
+    color: #231A00;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    cursor: pointer;
+  }
+  .rb-btn:disabled { opacity: .5; cursor: wait; }
+  .refresh-panel { display: none; background: var(--steel); border: 1px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 8px; }
+  .refresh-panel.open { display: block; }
+  .rp-track { background: var(--mid); border-radius: 2px; height: 10px; overflow: hidden; }
+  .rp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 2px; transition: width .5s ease; }
+  .rp-status { font-size: 12px; color: var(--fog); margin-top: 8px; min-height: 18px; }
+  .rp-log { font-size: 11px; color: var(--silver); margin-top: 4px; line-height: 1.5; }
+  .rp-log .done::before { content: '✓ '; color: var(--green); }
+
   /* CLICKABLE ROWS + MODAL */
   .tl-row.linked, .slot.used { cursor: pointer; }
   .tl-row.linked:hover { background: rgba(212,160,23,.1); }
@@ -181,6 +218,17 @@
 </header>
 
 <div class="container">
+
+  <!-- REFRESH BAR -->
+  <div class="refresh-bar">
+    <span class="rb-timer">Next auto-refresh in <strong id="countdown">--:--</strong></span>
+    <button class="rb-btn" id="refreshBtn" onclick="refreshNow()">⟳ Refresh Now</button>
+  </div>
+  <div class="refresh-panel" id="refreshPanel">
+    <div class="rp-track"><div class="rp-fill" id="rpFill"></div></div>
+    <div class="rp-status" id="rpStatus"></div>
+    <div class="rp-log" id="rpLog"></div>
+  </div>
 
   <!-- ACCOUNT TILES -->
   <div class="tiles">
@@ -314,6 +362,76 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeCard();
   });
+
+  /* ── AUTO-REFRESH COUNTDOWN + MANUAL REFRESH ── */
+  var PAGE_BUILT = "2026-07-12T21:23:03Z"; // set when this page version was generated
+  var REPO_API = "https://api.github.com/repos/Jduchock/BettingPredictor/commits?per_page=1";
+
+  function nextRefreshTime() {
+    // hourly job fires at the top of the hour; data lands on the site ~10 past
+    var t = new Date();
+    t.setMinutes(10, 0, 0);
+    if (t <= new Date()) t.setHours(t.getHours() + 1);
+    return t;
+  }
+  function tickCountdown() {
+    var ms = nextRefreshTime() - new Date();
+    var m = Math.floor(ms / 60000), s = Math.floor((ms % 60000) / 1000);
+    document.getElementById('countdown').textContent =
+      String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  setInterval(tickCountdown, 1000);
+  tickCountdown();
+
+  function rpStep(pct, statusText, logLine) {
+    document.getElementById('rpFill').style.width = pct + '%';
+    document.getElementById('rpStatus').textContent = statusText;
+    if (logLine) {
+      var d = document.createElement('div');
+      d.className = 'done';
+      d.textContent = logLine;
+      document.getElementById('rpLog').appendChild(d);
+    }
+  }
+  function refreshNow() {
+    var btn = document.getElementById('refreshBtn');
+    btn.disabled = true;
+    var panel = document.getElementById('refreshPanel');
+    panel.classList.add('open');
+    document.getElementById('rpLog').innerHTML = '';
+    rpStep(10, 'Contacting update server…');
+    fetch(REPO_API)
+      .then(function(r) {
+        rpStep(40, 'Checking latest published version…', 'Connected to publish feed');
+        return r.json();
+      })
+      .then(function(data) {
+        var c = data[0];
+        var published = new Date(c.commit.committer.date);
+        var mine = new Date(PAGE_BUILT);
+        var msg = c.commit.message.split('\n')[0];
+        rpStep(70, 'Comparing with the version you are viewing…',
+               'Latest publish: "' + msg + '" at ' + published.toLocaleTimeString());
+        setTimeout(function() {
+          if (published > mine) {
+            rpStep(100, 'New data found — reloading the dashboard…', 'Update is newer than your copy — reloading');
+            setTimeout(function() {
+              window.location.href = window.location.pathname + '?v=' + Date.now();
+            }, 900);
+          } else {
+            var ms = nextRefreshTime() - new Date();
+            var mins = Math.max(1, Math.round(ms / 60000));
+            rpStep(100, 'Nothing was updated — you already have the latest version.',
+                   'No changes since ' + mine.toLocaleTimeString() + ' · next auto-refresh in ~' + mins + ' min');
+            btn.disabled = false;
+          }
+        }, 700);
+      })
+      .catch(function() {
+        rpStep(100, 'Could not reach the update server — try again in a moment.', 'Connection failed');
+        btn.disabled = false;
+      });
+  }
 </script>
 </body>
 </html>
