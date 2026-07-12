@@ -76,7 +76,8 @@
   .rules strong { color: var(--gold); }
 
   /* TIMELINE TABLE */
-  .tl { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .tl { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; margin-top: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tl-header, .tl-row { min-width: 660px; }
   .tl-header, .tl-row {
     display: grid;
     grid-template-columns: 26px 1fr 74px 64px 62px 74px 78px 88px;
@@ -117,6 +118,15 @@
   .slot.open .slot-name { color: var(--dim); }
 
   .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+
+  /* MOBILE COMPACTING */
+  @media (max-width: 560px) {
+    .tl-event .sub { display: none; }           /* kills the tall grey cells */
+    .tl-header, .tl-row { min-width: 620px; grid-template-columns: 22px 1fr 62px 58px 56px 62px 70px 78px; gap: 4px; padding: 9px 8px; }
+    .tl-row { font-size: 12px; }
+    .tl-money, .tl-pl, .tl-bal { font-size: 13.5px; }
+    .cl-name { font-size: 16px; }
+  }
 
   /* CLICKABLE ROWS + MODAL */
   .tl-row.linked, .slot.used { cursor: pointer; }
@@ -203,7 +213,7 @@
 
   <!-- TIMELINE -->
   <div class="section-head"><span class="section-head-text">Card Timeline — Account Impact</span></div>
-  <div class="tap-hint">Tap any card row to open its full betting card</div>
+  <div class="tap-hint">Tap any card row to open its full betting card · swipe table sideways on mobile</div>
   <div class="tl">
     <div class="tl-header">
       <span>#</span><span>Card</span><span>Date(s)</span><span>Status</span><span>Staked</span><span>Pending</span><span>P/L to Date</span><span>Balance After</span>
