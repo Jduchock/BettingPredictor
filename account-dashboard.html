@@ -219,15 +219,9 @@
 
 <div class="container">
 
-  <!-- REFRESH BAR -->
+  <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
-    <span class="rb-timer">Next auto-refresh in <strong id="countdown">--:--</strong></span>
-    <button class="rb-btn" id="refreshBtn" onclick="refreshNow()">⟳ Refresh Now</button>
-  </div>
-  <div class="refresh-panel" id="refreshPanel">
-    <div class="rp-track"><div class="rp-fill" id="rpFill"></div></div>
-    <div class="rp-status" id="rpStatus"></div>
-    <div class="rp-log" id="rpLog"></div>
+    <span class="rb-timer">Page auto-refreshes in <strong id="countdown">10:00</strong> · scores checked every ~10 min during live games</span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -385,7 +379,7 @@
   <p class="disclaimer">
     Fictitious account — no real money wagered. For entertainment/testing purposes only.<br>
     Balance moves as individual bets settle, not just when whole cards close. Full bet-level detail in betting_tracker.xlsx.<br>
-    Auto-refreshes hourly while cards are active · PDF counterpart regenerated on each update.
+    Scores checked every ~10 minutes during live games (hourly otherwise) · page reloads itself every 10 minutes · PDFs regenerated on each update.
   </p>
 
 </div>
@@ -412,75 +406,21 @@
     if (e.key === 'Escape') closeCard();
   });
 
-  /* ── AUTO-REFRESH COUNTDOWN + MANUAL REFRESH ── */
-  var PAGE_BUILT = "2026-07-12T22:02:00Z"; // set when this page version was generated
-  var REPO_API = "https://api.github.com/repos/Jduchock/BettingPredictor/commits?per_page=1";
-
-  function nextRefreshTime() {
-    // hourly job fires at the top of the hour; data lands on the site ~10 past
-    var t = new Date();
-    t.setMinutes(10, 0, 0);
-    if (t <= new Date()) t.setHours(t.getHours() + 1);
-    return t;
-  }
+  /* ── 10-MINUTE AUTO-REFRESH ── */
+  var REFRESH_SECS = 600;
+  var deadline = Date.now() + REFRESH_SECS * 1000;
   function tickCountdown() {
-    var ms = nextRefreshTime() - new Date();
+    var ms = deadline - Date.now();
+    if (ms <= 0) {
+      window.location.href = window.location.pathname + '?v=' + Date.now();
+      return;
+    }
     var m = Math.floor(ms / 60000), s = Math.floor((ms % 60000) / 1000);
-    document.getElementById('countdown').textContent =
-      String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    var el = document.getElementById('countdown');
+    if (el) el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
   }
   setInterval(tickCountdown, 1000);
   tickCountdown();
-
-  function rpStep(pct, statusText, logLine) {
-    document.getElementById('rpFill').style.width = pct + '%';
-    document.getElementById('rpStatus').textContent = statusText;
-    if (logLine) {
-      var d = document.createElement('div');
-      d.className = 'done';
-      d.textContent = logLine;
-      document.getElementById('rpLog').appendChild(d);
-    }
-  }
-  function refreshNow() {
-    var btn = document.getElementById('refreshBtn');
-    btn.disabled = true;
-    var panel = document.getElementById('refreshPanel');
-    panel.classList.add('open');
-    document.getElementById('rpLog').innerHTML = '';
-    rpStep(10, 'Contacting update server…');
-    fetch(REPO_API)
-      .then(function(r) {
-        rpStep(40, 'Checking latest published version…', 'Connected to publish feed');
-        return r.json();
-      })
-      .then(function(data) {
-        var c = data[0];
-        var published = new Date(c.commit.committer.date);
-        var mine = new Date(PAGE_BUILT);
-        var msg = c.commit.message.split('\n')[0];
-        rpStep(70, 'Comparing with the version you are viewing…',
-               'Latest publish: "' + msg + '" at ' + published.toLocaleTimeString());
-        setTimeout(function() {
-          if (published > mine) {
-            rpStep(100, 'New data found — reloading the dashboard…', 'Update is newer than your copy — reloading');
-            setTimeout(function() {
-              window.location.href = window.location.pathname + '?v=' + Date.now();
-            }, 900);
-          } else {
-            var ms = nextRefreshTime() - new Date();
-            var mins = Math.max(1, Math.round(ms / 60000));
-            rpStep(100, 'Nothing was updated — you already have the latest version.',
-                   'No changes since ' + mine.toLocaleTimeString() + ' · next auto-refresh in ~' + mins + ' min');
-            btn.disabled = false;
-          }
-        }, 700);
-      })
-      .catch(function() {
-        rpStep(100, 'Could not reach the update server — try again in a moment.', 'Connection failed');
-        btn.disabled = false;
-      });
-  }
 </script>
 </body>
 </html>
