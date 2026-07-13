@@ -221,13 +221,7 @@
 
   <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
-    <span class="rb-timer">Page auto-refreshes in <strong id="countdown">10:00</strong> · scores checked every ~10 min during live games</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;">
-      <input id="alertMins" type="number" min="1" max="180" value="15" style="width:52px;background:var(--mid);border:1px solid var(--dim);color:var(--white);border-radius:3px;padding:5px 6px;font-family:'Barlow',sans-serif;font-size:12px;text-align:center;" />
-      <button class="rb-btn" id="alertBtn" onclick="armAlert()">🔔 Sound alert (min)</button>
-      <button class="rb-btn" id="announceBtn" onclick="toggleAnnounce()" style="background:var(--green);color:#06230C;">🔊 Card announce: OFF</button>
-      <span id="alertStatus" style="font-size:11px;color:var(--amber);"></span>
-    </span>
+    <span class="rb-timer">Page auto-refreshes in <strong id="countdown">10:00</strong> · 🔊 voice announcements active</span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -446,88 +440,43 @@
     if (e.key === 'Escape') closeCard();
   });
 
-  /* ── SOUND ALERT TIMER ── */
-  var alertDeadline = null;
-  if (window.speechSynthesis) speechSynthesis.getVoices();
+  /* ── AUDIO (auto-unlock on first interaction) ── */
   var audioCtx = null;
-  function armAlert() {
-    var m = parseFloat(document.getElementById('alertMins').value);
-    if (!m || m <= 0) return;
+  var pendingClip = null;
+  function unlockAudio() {
     audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
     audioCtx.resume();
-    alertDeadline = Date.now() + m * 60000;
-    var t = new Date(alertDeadline);
-    document.getElementById('alertStatus').textContent =
-      '⏰ armed for ' + t.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) + ' (auto-refresh paused)';
-    // quick confirmation blip so you know sound works
-    beep(660, 0.15, 0);
+    if (pendingClip) { var f = pendingClip; pendingClip = null; playClip(f); }
+    var pill = document.getElementById('voicePill');
+    if (pill) pill.remove();
   }
-  function beep(freq, dur, when) {
-    var o = audioCtx.createOscillator();
-    var g = audioCtx.createGain();
-    o.connect(g); g.connect(audioCtx.destination);
-    o.frequency.value = freq;
-    o.type = 'square';
-    g.gain.setValueAtTime(0.4, audioCtx.currentTime + when);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + when + dur);
-    o.start(audioCtx.currentTime + when);
-    o.stop(audioCtx.currentTime + when + dur + 0.05);
-  }
-  function pickVoice() {
-    var vs = speechSynthesis.getVoices();
-    var prefs = ['Microsoft Aria', 'Microsoft Jenny', 'Google US English', 'Samantha', 'Victoria', 'Female'];
-    for (var p = 0; p < prefs.length; p++) {
-      for (var i = 0; i < vs.length; i++) {
-        if (vs[i].name.indexOf(prefs[p]) !== -1 && vs[i].lang.indexOf('en') === 0) return vs[i];
-      }
-    }
-    return vs.find(function(v){ return v.lang.indexOf('en') === 0; }) || vs[0];
+  document.addEventListener('pointerdown', unlockAudio);
+  document.addEventListener('keydown', unlockAudio);
+  function playClip(src) {
+    try {
+      var au = new Audio(src);
+      au.volume = 1.0;
+      au.play().catch(function() {
+        pendingClip = src;
+        if (!document.getElementById('voicePill')) {
+          var p = document.createElement('div');
+          p.id = 'voicePill';
+          p.textContent = '🔇 tap anywhere to hear her';
+          p.style.cssText = 'position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#231A00;font-family:Barlow,sans-serif;font-size:12px;font-weight:600;padding:7px 14px;border-radius:20px;z-index:2100;box-shadow:0 4px 16px rgba(0,0,0,.5);';
+          document.body.appendChild(p);
+        }
+      });
+    } catch (e) {}
   }
   function fallbackVoice() {
     try {
-      var u = new SpeechSynthesisUtterance("Your timer is up, John. The scores are in. Come check the page.");
+      var u = new SpeechSynthesisUtterance("My lord, there is news on the betting board. Come check the page.");
       u.pitch = 0.75; u.rate = 0.85; u.volume = 1.0;
       speechSynthesis.speak(u);
-    } catch (e) {
-      for (var r = 0; r < 3; r++) { beep(880, 0.25, r*1.2); beep(660, 0.25, r*1.2+0.35); beep(880, 0.45, r*1.2+0.7); }
-    }
-  }
-  function soundTheAlarm() {
-    beep(660, 0.15, 0);
-    var spoke = false;
-    try {
-      var a = new Audio('alarm-voice.mp3');
-      a.volume = 1.0;
-      var pr = a.play();
-      if (pr) { pr.then(function(){ spoke = true; }).catch(function(){ fallbackVoice(); }); }
-      spoke = true;
-    } catch (e) { fallbackVoice(); }
-    var ov = document.createElement('div');
-    ov.id = 'alarmOverlay';
-    ov.style.cssText = 'position:fixed;inset:0;background:rgba(212,160,23,.25);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-    ov.innerHTML = '<div style="background:var(--steel);border:3px solid var(--gold);border-radius:8px;padding:30px 40px;text-align:center;font-family:\'Barlow Condensed\',sans-serif;"><div style="font-size:42px;font-weight:900;color:var(--gold);">⏰ TIME TO CHECK THE PAGE</div><div style="font-size:15px;color:var(--fog);margin-top:8px;">Tap anywhere to dismiss — page will refresh for latest scores</div></div>';
-    ov.onclick = function() { window.location.href = window.location.pathname + '?v=' + Date.now(); };
-    document.body.appendChild(ov);
+    } catch (e) {}
   }
 
-  /* ── CARD-SETTLE ANNOUNCEMENTS ── */
-  var announceOn = false;
-  var announceTimer = null;
-  function toggleAnnounce() {
-    announceOn = !announceOn;
-    var b = document.getElementById('announceBtn');
-    b.textContent = announceOn ? '🔊 Card announce: ON' : '🔊 Card announce: OFF';
-    b.style.background = announceOn ? 'var(--gold)' : 'var(--green)';
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    audioCtx.resume();
-    if (announceOn) {
-      beep(880, 0.12, 0); // confirm sound works
-      pollAnnouncements();
-      announceTimer = setInterval(pollAnnouncements, 60000);
-    } else {
-      clearInterval(announceTimer);
-    }
-  }
+  /* ── CARD ANNOUNCEMENTS (always on) ── */
   function getAnnounced() {
     try { return JSON.parse(localStorage.getItem('announcedIds') || '[]'); } catch (e) { return []; }
   }
@@ -543,14 +492,17 @@
             seen.push(a.id);
             try { localStorage.setItem('announcedIds', JSON.stringify(seen)); } catch (e) {}
             announceCard(a);
-            break; // one per poll to avoid overlap
+            break;
           }
         }
       })
       .catch(function() {});
   }
-  function announceCard(a, onDismiss) {
-    try { var au = new Audio(a.file + '?v=' + (a.ts || 0)); au.volume = 1.0; au.play().catch(function(){}); } catch (e) {}
+  setInterval(pollAnnouncements, 60000);
+  setTimeout(pollAnnouncements, 4000);
+
+  function announceCard(a) {
+    if (a.file) { playClip(a.file + '?v=' + (a.ts || 0)); } else { fallbackVoice(); }
     var ov = document.createElement('div');
     var losing = a.pl && a.pl < 0;
     var tint = losing ? 'rgba(193,18,31,.22)' : 'rgba(40,167,69,.22)';
@@ -562,14 +514,7 @@
       '<div style="font-size:34px;font-weight:900;color:var(--white);margin-top:6px;">' + (a.card || '') + '</div>' +
       '<div style="font-size:26px;font-weight:700;margin-top:6px;color:' + color + ';">' + (a.headline || '') + '</div>' +
       '<div style="font-size:13px;color:var(--fog);margin-top:10px;font-family:\'Barlow\',sans-serif;">Tap to refresh the dashboard</div></div>';
-    ov.onclick = function() {
-      if (a.test) {
-        document.body.removeChild(ov);
-        if (onDismiss) setTimeout(onDismiss, 600);
-      } else {
-        window.location.href = window.location.pathname + '?v=' + Date.now();
-      }
-    };
+    ov.onclick = function() { window.location.href = window.location.pathname + '?v=' + Date.now(); };
     document.body.appendChild(ov);
   }
 
@@ -577,17 +522,9 @@
   var REFRESH_SECS = 600;
   var deadline = Date.now() + REFRESH_SECS * 1000;
   function tickCountdown() {
-    if (alertDeadline) {
-      if (Date.now() >= alertDeadline) {
-        alertDeadline = null;
-        document.getElementById('alertStatus').textContent = '';
-        soundTheAlarm();
-        deadline = Date.now() + 120000; // resume auto-refresh 2 min after alarm
-        return;
-      }
-      deadline = Date.now() + REFRESH_SECS * 1000; // hold auto-refresh while armed
+    if (document.querySelector('[id^=alarmOverlay]') || document.getElementById('voicePill') || pendingClip) {
+      deadline = Math.max(deadline, Date.now() + 60000); // don't reload out from under a pending announcement
     }
-    if (announceOn) { deadline = Date.now() + REFRESH_SECS * 1000; } // hold auto-refresh while listening
     var ms = deadline - Date.now();
     if (ms <= 0) {
       window.location.href = window.location.pathname + '?v=' + Date.now();
