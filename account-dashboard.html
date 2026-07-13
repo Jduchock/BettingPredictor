@@ -455,7 +455,9 @@
   function playClip(src) {
     try {
       var au = new Audio(src);
-      au.volume = 1.0;
+      au.volume = 0.75;          /* 25% quieter (John, Jul 13) */
+      au.playbackRate = 1.2;     /* 20% faster; preservesPitch keeps her voice natural */
+      if ('preservesPitch' in au) au.preservesPitch = true;
       au.play().catch(function() {
         pendingClip = src;
         if (!document.getElementById('voicePill')) {
@@ -471,7 +473,7 @@
   function fallbackVoice() {
     try {
       var u = new SpeechSynthesisUtterance("Hi there, it's Betty. There is news on the betting board. Come check the page.");
-      u.pitch = 0.75; u.rate = 0.85; u.volume = 1.0;
+      u.pitch = 0.75; u.rate = 1.02; u.volume = 0.75;
       speechSynthesis.speak(u);
     } catch (e) {}
   }
@@ -567,7 +569,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-13T14:05:00Z";
+  var PAGE_BUILT = "2026-07-13T14:20:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {
