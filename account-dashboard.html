@@ -477,6 +477,7 @@
   }
 
   /* ── CARD ANNOUNCEMENTS (always on) ── */
+  var firstPollDone = false;
   function getAnnounced() {
     try { return JSON.parse(localStorage.getItem('announcedIds') || '[]'); } catch (e) { return []; }
   }
@@ -488,11 +489,26 @@
         if (eta) eta.textContent = data.nextExpected ? ('next update expected: ' + data.nextExpected) : 'she speaks only when a card changes';
         var seen = getAnnounced();
         var list = (data && data.announcements) || [];
+        var changed = false;
+        /* Fresh browser session: mark everything already in the manifest as seen,
+           silently. Betty only speaks about news that arrives AFTER you open the page. */
+        if (!firstPollDone) {
+          firstPollDone = true;
+          for (var j = 0; j < list.length; j++) {
+            if (seen.indexOf(list[j].id) === -1) { seen.push(list[j].id); changed = true; }
+          }
+          if (changed) { try { localStorage.setItem('announcedIds', JSON.stringify(seen)); } catch (e) {} }
+          return;
+        }
+        var nowSec = Math.floor(Date.now() / 1000);
         for (var i = 0; i < list.length; i++) {
           var a = list[i];
           if (seen.indexOf(a.id) === -1) {
             seen.push(a.id);
             try { localStorage.setItem('announcedIds', JSON.stringify(seen)); } catch (e) {}
+            /* check-ins are retired, and anything older than 30 min is stale — mark seen, stay silent */
+            if (a.kind === 'checkin') continue;
+            if (a.ts && (nowSec - a.ts) > 1800) continue;
             announceCard(a);
             break;
           }
@@ -528,7 +544,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-13T07:30:00Z";
+  var PAGE_BUILT = "2026-07-13T13:35:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {
