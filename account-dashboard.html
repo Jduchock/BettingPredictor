@@ -221,7 +221,7 @@
 
   <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
-    <span class="rb-timer">Page auto-refreshes in <strong id="countdown">10:00</strong> · 🔊 voice announcements active</span>
+    <span class="rb-timer">Betty's next update in <strong id="countdown">10:00</strong> (voice announcements active)</span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -413,7 +413,7 @@
   <p class="disclaimer">
     Fictitious account — no real money wagered. For entertainment/testing purposes only.<br>
     Balance moves as individual bets settle, not just when whole cards close. Full bet-level detail in betting_tracker.xlsx.<br>
-    Scores checked every ~10 minutes during live games (hourly otherwise) · page reloads itself every 10 minutes · PDFs regenerated on each update.
+    Betty checks scores every ~10 minutes during live games (hourly otherwise) and speaks when cards change · PDFs regenerated on each update.
   </p>
 
 </div>
@@ -461,7 +461,7 @@
         if (!document.getElementById('voicePill')) {
           var p = document.createElement('div');
           p.id = 'voicePill';
-          p.textContent = '🔇 tap anywhere to hear her';
+          p.textContent = '🔇 tap anywhere to hear Betty';
           p.style.cssText = 'position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#231A00;font-family:Barlow,sans-serif;font-size:12px;font-weight:600;padding:7px 14px;border-radius:20px;z-index:2100;box-shadow:0 4px 16px rgba(0,0,0,.5);';
           document.body.appendChild(p);
         }
@@ -470,7 +470,7 @@
   }
   function fallbackVoice() {
     try {
-      var u = new SpeechSynthesisUtterance("My lord, there is news on the betting board. Come check the page.");
+      var u = new SpeechSynthesisUtterance("My lord, it is Betty. There is news on the betting board. Come check the page.");
       u.pitch = 0.75; u.rate = 0.85; u.volume = 1.0;
       speechSynthesis.speak(u);
     } catch (e) {}
