@@ -44,7 +44,16 @@
       "card": "All cards",
       "headline": "Nothing to report · NASCAR finish expected ~12:45 AM CT (back green, 150 laps to go)",
       "pl": 0
+    },
+    {
+      "id": "checkin-0113",
+      "kind": "checkin",
+      "file": "announce-checkin-0113.mp3",
+      "ts": 1783923216,
+      "card": "All cards",
+      "headline": "Nothing to report · NASCAR final expected ~1:40 AM CT (back green after red flag)",
+      "pl": 0
     }
   ],
-  "nextExpected": "NASCAR finish ~12:45 AM CT (back under green) · then France–Spain ~4-5 PM CT Tue"
+  "nextExpected": "NASCAR final ~1:40 AM CT · then France–Spain ~4-5 PM CT Tue"
 }
