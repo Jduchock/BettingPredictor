@@ -552,10 +552,13 @@
   function announceCard(a) {
     try { var au = new Audio(a.file + '?v=' + (a.ts || 0)); au.volume = 1.0; au.play().catch(function(){}); } catch (e) {}
     var ov = document.createElement('div');
-    ov.style.cssText = 'position:fixed;inset:0;background:rgba(212,160,23,.22);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-    var color = (a.pl && a.pl < 0) ? '#FF6B6B' : 'var(--green)';
+    var losing = a.pl && a.pl < 0;
+    var tint = losing ? 'rgba(193,18,31,.22)' : 'rgba(40,167,69,.22)';
+    ov.style.cssText = 'position:fixed;inset:0;background:' + tint + ';z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+    var color = losing ? '#FF6B6B' : 'var(--green)';
+    var heading = (a.kind === 'update') ? '📜 Card Update, My Lord' : '🎴 Card Complete, My Lord';
     ov.innerHTML = '<div style="background:var(--steel);border:3px solid var(--gold);border-radius:8px;padding:28px 36px;text-align:center;max-width:90vw;font-family:\'Barlow Condensed\',sans-serif;">' +
-      '<div style="font-size:15px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">🎴 Card Complete, My Lord</div>' +
+      '<div style="font-size:15px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">' + heading + '</div>' +
       '<div style="font-size:34px;font-weight:900;color:var(--white);margin-top:6px;">' + (a.card || '') + '</div>' +
       '<div style="font-size:26px;font-weight:700;margin-top:6px;color:' + color + ';">' + (a.headline || '') + '</div>' +
       '<div style="font-size:13px;color:var(--fog);margin-top:10px;font-family:\'Barlow\',sans-serif;">Tap to refresh the dashboard</div></div>';
