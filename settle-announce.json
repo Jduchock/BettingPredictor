@@ -17,7 +17,16 @@
    "card": "All cards",
    "headline": "Nothing to report \u00b7 NASCAR expected ~9:10 PM CT, Aces ~10:00 PM CT",
    "pl": 0
+  },
+  {
+   "id": "checkin-2125",
+   "kind": "checkin",
+   "file": "announce-checkin-2125.mp3",
+   "ts": 1783908106,
+   "card": "All cards",
+   "headline": "NASCAR under lightning delay \u00b7 Aces news expected ~10:00 PM CT \u00b7 Blaney won Stage 1",
+   "pl": 0
   }
  ],
- "nextExpected": "NASCAR ~9:10 PM CT (\u00b120 min) \u00b7 Aces ~10:00 PM CT"
+ "nextExpected": "Aces ~10:00 PM CT \u00b7 NASCAR under lightning delay (TBD)"
 }
