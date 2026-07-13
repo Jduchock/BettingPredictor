@@ -53,7 +53,16 @@
       "card": "All cards",
       "headline": "Nothing to report · NASCAR final expected ~1:40 AM CT (back green after red flag)",
       "pl": 0
+    },
+    {
+      "id": "nascar-jul12-settle",
+      "kind": "settle",
+      "file": "announce-nascar-jul12-settle.mp3",
+      "ts": 1783927658,
+      "card": "NASCAR Quaker State 400",
+      "headline": "SETTLED 1–6 · −$434.51 · Blaney won in OT (H2H ✓, basket/Suárez/Larson ✗)",
+      "pl": -434.51
     }
   ],
-  "nextExpected": "NASCAR final ~1:40 AM CT · then France–Spain ~4-5 PM CT Tue"
+  "nextExpected": "France–Spain semifinal ~2 PM CT Tue · first World Cup grades by ~5 PM CT"
 }
