@@ -8,6 +8,16 @@
    "card": "WNBA Sunday Doubleheader",
    "headline": "Bueckers 20+ \u2713 \u00b7 spread/total/parlay \u2717 \u00b7 1\u20133 (\u2212$355.66)",
    "pl": -355.66
+  },
+  {
+   "id": "checkin-2045",
+   "kind": "checkin",
+   "file": "announce-checkin-2045.mp3",
+   "ts": 1783905023,
+   "card": "All cards",
+   "headline": "Nothing to report \u00b7 NASCAR expected ~9:10 PM CT, Aces ~10:00 PM CT",
+   "pl": 0
   }
- ]
+ ],
+ "nextExpected": "NASCAR ~9:10 PM CT (\u00b120 min) \u00b7 Aces ~10:00 PM CT"
 }

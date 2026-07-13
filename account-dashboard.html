@@ -221,7 +221,7 @@
 
   <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
-    <span class="rb-timer">Betty checks for news in <strong id="countdown">0:60</strong> · she speaks only when a card changes</span>
+    <span class="rb-timer">Betty checks for news in <strong id="countdown">0:60</strong> · <span id="nextEta" style="color:var(--gold);"></span></span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -484,6 +484,8 @@
     fetch('settle-announce.json?v=' + Date.now())
       .then(function(r) { return r.json(); })
       .then(function(data) {
+        var eta = document.getElementById('nextEta');
+        if (eta) eta.textContent = data.nextExpected ? ('next update expected: ' + data.nextExpected) : 'she speaks only when a card changes';
         var seen = getAnnounced();
         var list = (data && data.announcements) || [];
         for (var i = 0; i < list.length; i++) {
@@ -502,6 +504,14 @@
 
   function announceCard(a) {
     if (a.file) { playClip(a.file + '?v=' + (a.ts || 0)); } else { fallbackVoice(); }
+    if (a.kind === 'checkin') {
+      var t = document.createElement('div');
+      t.textContent = '💬 ' + (a.headline || 'Betty checked in — nothing to report');
+      t.style.cssText = 'position:fixed;bottom:14px;left:14px;background:var(--steel);border:1px solid var(--gold);color:var(--fog);font-family:Barlow,sans-serif;font-size:12.5px;padding:9px 14px;border-radius:6px;z-index:2100;max-width:70vw;box-shadow:0 4px 16px rgba(0,0,0,.5);';
+      document.body.appendChild(t);
+      setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 14000);
+      return;
+    }
     var ov = document.createElement('div');
     var losing = a.pl && a.pl < 0;
     var tint = losing ? 'rgba(193,18,31,.22)' : 'rgba(40,167,69,.22)';
