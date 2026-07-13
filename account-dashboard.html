@@ -226,6 +226,7 @@
       <input id="alertMins" type="number" min="1" max="180" value="15" style="width:52px;background:var(--mid);border:1px solid var(--dim);color:var(--white);border-radius:3px;padding:5px 6px;font-family:'Barlow',sans-serif;font-size:12px;text-align:center;" />
       <button class="rb-btn" id="alertBtn" onclick="armAlert()">🔔 Sound alert (min)</button>
       <button class="rb-btn" id="announceBtn" onclick="toggleAnnounce()" style="background:var(--green);color:#06230C;">🔊 Card announce: OFF</button>
+      <button class="rb-btn" onclick="runAnnounceTest()" style="background:var(--blue);color:#04121F;">🧪 GO — test announcements</button>
       <span id="alertStatus" style="font-size:11px;color:var(--amber);"></span>
     </span>
   </div>
@@ -549,7 +550,7 @@
       })
       .catch(function() {});
   }
-  function announceCard(a) {
+  function announceCard(a, onDismiss) {
     try { var au = new Audio(a.file + '?v=' + (a.ts || 0)); au.volume = 1.0; au.play().catch(function(){}); } catch (e) {}
     var ov = document.createElement('div');
     var losing = a.pl && a.pl < 0;
@@ -562,8 +563,31 @@
       '<div style="font-size:34px;font-weight:900;color:var(--white);margin-top:6px;">' + (a.card || '') + '</div>' +
       '<div style="font-size:26px;font-weight:700;margin-top:6px;color:' + color + ';">' + (a.headline || '') + '</div>' +
       '<div style="font-size:13px;color:var(--fog);margin-top:10px;font-family:\'Barlow\',sans-serif;">Tap to refresh the dashboard</div></div>';
-    ov.onclick = function() { window.location.href = window.location.pathname + '?v=' + Date.now(); };
+    ov.onclick = function() {
+      if (a.test) {
+        document.body.removeChild(ov);
+        if (onDismiss) setTimeout(onDismiss, 600);
+      } else {
+        window.location.href = window.location.pathname + '?v=' + Date.now();
+      }
+    };
     document.body.appendChild(ov);
+  }
+
+  function runAnnounceTest() {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    audioCtx.resume();
+    announceCard({
+      test: true, kind: 'update', file: 'test-nascar-win.mp3', ts: 1,
+      card: 'NASCAR Quaker State 400',
+      headline: 'TEST · Suárez Top-5 ✓ · winners so far (+$912)', pl: 912
+    }, function() {
+      announceCard({
+        test: true, kind: 'update', file: 'test-nascar-loss.mp3', ts: 1,
+        card: 'NASCAR Quaker State 400',
+        headline: 'TEST · Larson longshot ✗ · losers so far (−$40)', pl: -40
+      });
+    });
   }
 
   /* ── 10-MINUTE AUTO-REFRESH ── */
