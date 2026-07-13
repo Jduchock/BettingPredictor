@@ -447,6 +447,7 @@
 
   /* ── SOUND ALERT TIMER ── */
   var alertDeadline = null;
+  if (window.speechSynthesis) speechSynthesis.getVoices();
   var audioCtx = null;
   function armAlert() {
     var m = parseFloat(document.getElementById('alertMins').value);
@@ -471,11 +472,33 @@
     o.start(audioCtx.currentTime + when);
     o.stop(audioCtx.currentTime + when + dur + 0.05);
   }
+  function pickVoice() {
+    var vs = speechSynthesis.getVoices();
+    var prefs = ['Microsoft Aria', 'Microsoft Jenny', 'Google US English', 'Samantha', 'Victoria', 'Female'];
+    for (var p = 0; p < prefs.length; p++) {
+      for (var i = 0; i < vs.length; i++) {
+        if (vs[i].name.indexOf(prefs[p]) !== -1 && vs[i].lang.indexOf('en') === 0) return vs[i];
+      }
+    }
+    return vs.find(function(v){ return v.lang.indexOf('en') === 0; }) || vs[0];
+  }
   function soundTheAlarm() {
-    for (var r = 0; r < 3; r++) {
-      beep(880, 0.25, r * 1.2);
-      beep(660, 0.25, r * 1.2 + 0.35);
-      beep(880, 0.45, r * 1.2 + 0.7);
+    beep(660, 0.2, 0);
+    beep(880, 0.3, 0.25);
+    try {
+      var u = new SpeechSynthesisUtterance(
+        "Well... hello there. Your timer is up, John. The scores are in... come and check the page.");
+      u.voice = pickVoice();
+      u.pitch = 0.75;   /* lower = smokier */
+      u.rate = 0.85;    /* slower = sultrier */
+      u.volume = 1.0;
+      setTimeout(function(){ speechSynthesis.speak(u); }, 700);
+    } catch (e) {
+      for (var r = 0; r < 3; r++) {
+        beep(880, 0.25, 1 + r * 1.2);
+        beep(660, 0.25, 1 + r * 1.2 + 0.35);
+        beep(880, 0.45, 1 + r * 1.2 + 0.7);
+      }
     }
     var ov = document.createElement('div');
     ov.id = 'alarmOverlay';
