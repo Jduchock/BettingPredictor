@@ -226,7 +226,6 @@
       <input id="alertMins" type="number" min="1" max="180" value="15" style="width:52px;background:var(--mid);border:1px solid var(--dim);color:var(--white);border-radius:3px;padding:5px 6px;font-family:'Barlow',sans-serif;font-size:12px;text-align:center;" />
       <button class="rb-btn" id="alertBtn" onclick="armAlert()">🔔 Sound alert (min)</button>
       <button class="rb-btn" id="announceBtn" onclick="toggleAnnounce()" style="background:var(--green);color:#06230C;">🔊 Card announce: OFF</button>
-      <button class="rb-btn" onclick="runAnnounceTest()" style="background:var(--blue);color:#04121F;">🧪 GO — test announcements</button>
       <span id="alertStatus" style="font-size:11px;color:var(--amber);"></span>
     </span>
   </div>
@@ -572,22 +571,6 @@
       }
     };
     document.body.appendChild(ov);
-  }
-
-  function runAnnounceTest() {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    audioCtx.resume();
-    announceCard({
-      test: true, kind: 'update', file: 'test-nascar-win.mp3', ts: 1,
-      card: 'NASCAR Quaker State 400',
-      headline: 'TEST · Suárez Top-5 ✓ · winners so far (+$912)', pl: 912
-    }, function() {
-      announceCard({
-        test: true, kind: 'update', file: 'test-nascar-loss.mp3', ts: 1,
-        card: 'NASCAR Quaker State 400',
-        headline: 'TEST · Larson longshot ✗ · losers so far (−$40)', pl: -40
-      });
-    });
   }
 
   /* ── 10-MINUTE AUTO-REFRESH ── */
