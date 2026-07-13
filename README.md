@@ -11,7 +11,7 @@ Live roll-up of the whole experiment: account balance, active card slots, per-ca
 ## Other links
 
 - **[Site hub](https://jduchock.github.io/BettingPredictor/)** — all betting cards (active + archived), PDF versions, and the Excel tracker download
-- Each card also has a PDF companion for easy sharing (same filename, `.pdf`)
+- Each card also has a PDF companion for easy sharing (in the [`pdfs/`](pdfs/) folder; card pages live in [`cards/`](cards/), voice clips in [`audio/`](audio/))
 
 ## How it works
 

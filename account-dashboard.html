@@ -261,7 +261,7 @@
       <span>#</span><span>Card</span><span>Date(s)</span><span>Status</span><span>P/L to Date</span><span>Pending</span><span>Staked</span><span>Running Bal.</span>
     </div>
 
-    <div class="tl-row active linked" onclick="openCard('wc2026-betting-card.html')">
+    <div class="tl-row active linked" onclick="openCard('cards/wc2026-betting-card.html')">
       <div class="tl-num">2</div>
       <div class="tl-event">World Cup 2026 — Final Four<div class="sub">7 hedged bets · France anchor · semis Tue/Wed, final Sun</div></div>
       <div class="tl-date">Jul 14–19</div>
@@ -272,7 +272,7 @@
       <div class="tl-bal">$5,000.00</div>
     </div>
 
-    <div class="tl-row active linked" onclick="openCard('open2026-betting-card.html')">
+    <div class="tl-row active linked" onclick="openCard('cards/open2026-betting-card.html')">
       <div class="tl-num">6</div>
       <div class="tl-event">The Open Championship (golf)<div class="sub">Royal Birkdale · $600 outright basket + $400 props Wed · first tee Thu</div></div>
       <div class="tl-date">Jul 16–19</div>
@@ -283,7 +283,7 @@
       <div class="tl-bal">$5,000.00</div>
     </div>
 
-    <div class="tl-row linked" style="border-left:3px solid var(--amber);" onclick="openCard('rugby-jul18-betting-card.html')">
+    <div class="tl-row linked" style="border-left:3px solid var(--amber);" onclick="openCard('cards/rugby-jul18-betting-card.html')">
       <div class="tl-num">7</div>
       <div class="tl-event">Rugby Nations Cup — Final Rd<div class="sub">Draft built · odds post ~Friday · USA-Spain centerpiece</div></div>
       <div class="tl-date">Jul 18</div>
@@ -294,7 +294,7 @@
       <div class="tl-bal">$5,000.00</div>
     </div>
 
-    <div class="tl-row archive linked" onclick="openCard('nascar-jul12-betting-card.html')">
+    <div class="tl-row archive linked" onclick="openCard('cards/nascar-jul12-betting-card.html')">
       <div class="tl-num">4</div>
       <div class="tl-event">NASCAR Quaker State 400<div class="sub">1–6 (14.3%) · Blaney won in OT ~1 AM CT after 3h lightning red flag · H2H anchor cashed, basket swept</div></div>
       <div class="tl-date">Jul 12–13</div>
@@ -305,7 +305,7 @@
       <div class="tl-bal" style="color:#FF6B6B;">$4,565.49</div>
     </div>
 
-    <div class="tl-row archive linked" onclick="openCard('wnba-jul12-betting-card.html')">
+    <div class="tl-row archive linked" onclick="openCard('cards/wnba-jul12-betting-card.html')">
       <div class="tl-num">5</div>
       <div class="tl-event">WNBA Sunday Doubleheader<div class="sub">3–4 (42.9%) · Fever routed Aces 109–75 · Wilson DD ✓ + Mitchell threes ✓ · spreads/over/parlay ✗</div></div>
       <div class="tl-date">Jul 12</div>
@@ -316,7 +316,7 @@
       <div class="tl-bal" style="color:#FF6B6B;">$4,267.33</div>
     </div>
 
-    <div class="tl-row archive linked" onclick="openCard('mlb-jul12-betting-card.html')">
+    <div class="tl-row archive linked" onclick="openCard('cards/mlb-jul12-betting-card.html')">
       <div class="tl-num">3</div>
       <div class="tl-event">MLB Sunday Slate<div class="sub">3–5 (37.5%) · Giants/Pirates/Mariners won · longshot missed</div></div>
       <div class="tl-date">Jul 12</div>
@@ -327,7 +327,7 @@
       <div class="tl-bal" style="color:#FF6B6B;">$4,069.57</div>
     </div>
 
-    <div class="tl-row archive linked" onclick="openCard('ufc329-betting-card.html')">
+    <div class="tl-row archive linked" onclick="openCard('cards/ufc329-betting-card.html')">
       <div class="tl-num">1</div>
       <div class="tl-event">UFC 329: McGregor vs Holloway 2<div class="sub">6–3 (66.7%) · method call correct · archives Jul 18</div></div>
       <div class="tl-date">Jul 11</div>
@@ -342,11 +342,11 @@
   <!-- SLOTS -->
   <div class="section-head"><span class="section-head-text">Active Card Slots (max 4)</span></div>
   <div class="slots">
-    <div class="slot used" onclick="openCard('wc2026-betting-card.html')">
+    <div class="slot used" onclick="openCard('cards/wc2026-betting-card.html')">
       <div class="slot-name">World Cup 2026</div>
       <div class="slot-stake">$1,000 at risk · thru Jul 19</div>
     </div>
-    <div class="slot used" onclick="openCard('open2026-betting-card.html')">
+    <div class="slot used" onclick="openCard('cards/open2026-betting-card.html')">
       <div class="slot-name">The Open (golf)</div>
       <div class="slot-stake">$600 at risk · thru Sun Jul 19</div>
     </div>
@@ -531,7 +531,7 @@
       sessionStorage.setItem('bettyGreeted', '1');
       localStorage.setItem('lastGreetTs', String(Date.now()));
     } catch (e) {}
-    playClip(g.file + '?v=' + (g.ts || 0));
+    playClip('audio/' + g.file + '?v=' + (g.ts || 0));
     if (g.headline) {
       var t = document.createElement('div');
       t.textContent = '👋 ' + g.headline;
@@ -542,7 +542,7 @@
   }
 
   function announceCard(a) {
-    if (a.file) { playClip(a.file + '?v=' + (a.ts || 0)); } else { fallbackVoice(); }
+    if (a.file) { playClip('audio/' + a.file + '?v=' + (a.ts || 0)); } else { fallbackVoice(); }
     if (a.kind === 'checkin') {
       var t = document.createElement('div');
       t.textContent = '💬 ' + (a.headline || 'Betty checked in — nothing to report');
@@ -567,7 +567,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-13T13:48:00Z";
+  var PAGE_BUILT = "2026-07-13T14:05:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {
