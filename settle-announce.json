@@ -1,4 +1,9 @@
 {
   "announcements": [],
+  "greeting": {
+    "file": "announce-greeting.mp3",
+    "ts": 1783950300,
+    "headline": "Account $4,234.68 (−15.3%) · WC semis Tue/Wed · The Open Thu · Rugby Sat"
+  },
   "nextExpected": "France–Spain semifinal ~2 PM CT Tuesday · first World Cup grades by ~5 PM CT"
 }

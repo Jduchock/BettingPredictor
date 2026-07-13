@@ -470,7 +470,7 @@
   }
   function fallbackVoice() {
     try {
-      var u = new SpeechSynthesisUtterance("My lord, it is Betty. There is news on the betting board. Come check the page.");
+      var u = new SpeechSynthesisUtterance("Hi there, it's Betty. There is news on the betting board. Come check the page.");
       u.pitch = 0.75; u.rate = 0.85; u.volume = 1.0;
       speechSynthesis.speak(u);
     } catch (e) {}
@@ -498,6 +498,7 @@
             if (seen.indexOf(list[j].id) === -1) { seen.push(list[j].id); changed = true; }
           }
           if (changed) { try { localStorage.setItem('announcedIds', JSON.stringify(seen)); } catch (e) {} }
+          maybeGreet(data.greeting);
           return;
         }
         var nowSec = Math.floor(Date.now() / 1000);
@@ -518,6 +519,28 @@
   }
   setTimeout(pollAnnouncements, 4000);
 
+  /* ── FRESH-SESSION GREETING ──
+     Plays once per browser session (max once per hour on the same device):
+     a friendly hello with where the account stands and what's coming up. */
+  function maybeGreet(g) {
+    if (!g || !g.file) return;
+    try {
+      if (sessionStorage.getItem('bettyGreeted')) return;
+      var last = parseInt(localStorage.getItem('lastGreetTs') || '0', 10);
+      if (Date.now() - last < 3600000) return;
+      sessionStorage.setItem('bettyGreeted', '1');
+      localStorage.setItem('lastGreetTs', String(Date.now()));
+    } catch (e) {}
+    playClip(g.file + '?v=' + (g.ts || 0));
+    if (g.headline) {
+      var t = document.createElement('div');
+      t.textContent = '👋 ' + g.headline;
+      t.style.cssText = 'position:fixed;bottom:14px;left:14px;background:var(--steel);border:1px solid var(--gold);color:var(--fog);font-family:Barlow,sans-serif;font-size:12.5px;padding:9px 14px;border-radius:6px;z-index:2100;max-width:70vw;box-shadow:0 4px 16px rgba(0,0,0,.5);';
+      document.body.appendChild(t);
+      setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 18000);
+    }
+  }
+
   function announceCard(a) {
     if (a.file) { playClip(a.file + '?v=' + (a.ts || 0)); } else { fallbackVoice(); }
     if (a.kind === 'checkin') {
@@ -533,7 +556,7 @@
     var tint = losing ? 'rgba(193,18,31,.22)' : 'rgba(40,167,69,.22)';
     ov.style.cssText = 'position:fixed;inset:0;background:' + tint + ';z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;';
     var color = losing ? '#FF6B6B' : 'var(--green)';
-    var heading = (a.kind === 'update') ? '📜 Card Update, My Lord' : '🎴 Card Complete, My Lord';
+    var heading = (a.kind === 'update') ? '📜 Card Update' : '🎴 Card Complete';
     ov.innerHTML = '<div style="background:var(--steel);border:3px solid var(--gold);border-radius:8px;padding:28px 36px;text-align:center;max-width:90vw;font-family:\'Barlow Condensed\',sans-serif;">' +
       '<div style="font-size:15px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">' + heading + '</div>' +
       '<div style="font-size:34px;font-weight:900;color:var(--white);margin-top:6px;">' + (a.card || '') + '</div>' +
@@ -544,7 +567,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-13T13:35:00Z";
+  var PAGE_BUILT = "2026-07-13T13:48:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {
