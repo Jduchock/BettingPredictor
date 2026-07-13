@@ -1,1 +1,13 @@
-{"announcements": []}
+{
+ "announcements": [
+  {
+   "id": "wnba-jul12-u1",
+   "kind": "update",
+   "file": "announce-wnba-jul12-u1.mp3",
+   "ts": 1783903992,
+   "card": "WNBA Sunday Doubleheader",
+   "headline": "Bueckers 20+ \u2713 \u00b7 spread/total/parlay \u2717 \u00b7 1\u20133 (\u2212$355.66)",
+   "pl": -355.66
+  }
+ ]
+}
