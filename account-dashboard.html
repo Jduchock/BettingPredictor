@@ -221,7 +221,7 @@
 
   <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
-    <span class="rb-timer">Betty's next update in <strong id="countdown">10:00</strong> (voice announcements active)</span>
+    <span class="rb-timer">Betty checks for news in <strong id="countdown">0:60</strong> · she speaks only when a card changes</span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -498,7 +498,6 @@
       })
       .catch(function() {});
   }
-  setInterval(pollAnnouncements, 60000);
   setTimeout(pollAnnouncements, 4000);
 
   function announceCard(a) {
@@ -518,21 +517,37 @@
     document.body.appendChild(ov);
   }
 
-  /* ── 10-MINUTE AUTO-REFRESH ── */
-  var REFRESH_SECS = 600;
-  var deadline = Date.now() + REFRESH_SECS * 1000;
+  /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
+  var PAGE_BUILT = "2026-07-13T00:59:51Z";
+  var CHECK_SECS = 60;
+  var nextCheck = Date.now() + CHECK_SECS * 1000;
+  function checkForNewPublish() {
+    fetch('https://api.github.com/repos/Jduchock/BettingPredictor/commits?per_page=1')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var published = new Date(data[0].commit.committer.date);
+        if (published > new Date(PAGE_BUILT) && !document.getElementById('freshChip')) {
+          var p = document.createElement('div');
+          p.id = 'freshChip';
+          p.textContent = '🔄 New data published — tap to refresh';
+          p.style.cssText = 'position:fixed;bottom:14px;right:14px;background:var(--blue);color:#04121F;font-family:Barlow,sans-serif;font-size:12px;font-weight:600;padding:8px 14px;border-radius:20px;z-index:2100;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.5);';
+          p.onclick = function() { window.location.href = window.location.pathname + '?v=' + Date.now(); };
+          document.body.appendChild(p);
+        }
+      })
+      .catch(function() {});
+  }
   function tickCountdown() {
-    if (document.querySelector('[id^=alarmOverlay]') || document.getElementById('voicePill') || pendingClip) {
-      deadline = Math.max(deadline, Date.now() + 60000); // don't reload out from under a pending announcement
-    }
-    var ms = deadline - Date.now();
+    var ms = nextCheck - Date.now();
     if (ms <= 0) {
-      window.location.href = window.location.pathname + '?v=' + Date.now();
-      return;
+      nextCheck = Date.now() + CHECK_SECS * 1000;
+      pollAnnouncements();
+      checkForNewPublish();
+      ms = CHECK_SECS * 1000;
     }
-    var m = Math.floor(ms / 60000), s = Math.floor((ms % 60000) / 1000);
+    var s = Math.ceil(ms / 1000);
     var el = document.getElementById('countdown');
-    if (el) el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    if (el) el.textContent = '0:' + String(s).padStart(2, '0');
   }
   setInterval(tickCountdown, 1000);
   tickCountdown();
