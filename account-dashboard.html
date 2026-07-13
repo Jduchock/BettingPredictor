@@ -222,6 +222,11 @@
   <!-- AUTO-REFRESH TIMER -->
   <div class="refresh-bar">
     <span class="rb-timer">Page auto-refreshes in <strong id="countdown">10:00</strong> · scores checked every ~10 min during live games</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;">
+      <input id="alertMins" type="number" min="1" max="180" value="15" style="width:52px;background:var(--mid);border:1px solid var(--dim);color:var(--white);border-radius:3px;padding:5px 6px;font-family:'Barlow',sans-serif;font-size:12px;text-align:center;" />
+      <button class="rb-btn" id="alertBtn" onclick="armAlert()">🔔 Sound alert (min)</button>
+      <span id="alertStatus" style="font-size:11px;color:var(--amber);"></span>
+    </span>
   </div>
 
   <!-- ACCOUNT TILES -->
@@ -440,10 +445,60 @@
     if (e.key === 'Escape') closeCard();
   });
 
+  /* ── SOUND ALERT TIMER ── */
+  var alertDeadline = null;
+  var audioCtx = null;
+  function armAlert() {
+    var m = parseFloat(document.getElementById('alertMins').value);
+    if (!m || m <= 0) return;
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    audioCtx.resume();
+    alertDeadline = Date.now() + m * 60000;
+    var t = new Date(alertDeadline);
+    document.getElementById('alertStatus').textContent =
+      '⏰ armed for ' + t.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) + ' (auto-refresh paused)';
+    // quick confirmation blip so you know sound works
+    beep(660, 0.15, 0);
+  }
+  function beep(freq, dur, when) {
+    var o = audioCtx.createOscillator();
+    var g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.frequency.value = freq;
+    o.type = 'square';
+    g.gain.setValueAtTime(0.4, audioCtx.currentTime + when);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + when + dur);
+    o.start(audioCtx.currentTime + when);
+    o.stop(audioCtx.currentTime + when + dur + 0.05);
+  }
+  function soundTheAlarm() {
+    for (var r = 0; r < 3; r++) {
+      beep(880, 0.25, r * 1.2);
+      beep(660, 0.25, r * 1.2 + 0.35);
+      beep(880, 0.45, r * 1.2 + 0.7);
+    }
+    var ov = document.createElement('div');
+    ov.id = 'alarmOverlay';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(212,160,23,.25);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+    ov.innerHTML = '<div style="background:var(--steel);border:3px solid var(--gold);border-radius:8px;padding:30px 40px;text-align:center;font-family:\'Barlow Condensed\',sans-serif;"><div style="font-size:42px;font-weight:900;color:var(--gold);">⏰ TIME TO CHECK THE PAGE</div><div style="font-size:15px;color:var(--fog);margin-top:8px;">Tap anywhere to dismiss — page will refresh for latest scores</div></div>';
+    ov.onclick = function() { window.location.href = window.location.pathname + '?v=' + Date.now(); };
+    document.body.appendChild(ov);
+  }
+
   /* ── 10-MINUTE AUTO-REFRESH ── */
   var REFRESH_SECS = 600;
   var deadline = Date.now() + REFRESH_SECS * 1000;
   function tickCountdown() {
+    if (alertDeadline) {
+      if (Date.now() >= alertDeadline) {
+        alertDeadline = null;
+        document.getElementById('alertStatus').textContent = '';
+        soundTheAlarm();
+        deadline = Date.now() + 120000; // resume auto-refresh 2 min after alarm
+        return;
+      }
+      deadline = Date.now() + REFRESH_SECS * 1000; // hold auto-refresh while armed
+    }
     var ms = deadline - Date.now();
     if (ms <= 0) {
       window.location.href = window.location.pathname + '?v=' + Date.now();
