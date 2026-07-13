@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Run Derby Card — July 13, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --derby:  #E81828;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+
+  .site-header { background: var(--steel); border-bottom: 3px solid var(--derby); padding: 24px 20px 16px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(232,24,40,.3) 0%, transparent 70%); pointer-events: none; }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--derby); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  /* FIELD GRID */
+  .field-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+  @media (max-width: 560px) { .field-grid { grid-template-columns: repeat(2, 1fr); } }
+  .slugger { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--dim); border-radius: 4px; padding: 12px 10px; text-align: center; }
+  .slugger.pick { border-top-color: var(--green); }
+  .slugger.long { border-top-color: var(--derby); }
+  .slugger-name { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 900; text-transform: uppercase; line-height: 1.05; color: var(--white); }
+  .slugger-team { font-size: 10px; color: var(--silver); margin-top: 3px; }
+  .slugger-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; color: var(--amber); margin-top: 5px; line-height: 1; }
+  .slugger.pick .slugger-odds { color: var(--green); }
+  .slugger.long .slugger-odds { color: var(--derby); }
+  .slugger-note { font-size: 9.5px; color: var(--fog); margin-top: 4px; }
+
+  /* ANALYSIS */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; color: var(--gold); }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--derby); }
+
+  /* BANKROLL */
+  .bankroll-banner { background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%); border: 2px solid var(--green); border-radius: 4px; padding: 18px 20px; margin-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .bankroll-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 2px; }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  /* BET TABLE */
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-header, .ct-row { display: grid; grid-template-columns: 1fr 62px 58px 62px 78px 66px; gap: 8px; padding: 12px 14px; align-items: center; }
+  .ct-header { padding: 8px 14px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ct-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row { border-bottom: 1px solid var(--mid); }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-prob { text-align: center; }
+  .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-type { text-align: center; }
+  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.prop   { background: rgba(74,158,255,.2); color: var(--blue);  border: 1px solid rgba(74,158,255,.4); }
+  .type-badge.dog    { background: rgba(232,24,40,.22); color: var(--derby); border: 1px solid rgba(232,24,40,.5); }
+
+  /* LONGSHOT */
+  .parlay-box { background: linear-gradient(135deg, #2E0509 0%, #1F0D2A 100%); border: 2px solid var(--derby); border-radius: 4px; padding: 18px 20px; margin-top: 4px; }
+  .parlay-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--derby); margin-bottom: 10px; }
+  .parlay-body { font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .parlay-result { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(232,24,40,.35); padding-top: 12px; margin-top: 12px; }
+  .parlay-result-label { font-size: 12px; color: var(--silver); }
+  .parlay-result-right { text-align: right; }
+  .parlay-combined { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; color: var(--derby); line-height: 1; }
+  .parlay-payout { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+  .scenario-box { background: var(--steel); border: 1px solid var(--dim); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .scenario-box strong { color: var(--gold); }
+
+  .summary-bar { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 16px 20px; margin-top: 4px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-header, .ct-row { grid-template-columns: 1fr 48px 46px 50px 60px 52px; gap: 4px; padding: 10px 8px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+  }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">MLB All-Star Week · Test 8</p>
+  <h1 class="event-title">HOME RUN <span>DERBY</span></h1>
+  <p class="event-meta">Monday July 13, 2026 · Citizens Bank Park, Philadelphia · 8 PM ET / 7 CT · Netflix · $1,000 Bankroll</p>
+</header>
+
+<div class="container">
+
+  <!-- LIVE STATUS -->
+  <div style="background:linear-gradient(135deg,#0A1F0A 0%,#0D1B0D 100%);border:2px solid var(--green);border-radius:4px;padding:14px 20px;margin-top:20px;text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--green);">🔴 Active · first pitch of Round 1 ~7:15 PM CT · settles tonight ~9:30 PM CT</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,4.5vw,30px);font-weight:900;text-transform:uppercase;color:var(--white);margin-top:4px;">All 7 bets pending</div>
+    <div style="font-size:12px;color:var(--silver);margin-top:4px;">New format: 20 swings R1 (top 4 advance) · 15 swings semis (1v4, 2v3) &amp; final · bonus swings while you keep homering</div>
+  </div>
+
+  <!-- THE FIELD -->
+  <div class="section-head"><span class="section-head-text">The Field · odds to win (DraftKings)</span></div>
+  <div class="field-grid">
+    <div class="slugger pick">
+      <div class="slugger-name">Kyle Schwarber</div>
+      <div class="slugger-team">Phillies · DH</div>
+      <div class="slugger-odds">+310</div>
+      <div class="slugger-note">MLB-best 32 HR · HOME PARK</div>
+    </div>
+    <div class="slugger pick">
+      <div class="slugger-name">Junior Caminero</div>
+      <div class="slugger-team">Rays · 3B</div>
+      <div class="slugger-odds">+425</div>
+      <div class="slugger-note">44 HR in derby last yr · same pitcher</div>
+    </div>
+    <div class="slugger">
+      <div class="slugger-name">Munetaka Murakami</div>
+      <div class="slugger-team">White Sox · 3B</div>
+      <div class="slugger-odds">+500</div>
+      <div class="slugger-note">NPB 56-HR legend, MLB rookie</div>
+    </div>
+    <div class="slugger">
+      <div class="slugger-name">Jac Caglianone</div>
+      <div class="slugger-team">Royals · 1B</div>
+      <div class="slugger-odds">+700</div>
+      <div class="slugger-note">80-grade raw power</div>
+    </div>
+    <div class="slugger">
+      <div class="slugger-name">Jordan Walker</div>
+      <div class="slugger-team">Cardinals · OF</div>
+      <div class="slugger-odds">+700</div>
+      <div class="slugger-note">Breakout year</div>
+    </div>
+    <div class="slugger">
+      <div class="slugger-name">Bryce Harper</div>
+      <div class="slugger-team">Phillies · 1B</div>
+      <div class="slugger-odds">+700</div>
+      <div class="slugger-note">Crowd factor · pace risk</div>
+    </div>
+    <div class="slugger">
+      <div class="slugger-name">Ben Rice</div>
+      <div class="slugger-team">Yankees · C/1B</div>
+      <div class="slugger-odds">+850</div>
+      <div class="slugger-note">Lefty pull-side machine</div>
+    </div>
+    <div class="slugger long">
+      <div class="slugger-name">Willson Contreras</div>
+      <div class="slugger-team">Red Sox · C</div>
+      <div class="slugger-odds">+1400</div>
+      <div class="slugger-note">🎲 OUR LONGSHOT</div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Why Schwarber anchors the card</div>
+      <ul>
+        <li>Leads MLB with 32 home runs at the break — most raw in-season power in the field</li>
+        <li>Citizens Bank Park is his home yard: 45,000 Philly fans and total familiarity with the batter's eye</li>
+        <li>New swing-count format rewards efficient, repeatable swings over stamina — his specialty</li>
+        <li>Priced +310 (mkt ~22% after vig) — we make it closer to 27%</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Why the volume props</div>
+      <ul>
+        <li>Bonus rule (keep swinging while you homer) inflates totals vs old timed format</li>
+        <li>July night in Philly — ball carries; experts backing longest-HR overs for this park</li>
+        <li>Schwarber R1 over 10.5 needs just 11 of 20+ swings out — he hit 16 in a 2022 round</li>
+        <li>Rice over 9.5 (VSiN lean): compact lefty swing built for the 330-ft RF corner</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">2 outrights + 4 props + 1 longshot · fully deployed</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">Best Realistic Night</div>
+      <div class="bankroll-amount" style="color:var(--green);">$2,000</div>
+      <div class="bankroll-subtitle" style="text-align:right;">Schwarber wins + props cash · EV ≈ +$82</div>
+    </div>
+  </div>
+
+  <!-- BET TABLE -->
+  <div class="card-table">
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>Est. Win</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">1 · Kyle Schwarber to win the Derby</div>
+        <div class="pick-sub">MLB HR leader (32) · home park · format suits him</div>
+      </div>
+      <div class="ct-odds pos">+310</div>
+      <div class="ct-stake">$220</div>
+      <div class="ct-prob"><div class="p-est">27%</div><div class="p-mkt">mkt 22%</div></div>
+      <div class="ct-win">+$682.00</div>
+      <div class="ct-type"><span class="type-badge safe">Anchor</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">2 · Junior Caminero to win the Derby</div>
+        <div class="pick-sub">Hit 44 in last year's derby · same BP pitcher again · VSiN's pick</div>
+      </div>
+      <div class="ct-odds pos">+425</div>
+      <div class="ct-stake">$130</div>
+      <div class="ct-prob"><div class="p-est">18%</div><div class="p-mkt">mkt 17%</div></div>
+      <div class="ct-win">+$552.50</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">3 · Schwarber Round 1 Over 10.5 HRs</div>
+        <div class="pick-sub">20 swings + bonus rule · 11 homers clears it</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$180</div>
+      <div class="ct-prob"><div class="p-est">60%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$163.64</div>
+      <div class="ct-type"><span class="type-badge prop">Prop</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">4 · Total Derby HRs Over 119.5</div>
+        <div class="pick-sub">Bonus-swing rule + Philly July carry inflate totals</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-prob"><div class="p-est">58%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$136.36</div>
+      <div class="ct-type"><span class="type-badge prop">Prop</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">5 · Ben Rice Round 1 Over 9.5 HRs</div>
+        <div class="pick-sub">Lefty pull power at a 330-ft RF corner · VSiN lean</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$120</div>
+      <div class="ct-prob"><div class="p-est">57%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$109.09</div>
+      <div class="ct-type"><span class="type-badge prop">Prop</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">6 · Longest HR Over 484.5 ft</div>
+        <div class="pick-sub">Caminero/Caglianone raw power · hot night, ball carries</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$125</div>
+      <div class="ct-prob"><div class="p-est">56%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$113.64</div>
+      <div class="ct-type"><span class="type-badge prop">Prop</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">7 · 🎲 Longshot: Willson Contreras to win</div>
+        <div class="pick-sub">Longest price on the board · veteran C with sneaky pull power</div>
+      </div>
+      <div class="ct-odds pos">+1400</div>
+      <div class="ct-stake">$75</div>
+      <div class="ct-prob"><div class="p-est">7%</div><div class="p-mkt">mkt 6%</div></div>
+      <div class="ct-win">+$1,050.00</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+  </div>
+
+  <!-- LONGSHOT DETAIL -->
+  <div class="section-head"><span class="section-head-text">🎲 The Mandatory Longshot</span></div>
+  <div class="parlay-box">
+    <div class="parlay-title">🎲 Willson Contreras wins the Derby · $75 stake</div>
+    <div class="parlay-body">
+      The biggest price in an eight-man field. The case: catchers have shocked this event before (his brother Willson's old rival Vazquez aside, think Sánchez '17 runner-up), Contreras owns a career 115-mph max exit velocity, and in a swing-count format one hot 20-swing round puts anyone in the semis — where a three-round tournament becomes a coin-flip gauntlet. At 14-to-1 we only need him to be live 7% of the time; we make it exactly that. Pure lottery ticket, exactly what the longshot slot is for.
+    </div>
+    <div class="parlay-result">
+      <div><div class="parlay-result-label">Longshot record entering tonight: 0-for-4</div></div>
+      <div class="parlay-result-right">
+        <div class="parlay-combined">+1400</div>
+        <div class="parlay-payout">$75 stake → returns $1,125.00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="scenario-box">
+    <strong>Card logic.</strong> Bets 1, 2 and 7 are mutually exclusive — at most one outright cashes, which is why the four props carry $575 of the budget. The anchor thesis is simple: the best home-run hitter in baseball, in his own ballpark, in a format that rewards exactly his swing. Caminero is the hedge at better-than-fair value coming off a 44-homer derby. The props lean on the structural edge — the new bonus-swing rule and a July night in a hitter's park both push totals up, and the market hasn't fully priced it. <strong>Expected wins ≈ 2.8 of 7 · EV ≈ +$82.</strong> Schwarber-wins-plus-props night returns ≈ $2,000.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item"><div class="sum-val" style="color:var(--white);">$1,000</div><div class="sum-lbl">Deployed</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--gold);">7</div><div class="sum-lbl">Bets (6 + longshot)</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--blue);">~2.8</div><div class="sum-lbl">Expected Wins</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--green);">$2,000</div><div class="sum-lbl">Best Realistic Return</div></div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Outright odds: DraftKings, locked ~9 AM CT Jul 13. Prop lines via Action Network / VSiN (priced -110 std where book price unlisted).<br>
+    Settlement tracked in betting_tracker.xlsx, tab "HR Derby". Longshot counts toward the account longshot record.
+  </p>
+
+</div>
+</body>
+</html>
