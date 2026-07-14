@@ -6,7 +6,7 @@
       "file": "announce-hrderby-live.mp3",
       "ts": 1783970520,
       "card": "MLB Home Run Derby",
-      "headline": "NEW CARD LIVE \u00b7 $1,000 \u00b7 Schwarber anchor +310 \u00b7 Contreras longshot +1400 \u00b7 first swings 7 PM CT",
+      "headline": "NEW CARD LIVE · $1,000 · Schwarber anchor +310 · Contreras longshot +1400 · first swings 7 PM CT",
       "pl": 0
     },
     {
@@ -15,14 +15,23 @@
       "file": "announce-hrderby-jul13-u1.mp3",
       "ts": 1783991786,
       "card": "MLB Home Run Derby",
-      "headline": "Longest-HR Over 484.5 CASHES \u2014 Contreras 490-ft R1 blast \u00b7 +$113.64 \u00b7 card live, 6 bets pending",
+      "headline": "Longest-HR Over 484.5 CASHES — Contreras 490-ft R1 blast · +$113.64 · card live, 6 bets pending",
       "pl": 113.64
+    },
+    {
+      "id": "hrderby-jul13-u2",
+      "kind": "update",
+      "file": "announce-hrderby-jul13-u2.mp3",
+      "ts": 1783997013,
+      "card": "MLB Home Run Derby",
+      "headline": "Rice under 9.5 ✗ (7 HRs) · 1–1, −$6.36 · SEMIS: Contreras(1) v Schwarber(4), Walker(2) v Caminero(3) — 3 of our horses alive",
+      "pl": -6.36
     }
   ],
   "greeting": {
     "file": "announce-greeting.mp3",
     "ts": 1783991786,
-    "headline": "Account $4,348.32 (\u221213.0%) \u00b7 HR Derby LIVE (1 bet cashed) \u00b7 WC semis Tue/Wed \u00b7 The Open Thu"
+    "headline": "Account $4,348.32 (−13.0%) · HR Derby LIVE (1 bet cashed) · WC semis Tue/Wed · The Open Thu"
   },
-  "nextExpected": "Home Run Derby final rounds \u2014 card settles tonight ~9:30 PM CT"
+  "nextExpected": "Derby semifinals now — winner crowned ~10:15 PM CT, card settles then"
 }
