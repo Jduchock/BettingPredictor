@@ -6,7 +6,7 @@
       "file": "announce-hrderby-live.mp3",
       "ts": 1783970520,
       "card": "MLB Home Run Derby",
-      "headline": "NEW CARD LIVE · $1,000 · Schwarber anchor +310 · Contreras longshot +1400 · first swings 7 PM CT",
+      "headline": "NEW CARD LIVE \u00b7 $1,000 \u00b7 Schwarber anchor +310 \u00b7 Contreras longshot +1400 \u00b7 first swings 7 PM CT",
       "pl": 0
     },
     {
@@ -15,7 +15,7 @@
       "file": "announce-hrderby-jul13-u1.mp3",
       "ts": 1783991786,
       "card": "MLB Home Run Derby",
-      "headline": "Longest-HR Over 484.5 CASHES — Contreras 490-ft R1 blast · +$113.64 · card live, 6 bets pending",
+      "headline": "Longest-HR Over 484.5 CASHES \u2014 Contreras 490-ft R1 blast \u00b7 +$113.64 \u00b7 card live, 6 bets pending",
       "pl": 113.64
     },
     {
@@ -24,14 +24,23 @@
       "file": "announce-hrderby-jul13-u2.mp3",
       "ts": 1783997013,
       "card": "MLB Home Run Derby",
-      "headline": "Rice under 9.5 ✗ (7 HRs) · 1–1, −$6.36 · SEMIS: Contreras(1) v Schwarber(4), Walker(2) v Caminero(3) — 3 of our horses alive",
+      "headline": "Rice under 9.5 \u2717 (7 HRs) \u00b7 1\u20131, \u2212$6.36 \u00b7 SEMIS: Contreras(1) v Schwarber(4), Walker(2) v Caminero(3) \u2014 3 of our horses alive",
       "pl": -6.36
+    },
+    {
+      "id": "hrderby-jul13-settle",
+      "kind": "settle",
+      "file": "announce-hrderby-jul13-settle.mp3",
+      "ts": 1783997840,
+      "card": "MLB Home Run Derby",
+      "headline": "CARD SETTLED 2\u20135 \u00b7 \u2212$475.00 \u00b7 Walker stuns Schwarber 12\u201311 \u2014 anchor one swing short \u00b7 longshot 0-for-5",
+      "pl": -475.0
     }
   ],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1783991786,
-    "headline": "Account $4,348.32 (−13.0%) · HR Derby LIVE (1 bet cashed) · WC semis Tue/Wed · The Open Thu"
+    "ts": 1783997840,
+    "headline": "Account $3,759.68 (\u221224.8%) \u00b7 WC semi France\u2013Spain Tue \u00b7 Arg\u2013Eng Wed \u00b7 The Open Thu"
   },
-  "nextExpected": "Derby semifinals now — winner crowned ~10:15 PM CT, card settles then"
+  "nextExpected": "World Cup semifinal France\u2013Spain \u2014 Tue Jul 14 ~3 PM ET"
 }
