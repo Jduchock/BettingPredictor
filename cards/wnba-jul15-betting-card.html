@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WNBA Wednesday Card — July 15, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --wnba:   #FF6B00;
+    --gold:   #D4A017;
+    --ink:    #0D0D0D;
+    --steel:  #1A1A2E;
+    --mid:    #2A2A3E;
+    --dim:    #3D3D55;
+    --silver: #8888AA;
+    --fog:    #CCCCDD;
+    --white:  #F5F5F8;
+    --green:  #28A745;
+    --amber:  #FFC107;
+    --blue:   #4A9EFF;
+    --red:    #C1121F;
+  }
+
+  body { background: var(--ink); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; }
+
+  .site-header { background: var(--steel); border-bottom: 3px solid var(--wnba); padding: 24px 20px 16px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 120% at 50% -20%, rgba(255,107,0,.3) 0%, transparent 70%); pointer-events: none; }
+  .event-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--wnba); margin-bottom: 4px; position: relative; }
+  .event-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 6vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -1px; color: var(--white); position: relative; }
+  .event-title span { color: var(--gold); }
+  .event-meta { margin-top: 8px; font-size: 12px; color: var(--silver); letter-spacing: 1px; position: relative; }
+
+  .container { max-width: 700px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-head::before, .section-head::after { content: ''; flex: 1; height: 1px; background: var(--dim); }
+  .section-head-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); white-space: nowrap; }
+
+  /* MATCHUPS */
+  .matchup { background: var(--steel); border: 1px solid var(--dim); border-top: 3px solid var(--wnba); border-radius: 4px; padding: 20px; margin-top: 20px; }
+  .matchup-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--wnba); margin-bottom: 14px; }
+  .fighters { display: flex; align-items: center; gap: 12px; }
+  .fighter { flex: 1; text-align: center; }
+  .fighter-name { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(19px, 4.5vw, 26px); font-weight: 900; text-transform: uppercase; line-height: 1; }
+  .fighter-name.red  { color: var(--red); }
+  .fighter-name.blue { color: var(--blue); }
+  .fighter-record { font-size: 12px; color: var(--silver); margin-top: 3px; }
+  .vs-block { text-align: center; flex-shrink: 0; }
+  .vs-text { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 900; color: var(--gold); display: block; line-height: 1; }
+  .weight-class { font-size: 10px; color: var(--silver); letter-spacing: 1px; margin-top: 4px; }
+  .odds-row { display: flex; justify-content: space-between; margin-top: 16px; gap: 8px; }
+  .odds-chip { flex: 1; background: var(--mid); border-radius: 4px; padding: 10px; text-align: center; }
+  .odds-chip.fav { border: 1px solid var(--green); }
+  .odds-chip.dog { border: 1px solid var(--dim); }
+  .odds-value { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; display: block; line-height: 1; }
+  .odds-chip.fav .odds-value { color: var(--green); }
+  .odds-chip.dog .odds-value { color: var(--amber); }
+  .odds-label { font-size: 10.5px; color: var(--silver); margin-top: 3px; }
+
+  /* ANALYSIS */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 480px) { .analysis-grid { grid-template-columns: 1fr; } }
+  .analysis-card { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 14px; }
+  .analysis-card .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; color: var(--gold); }
+  .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .analysis-card ul li { font-size: 13px; color: var(--fog); padding-left: 12px; position: relative; }
+  .analysis-card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; top: 3px; color: var(--wnba); }
+
+  /* BANKROLL */
+  .bankroll-banner { background: linear-gradient(135deg, #0A1F0A 0%, #0D1B0D 100%); border: 2px solid var(--green); border-radius: 4px; padding: 18px 20px; margin-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .bankroll-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 2px; }
+  .bankroll-amount { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: var(--green); line-height: 1; }
+  .bankroll-subtitle { font-size: 12px; color: var(--silver); margin-top: 4px; }
+  .bankroll-totals { text-align: right; flex-shrink: 0; }
+
+  /* BET TABLE */
+  .card-table { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+  .ct-section-label { background: var(--mid); padding: 7px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); border-bottom: 1px solid var(--dim); }
+  .ct-header, .ct-row { display: grid; grid-template-columns: 1fr 62px 58px 62px 78px 66px; gap: 8px; padding: 12px 14px; align-items: center; }
+  .ct-header { padding: 8px 14px; background: rgba(0,0,0,.3); border-bottom: 1px solid var(--dim); }
+  .ct-header span { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); font-weight: 600; }
+  .ct-header span:not(:first-child) { text-align: center; }
+  .ct-row { border-bottom: 1px solid var(--mid); }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row.highlight { background: rgba(212,160,23,.06); border-left: 3px solid var(--gold); }
+  .pick-name { font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.2; }
+  .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
+  .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
+  .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
+  .ct-prob { text-align: center; }
+  .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
+  .ct-win { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; text-align: center; color: var(--green); }
+  .ct-type { text-align: center; }
+  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; font-weight: 700; }
+  .type-badge.safe   { background: rgba(40,167,69,.2);  color: var(--green); border: 1px solid rgba(40,167,69,.4); }
+  .type-badge.value  { background: rgba(212,160,23,.2); color: var(--gold);  border: 1px solid rgba(212,160,23,.4); }
+  .type-badge.prop   { background: rgba(74,158,255,.2); color: var(--blue);  border: 1px solid rgba(74,158,255,.4); }
+  .type-badge.dog    { background: rgba(255,107,0,.22); color: var(--wnba);  border: 1px solid rgba(255,107,0,.5); }
+
+  /* LONGSHOT */
+  .parlay-box { background: linear-gradient(135deg, #2E1505 0%, #1F0D2A 100%); border: 2px solid var(--wnba); border-radius: 4px; padding: 18px 20px; margin-top: 4px; }
+  .parlay-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--wnba); margin-bottom: 12px; }
+  .parlay-legs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .parlay-leg { display: flex; justify-content: space-between; align-items: center; background: rgba(255,107,0,.08); border: 1px solid rgba(255,107,0,.25); border-radius: 3px; padding: 8px 12px; }
+  .parlay-leg-name { font-size: 13px; color: var(--white); }
+  .parlay-leg-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; color: var(--wnba); font-weight: 700; }
+  .parlay-result { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,107,0,.35); padding-top: 12px; }
+  .parlay-result-label { font-size: 12px; color: var(--silver); }
+  .parlay-result-right { text-align: right; }
+  .parlay-combined { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; color: var(--wnba); line-height: 1; }
+  .parlay-payout { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+  .scenario-box { background: var(--steel); border: 1px solid var(--dim); border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 16px; margin-top: 12px; font-size: 13px; color: var(--fog); line-height: 1.6; }
+  .scenario-box strong { color: var(--gold); }
+
+  .summary-bar { background: var(--steel); border: 1px solid var(--dim); border-radius: 4px; padding: 16px 20px; margin-top: 4px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+  .sum-val { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .sum-lbl { font-size: 10px; color: var(--silver); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  @media (max-width: 480px) {
+    .ct-header, .ct-row { grid-template-columns: 1fr 48px 46px 50px 60px 52px; gap: 4px; padding: 10px 8px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+  }
+
+  .disclaimer { margin-top: 28px; font-size: 11px; color: var(--dim); text-align: center; border-top: 1px solid var(--mid); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="event-label">WNBA Wednesday Slate · Test 9</p>
+  <h1 class="event-title">HOOPS <span>MIDWEEK</span></h1>
+  <p class="event-meta">Wednesday July 15, 2026 · 3-game slate · Fever–Valkyries headliner 7 PM CT · $1,000 Bankroll</p>
+</header>
+
+<div class="container">
+
+  <!-- STATUS -->
+  <div style="background:linear-gradient(135deg,#24160D 0%,#2E1505 100%);border:2px solid var(--amber);border-radius:4px;padding:14px 20px;margin-top:20px;text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);">📋 Draft card · lines locked ~9 AM CT Wed · all 7 bets pending</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,4.5vw,30px);font-weight:900;text-transform:uppercase;color:var(--white);margin-top:4px;">3 games · afternoon into night</div>
+    <div style="font-size:12px;color:var(--silver);margin-top:4px;">Sparks @ Lynx (~12 PM CT) · Storm @ Sky (afternoon) · Fever vs Valkyries 7 PM CT — the Caitlin Clark headliner. Player-prop line marked (*) is confirmed at lock.</div>
+  </div>
+
+  <!-- GAME 1: FEVER -->
+  <div class="matchup">
+    <p class="matchup-tag">★ Headliner · 7:00 PM CT (8 PM ET) · Gainbridge Fieldhouse</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name blue">GS Valkyries</div>
+        <div class="fighter-record">17-7 · 3rd West · road back-half of trip</div>
+      </div>
+      <div class="vs-block"><span class="vs-text">@</span><div class="weight-class">HEADLINER</div></div>
+      <div class="fighter">
+        <div class="fighter-name red">Indiana Fever</div>
+        <div class="fighter-record">14-9 · 1st East · 7-game heater · Clark healthy</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip dog"><span class="odds-value">+125</span><div class="odds-label">Valkyries ML</div></div>
+      <div class="odds-chip dog"><span class="odds-value">169.5</span><div class="odds-label">Total (O -115)</div></div>
+      <div class="odds-chip fav"><span class="odds-value">-3.5</span><div class="odds-label">Fever spread (-105)</div></div>
+    </div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Why Fever -3.5 + the Over</div>
+      <ul>
+        <li>Indiana on a 7-game heater — including a 109–75 demolition of the Aces</li>
+        <li>Home at Gainbridge; Clark fully healthy and pushing the league's fastest pace</li>
+        <li>Two top-8 offenses; 169.5 is a soft number for a Clark-run game</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Why the Clark points prop</div>
+      <ul>
+        <li>Clark's usage spikes at home; Valkyries rank mid-pack defending lead guards</li>
+        <li>Full-strength after the heater — no minutes restriction</li>
+        <li>* Exact points line posts Wed AM; we lock at the number then</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GAME 2: LYNX -->
+  <div class="matchup">
+    <p class="matchup-tag">★ Afternoon · ~12:00 PM CT · Target Center</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name blue">LA Sparks</div>
+        <div class="fighter-record">10-12 · poor defensive rating · road</div>
+      </div>
+      <div class="vs-block"><span class="vs-text">@</span><div class="weight-class">AFTERNOON</div></div>
+      <div class="fighter">
+        <div class="fighter-name red">Minnesota Lynx</div>
+        <div class="fighter-record">18-6 · best record in the W · No. 2 net rating</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip dog"><span class="odds-value">+500</span><div class="odds-label">Sparks ML</div></div>
+      <div class="odds-chip fav"><span class="odds-value">182.5</span><div class="odds-label">Total (O -110)</div></div>
+      <div class="odds-chip fav"><span class="odds-value">-12.5</span><div class="odds-label">Lynx spread (-110)</div></div>
+    </div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Why the Over 182.5</div>
+      <ul>
+        <li>Lynx own an elite offense; Sparks play fast and defend poorly</li>
+        <li>Sharps flagged the Sparks as "a terrible defense" this week</li>
+        <li>Even a Minnesota rout clears the number if LA keeps running</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Why Lynx -12.5 (smaller)</div>
+      <ul>
+        <li>18-6 vs 10-12; Minnesota is the class of the league at home</li>
+        <li>Sized down — double-digit WNBA spreads are live to back-door</li>
+        <li>Pairs with the Over: a comfortable Lynx win covers both</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GAME 3: SKY -->
+  <div class="matchup">
+    <p class="matchup-tag">★ Afternoon · ~afternoon CT · Wintrust Arena</p>
+    <div class="fighters">
+      <div class="fighter">
+        <div class="fighter-name blue">Seattle Storm</div>
+        <div class="fighter-record">6-19 · worst record on the slate · road</div>
+      </div>
+      <div class="vs-block"><span class="vs-text">@</span><div class="weight-class">AFTERNOON</div></div>
+      <div class="fighter">
+        <div class="fighter-name red">Chicago Sky</div>
+        <div class="fighter-record">7-16 · home · slight favorite</div>
+      </div>
+    </div>
+    <div class="odds-row">
+      <div class="odds-chip dog"><span class="odds-value">+110</span><div class="odds-label">Storm ML</div></div>
+      <div class="odds-chip dog"><span class="odds-value">~170</span><div class="odds-label">Total</div></div>
+      <div class="odds-chip fav"><span class="odds-value">-130</span><div class="odds-label">Sky ML</div></div>
+    </div>
+  </div>
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <div class="card-title">Why Sky moneyline</div>
+      <ul>
+        <li>Seattle is 6-19 — the worst team on the board — and on the road</li>
+        <li>Chicago at home is the cleaner side of a bad-vs-bad matchup</li>
+        <li>Taking the win outright (-130) rather than laying the short spread</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <div class="card-title">Card construction</div>
+      <ul>
+        <li>Two totals + a strong home favorite + a marquee prop = structural lean</li>
+        <li>Leans into our pattern: props/totals have out-hit the pick-'em bets</li>
+        <li>One longshot stacks our four most-confident sides across games</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BANKROLL -->
+  <div class="section-head"><span class="section-head-text">$1,000 Bankroll Allocation</span></div>
+  <div class="bankroll-banner">
+    <div>
+      <div class="bankroll-label">Total Budget</div>
+      <div class="bankroll-amount">$1,000</div>
+      <div class="bankroll-subtitle">6 core bets + 1 longshot parlay · fully deployed</div>
+    </div>
+    <div class="bankroll-totals">
+      <div class="bankroll-label" style="text-align:right;">If All 7 Hit</div>
+      <div class="bankroll-amount" style="color:var(--green);">$2,672</div>
+      <div class="bankroll-subtitle" style="text-align:right;">+$1,672 profit · EV ≈ +$54</div>
+    </div>
+  </div>
+
+  <!-- BET TABLE -->
+  <div class="card-table">
+    <div class="ct-section-label">★ The Card · Est. Win % is our model vs de-vigged market %</div>
+    <div class="ct-header">
+      <span>Pick</span><span>Odds</span><span>Stake</span><span>Est. Win</span><span>To Win</span><span>Type</span>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">1 · Fever -3.5</div>
+        <div class="pick-sub">vs Valkyries · home, 7-game heater, Clark healthy</div>
+      </div>
+      <div class="ct-odds neg">-105</div>
+      <div class="ct-stake">$185</div>
+      <div class="ct-prob"><div class="p-est">57%</div><div class="p-mkt">mkt 51%</div></div>
+      <div class="ct-win">+$176.19</div>
+      <div class="ct-type"><span class="type-badge safe">Anchor</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">2 · Fever–Valkyries Over 169.5</div>
+        <div class="pick-sub">Two top-8 offenses · Clark pace · soft number</div>
+      </div>
+      <div class="ct-odds neg">-115</div>
+      <div class="ct-stake">$175</div>
+      <div class="ct-prob"><div class="p-est">54%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$152.17</div>
+      <div class="ct-type"><span class="type-badge value">Total</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">3 · Sparks–Lynx Over 182.5</div>
+        <div class="pick-sub">Lynx offense + Sparks' poor D & fast pace</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$160</div>
+      <div class="ct-prob"><div class="p-est">55%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$145.45</div>
+      <div class="ct-type"><span class="type-badge value">Total</span></div>
+    </div>
+
+    <div class="ct-row highlight">
+      <div>
+        <div class="pick-name">4 · Caitlin Clark Over points *</div>
+        <div class="pick-sub">Home usage spike · line confirmed at lock (~22.5)</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$150</div>
+      <div class="ct-prob"><div class="p-est">54%</div><div class="p-mkt">mkt 52%</div></div>
+      <div class="ct-win">+$136.36</div>
+      <div class="ct-type"><span class="type-badge prop">Prop</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">5 · Chicago Sky ML</div>
+        <div class="pick-sub">vs 6-19 Storm · home side of a bad-vs-bad</div>
+      </div>
+      <div class="ct-odds neg">-130</div>
+      <div class="ct-stake">$140</div>
+      <div class="ct-prob"><div class="p-est">58%</div><div class="p-mkt">mkt 57%</div></div>
+      <div class="ct-win">+$107.69</div>
+      <div class="ct-type"><span class="type-badge safe">Safe</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">6 · Lynx -12.5</div>
+        <div class="pick-sub">18-6 vs 10-12 · sized down (back-door risk)</div>
+      </div>
+      <div class="ct-odds neg">-110</div>
+      <div class="ct-stake">$115</div>
+      <div class="ct-prob"><div class="p-est">52%</div><div class="p-mkt">mkt 50%</div></div>
+      <div class="ct-win">+$104.55</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">7 · 🎲 Longshot: 4-Leg Cross-Game Parlay</div>
+        <div class="pick-sub">Fever -3.5 + Lynx Over 182.5 + Fever Over 169.5 + Sky ML</div>
+      </div>
+      <div class="ct-odds pos">+1133</div>
+      <div class="ct-stake">$75</div>
+      <div class="ct-prob"><div class="p-est">10%</div><div class="p-mkt">mkt 8%</div></div>
+      <div class="ct-win">+$849.75</div>
+      <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
+    </div>
+  </div>
+
+  <!-- LONGSHOT DETAIL -->
+  <div class="section-head"><span class="section-head-text">🎲 The Mandatory Longshot</span></div>
+  <div class="parlay-box">
+    <div class="parlay-title">🎲 "Midweek Sweep" 4-Leg Parlay · $75 stake</div>
+    <div class="parlay-legs">
+      <div class="parlay-leg"><span class="parlay-leg-name">Fever -3.5 (vs Valkyries)</span><span class="parlay-leg-odds">-105</span></div>
+      <div class="parlay-leg"><span class="parlay-leg-name">Sparks–Lynx Over 182.5</span><span class="parlay-leg-odds">-110</span></div>
+      <div class="parlay-leg"><span class="parlay-leg-name">Fever–Valkyries Over 169.5</span><span class="parlay-leg-odds">-115</span></div>
+      <div class="parlay-leg"><span class="parlay-leg-name">Chicago Sky ML</span><span class="parlay-leg-odds">-130</span></div>
+    </div>
+    <div class="parlay-result">
+      <div>
+        <div class="parlay-result-label">Combined odds</div>
+        <div class="parlay-result-label" style="margin-top:4px;">Est. hit probability: 10% (57% × 55% × 54% × 58%)</div>
+      </div>
+      <div class="parlay-result-right">
+        <div class="parlay-combined">≈ +1133</div>
+        <div class="parlay-payout">$75 stake → returns $924.75</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="scenario-box">
+    <strong>Card logic.</strong> Deliberately built around our running lesson: through eight cards, the totals and structural props keep cashing while the pick-'em winner bets die by inches. So the weight sits on two totals (both games with a clear pace/defense edge) and a strong home favorite laying a short number, with the Clark prop as the marquee hook. The Lynx side is sized down because double-digit WNBA spreads back-door often. The longshot stacks our four most-confident positions across all three games. <strong>Expected wins ≈ 3.4 of 7 · EV ≈ +$54.</strong> Everything hits → $2,672 returned.
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
+  <div class="summary-bar">
+    <div class="sum-item"><div class="sum-val" style="color:var(--white);">$1,000</div><div class="sum-lbl">Deployed</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--gold);">7</div><div class="sum-lbl">Bets (6 + longshot)</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--blue);">~3.4</div><div class="sum-lbl">Expected Wins</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--green);">$2,672</div><div class="sum-lbl">Max Return</div></div>
+  </div>
+
+  <p class="disclaimer">
+    Fictitious $1,000 bankroll test — no real money wagered. For entertainment purposes only.<br>
+    Lines: DraftKings / Caesars / consensus, drafted ~9 PM CT Jul 14; final numbers locked ~9 AM CT Jul 15. Games Wed Jul 15.<br>
+    Settlement tracked in betting_tracker.xlsx, tab "WNBA Jul 15". Longshot counts toward the account longshot record.
+  </p>
+
+</div>
+</body>
+</html>

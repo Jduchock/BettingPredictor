@@ -214,7 +214,7 @@
 <header class="site-header">
   <p class="event-label">Claude Intelligence Betting Test · Account Roll-Up</p>
   <h1 class="event-title">ACCOUNT <span>DASHBOARD</span></h1>
-  <p class="event-meta">$5,000 fictitious account · updated Monday July 13, 2026 ~11:45 PM CT</p>
+  <p class="event-meta">$5,000 fictitious account · updated Tuesday July 14, 2026 ~9:15 PM CT</p>
 </header>
 
 <div class="container">
@@ -236,15 +236,15 @@
       <div class="tile-sub">−$1,240.32 (−24.8%)</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--amber);">$1,600</div>
+      <div class="tile-val" style="color:var(--amber);">$2,600</div>
       <div class="tile-lbl">At Risk (pending)</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--blue);">$2,159</div>
+      <div class="tile-val" style="color:var(--blue);">$1,160</div>
       <div class="tile-lbl">Available to Deploy</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--gold);">2 / 4</div>
+      <div class="tile-val" style="color:var(--gold);">3 / 4</div>
       <div class="tile-lbl">Active Card Slots</div>
     </div>
   </div>
@@ -259,6 +259,17 @@
   <div class="tl">
     <div class="tl-header">
       <span>#</span><span>Card</span><span>Date(s)</span><span>Status</span><span>P/L to Date</span><span>Pending</span><span>Staked</span><span>Running Bal.</span>
+    </div>
+
+    <div class="tl-row active linked" onclick="openCard('cards/wnba-jul15-betting-card.html')">
+      <div class="tl-num">9</div>
+      <div class="tl-event">WNBA Wednesday Slate<div class="sub">TOMORROW · Fever–Valkyries 7 PM CT + 2 afternoon games · draft, lines lock AM · settles Wed night</div></div>
+      <div class="tl-date">Jul 15</div>
+      <div class="tl-status"><span class="status-badge active">Active</span></div>
+      <div class="tl-pl zero">$0.00</div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-money">$1,000</div>
+      <div class="tl-bal">$5,000.00</div>
     </div>
 
     <div class="tl-row active linked" onclick="openCard('cards/wc2026-betting-card.html')">
@@ -361,9 +372,9 @@
       <div class="slot-name">The Open (golf)</div>
       <div class="slot-stake">$600 at risk · thru Sun Jul 19</div>
     </div>
-    <div class="slot open">
-      <div class="slot-name">OPEN</div>
-      <div class="slot-stake">HR Derby settled −$475.00 · slot free</div>
+    <div class="slot used" onclick="openCard('cards/wnba-jul15-betting-card.html')">
+      <div class="slot-name">WNBA Wed</div>
+      <div class="slot-stake">$1,000 at risk · settles Wed Jul 15 night</div>
     </div>
     <div class="slot open">
       <div class="slot-name">OPEN</div>
@@ -419,11 +430,17 @@
       <div class="tl-money">+1400</div>
       <div class="tl-status"><span class="status-badge settled" style="color:#FF6B6B;border-color:rgba(193,18,31,.5);">Miss</span></div>
     </div>
+    <div class="tl-row" style="grid-template-columns: 1fr 100px 70px 90px; min-width: 480px;">
+      <div class="tl-event">4-leg cross-game parlay (Fever/Lynx/Sky stack)</div>
+      <div class="tl-date">WNBA Jul 15</div>
+      <div class="tl-money">+1133</div>
+      <div class="tl-status"><span class="status-badge active">Pending</span></div>
+    </div>
     <div class="tl-row" style="grid-template-columns: 1fr 100px 70px 90px; min-width: 480px; background: rgba(0,0,0,.25);">
       <div class="tl-event" style="color:var(--gold);">LONGSHOT RECORD</div>
       <div class="tl-date"></div>
       <div class="tl-money"></div>
-      <div class="tl-status" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);">0-for-5 · 1 live</div>
+      <div class="tl-status" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);">0-for-5 · 2 live</div>
     </div>
   </div>
 
@@ -586,7 +603,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-14T03:05:00Z";
+  var PAGE_BUILT = "2026-07-15T02:45:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {
