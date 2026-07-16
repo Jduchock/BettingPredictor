@@ -6,7 +6,7 @@
       "file": "announce-wnba-jul15-settle.mp3",
       "ts": 1784175442,
       "card": "WNBA Wednesday Slate",
-      "headline": "SETTLED 2–5 · −$446.85 — Valkyries 88–75; Clark 13 pts on a minutes cap",
+      "headline": "SETTLED 2\u20135 \u00b7 \u2212$446.85 \u2014 Valkyries 88\u201375; Clark 13 pts on a minutes cap",
       "pl": -446.85
     },
     {
@@ -14,15 +14,15 @@
       "kind": "settle",
       "file": "announce-wc2026-settle.mp3",
       "ts": 1784175442,
-      "card": "World Cup 2026 — Final Four",
-      "headline": "SETTLED 2–5 · −$369.14 — Spain 2–0 France · Argentina 2–1 England; both outrights dead",
+      "card": "World Cup 2026 \u2014 Final Four",
+      "headline": "SETTLED 2\u20135 \u00b7 \u2212$369.14 \u2014 Spain 2\u20130 France \u00b7 Argentina 2\u20131 England; both outrights dead",
       "pl": -369.14
     }
   ],
   "greeting": {
     "file": "announce-greeting.mp3",
     "ts": 1784175442,
-    "headline": "Account $2,943.68 (−41.1%) · The Open tees off Thu · Rugby card Fri · Spain–Argentina final Sun"
+    "headline": "Account $2,943.68 (\u221241.1%) \u00b7 The Open tees off Thu \u00b7 Rugby card Fri \u00b7 Spain\u2013Argentina final Sun"
   },
-  "nextExpected": "The Open Round 1 Thursday — leaderboard updates during play; Rugby card finalizes Friday"
+  "nextExpected": "The Open Round 2 Friday from ~6:35 AM UK \u2014 leaderboard updates during play; Rugby card finalizes Friday"
 }
