@@ -81,6 +81,8 @@
   .pick-sub { font-size: 11px; color: var(--silver); margin-top: 2px; }
   .ct-odds { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; text-align: center; }
   .ct-odds.pos { color: var(--green); }
+  .ct-odds.neg { color: var(--amber); }
+  .ct-prob .p-mkt { font-size: 9px; color: var(--silver); margin-top: 2px; }
   .ct-stake { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; text-align: center; color: var(--white); }
   .ct-prob { text-align: center; }
   .ct-prob .p-est { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1; }
@@ -113,7 +115,7 @@
 <header class="site-header">
   <p class="event-label">The 154th Open Championship · Royal Birkdale · Test 6</p>
   <h1 class="event-title">LINKS <span>GOLF</span> MAJOR</h1>
-  <p class="event-meta">July 16–19, 2026 · Southport, England · $1,000 Bankroll ($600 deployed · $400 reserved for props)</p>
+  <p class="event-meta">July 16–19, 2026 · Southport, England · $1,000 Bankroll · fully deployed (6 outrights + 5 top-10 props)</p>
 </header>
 
 <div class="container">
@@ -129,7 +131,7 @@
   <!-- STRATEGY NOTE -->
   <div class="hazard">
     <div class="hazard-title">⛳ How This Card Works — Two-Phase Build</div>
-    Golf majors settle over four days against a 156-man field — even the favorite is only ~15% to win, so an outright card is a <strong>basket of longshots by nature</strong>. Phase 1 (now): $600 across six outrights, odds locked at build. Phase 2 (Wednesday, before the first tee): <strong>$400 reserved</strong> for finishing-position markets — top-10s, head-to-head matchups, make-cut props — which books post closer to Thursday. Those are where the "middle/safe" money lives in golf.
+    Golf majors settle over four days against a 156-man field — even the favorite is only ~15% to win, so an outright card is a <strong>basket of longshots by nature</strong>. Phase 1: $600 across six outrights, odds locked at build. Phase 2 (deployed Wednesday, before the first tee): <strong>$400 across five top-10 finish props</strong> on our basket players — the higher-probability side of golf betting, where a top-10 cashes when our guy merely contends rather than has to win outright.
   </div>
 
   <!-- ODDS BOARD -->
@@ -208,7 +210,7 @@
     <div>
       <div class="bankroll-label">Total Budget</div>
       <div class="bankroll-amount">$1,000</div>
-      <div class="bankroll-subtitle">$600 deployed on 6 outrights · $400 reserved for Wednesday props</div>
+      <div class="bankroll-subtitle">$600 on 6 outrights + $400 on 5 top-10 props · fully deployed</div>
     </div>
     <div class="bankroll-totals">
       <div class="bankroll-label" style="text-align:right;">Basket Coverage</div>
@@ -296,31 +298,75 @@
       <div class="ct-type"><span class="type-badge dog">Longshot</span></div>
     </div>
 
-    <div class="ct-section-label">Phase 2 · Wednesday (before first tee)</div>
-    <div class="ct-row reserved">
+    <div class="ct-section-label">Phase 2 · Top-10 Props · deployed Wed Jul 15 · $400</div>
+    <div class="ct-row">
       <div>
-        <div class="pick-name">7 · RESERVED — Finishing-position props</div>
-        <div class="pick-sub">Top-10s, 72-hole head-to-heads, make-cut props — lines post midweek</div>
+        <div class="pick-name">7 · Scottie Scheffler — Top 10</div>
+        <div class="pick-sub">World No. 1 / +620 favorite · safest of the basket</div>
       </div>
-      <div class="ct-odds" style="color:var(--blue);">TBD</div>
-      <div class="ct-stake">$400</div>
-      <div class="ct-prob"><div class="p-est">—</div></div>
-      <div class="ct-win">TBD</div>
-      <div class="ct-type"><span class="type-badge tbd">Pending</span></div>
+      <div class="ct-odds neg">-146</div>
+      <div class="ct-stake">$120</div>
+      <div class="ct-prob"><div class="p-est">62%</div><div class="p-mkt">mkt 59%</div></div>
+      <div class="ct-win">+$82.19</div>
+      <div class="ct-type"><span class="type-badge anchor">Anchor</span></div>
+    </div>
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">8 · Tommy Fleetwood — Top 10</div>
+        <div class="pick-sub">Southport native · Birkdale is his home links</div>
+      </div>
+      <div class="ct-odds pos">+158</div>
+      <div class="ct-stake">$90</div>
+      <div class="ct-prob"><div class="p-est">44%</div><div class="p-mkt">mkt 39%</div></div>
+      <div class="ct-win">+$142.20</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">9 · Jon Rahm — Top 10</div>
+        <div class="pick-sub">Elite wind player · value vs the field</div>
+      </div>
+      <div class="ct-odds pos">+172</div>
+      <div class="ct-stake">$80</div>
+      <div class="ct-prob"><div class="p-est">42%</div><div class="p-mkt">mkt 37%</div></div>
+      <div class="ct-win">+$137.60</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">10 · Matt Fitzpatrick — Top 10</div>
+        <div class="pick-sub">English · six straight cuts made at The Open</div>
+      </div>
+      <div class="ct-odds pos">+164</div>
+      <div class="ct-stake">$70</div>
+      <div class="ct-prob"><div class="p-est">42%</div><div class="p-mkt">mkt 38%</div></div>
+      <div class="ct-win">+$114.80</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
+    </div>
+    <div class="ct-row">
+      <div>
+        <div class="pick-name">11 · Collin Morikawa — Top 10</div>
+        <div class="pick-sub">2021 Open champ · elite ballstriker for links</div>
+      </div>
+      <div class="ct-odds pos">+280</div>
+      <div class="ct-stake">$40</div>
+      <div class="ct-prob"><div class="p-est">30%</div><div class="p-mkt">mkt 26%</div></div>
+      <div class="ct-win">+$112.00</div>
+      <div class="ct-type"><span class="type-badge value">Value</span></div>
     </div>
   </div>
 
   <!-- NOTES -->
   <div class="scenario-box">
-    <strong>Portfolio note.</strong> The six outrights are mutually exclusive — at most one cashes, but any one of them pays for the entire card several times over (Scheffler +$900 minimum, Koepka +$2,500 maximum). Combined coverage: ~44% that one of ours wins the Jug. The reserved $400 converts into higher-probability props Wednesday so the card isn't pure lottery.
+    <strong>Portfolio note.</strong> The six outrights are mutually exclusive — at most one cashes, but any one of them pays for the entire card several times over (Scheffler +$900 minimum, Koepka +$2,500 maximum). Combined coverage: ~44% that one of ours wins the Jug. The $400 Phase 2 deployment — five top-10 props across the basket — is the higher-probability hedge: a top-10 cashes when our guy contends, not only when he lifts the Jug. Scheffler's is near-even money; the other four carry plus-money value.
     <strong>McIlroy +750 is our biggest deliberate fade</strong> — playing too infrequently this year to trust at half Fleetwood's price.
   </div>
 
   <!-- SUMMARY -->
   <div class="section-head"><span class="section-head-text">Allocation Summary</span></div>
   <div class="summary-bar">
-    <div class="sum-item"><div class="sum-val" style="color:var(--white);">$600</div><div class="sum-lbl">Deployed (of $1,000)</div></div>
-    <div class="sum-item"><div class="sum-val" style="color:var(--gold);">6 + props</div><div class="sum-lbl">Bets</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--white);">$1,000</div><div class="sum-lbl">Fully Deployed</div></div>
+    <div class="sum-item"><div class="sum-val" style="color:var(--gold);">11</div><div class="sum-lbl">Bets (6 + 5 props)</div></div>
     <div class="sum-item"><div class="sum-val" style="color:var(--blue);">~44%</div><div class="sum-lbl">Basket Coverage</div></div>
     <div class="sum-item"><div class="sum-val" style="color:var(--green);">+$2,500</div><div class="sum-lbl">Best Single Payout</div></div>
   </div>
