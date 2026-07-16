@@ -1,19 +1,9 @@
 {
-  "announcements": [
-    {
-      "id": "wnba-jul15-live",
-      "kind": "update",
-      "file": "announce-wnba-jul15-live.mp3",
-      "ts": 1784083719,
-      "card": "WNBA Wednesday Slate",
-      "headline": "NEW CARD · $1,000 · Fever–Valkyries 7 PM CT headliner + 2 afternoon games · lines lock Wed AM",
-      "pl": 0
-    }
-  ],
+  "announcements": [],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784083719,
-    "headline": "Account $3,759.68 (−24.8%) · WNBA Wed (Fever) · The Open Thu · World Cup final Sun"
+    "ts": 1784166237,
+    "headline": "Account $3,759.68 · 3 live cards · WNBA tips tonight (Fever) · The Open Thu · World Cup final Sun"
   },
-  "nextExpected": "WNBA Wednesday — Sparks–Lynx ~12 PM CT, Fever–Valkyries 7 PM CT · lines lock ~9 AM CT"
+  "nextExpected": "WNBA tonight — Fever–Valkyries 7 PM CT; grades roll in through the evening"
 }
