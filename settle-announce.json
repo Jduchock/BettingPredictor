@@ -1,9 +1,28 @@
 {
-  "announcements": [],
+  "announcements": [
+    {
+      "id": "wnba-jul15-settle",
+      "kind": "settle",
+      "file": "announce-wnba-jul15-settle.mp3",
+      "ts": 1784175442,
+      "card": "WNBA Wednesday Slate",
+      "headline": "SETTLED 2–5 · −$446.85 — Valkyries 88–75; Clark 13 pts on a minutes cap",
+      "pl": -446.85
+    },
+    {
+      "id": "wc2026-settle",
+      "kind": "settle",
+      "file": "announce-wc2026-settle.mp3",
+      "ts": 1784175442,
+      "card": "World Cup 2026 — Final Four",
+      "headline": "SETTLED 2–5 · −$369.14 — Spain 2–0 France · Argentina 2–1 England; both outrights dead",
+      "pl": -369.14
+    }
+  ],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784166237,
-    "headline": "Account $3,759.68 · 3 live cards · WNBA tips tonight (Fever) · The Open Thu · World Cup final Sun"
+    "ts": 1784175442,
+    "headline": "Account $2,943.68 (−41.1%) · The Open tees off Thu · Rugby card Fri · Spain–Argentina final Sun"
   },
-  "nextExpected": "WNBA tonight — Fever–Valkyries 7 PM CT; grades roll in through the evening"
+  "nextExpected": "The Open Round 1 Thursday — leaderboard updates during play; Rugby card finalizes Friday"
 }
