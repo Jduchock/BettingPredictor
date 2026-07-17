@@ -214,7 +214,7 @@
 <header class="site-header">
   <p class="event-label">Claude Intelligence Betting Test · Account Roll-Up</p>
   <h1 class="event-title">ACCOUNT <span>DASHBOARD</span></h1>
-  <p class="event-meta">$5,000 fictitious account · updated Friday July 17, 2026 ~9:10 AM CT</p>
+  <p class="event-meta">$5,000 fictitious account · updated Friday July 17, 2026 ~10:30 AM CT</p>
 </header>
 
 <div class="container">
@@ -236,15 +236,15 @@
       <div class="tile-sub">−$2,056.32 (−41.1%)</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--amber);">$1,000</div>
+      <div class="tile-val" style="color:var(--amber);">$1,550</div>
       <div class="tile-lbl">At Risk (pending)</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--blue);">$1,943.68</div>
+      <div class="tile-val" style="color:var(--blue);">$1,393.68</div>
       <div class="tile-lbl">Available to Deploy</div>
     </div>
     <div class="tile">
-      <div class="tile-val" style="color:var(--gold);">1 / 4</div>
+      <div class="tile-val" style="color:var(--gold);">2 / 4</div>
       <div class="tile-lbl">Active Card Slots</div>
     </div>
   </div>
@@ -272,15 +272,15 @@
       <div class="tl-bal">$5,000.00</div>
     </div>
 
-    <div class="tl-row linked" style="border-left:3px solid var(--amber);" onclick="openCard('cards/rugby-jul18-betting-card.html')">
+    <div class="tl-row active linked" onclick="openCard('cards/rugby-jul18-betting-card.html')">
       <div class="tl-num">7</div>
-      <div class="tl-event">Rugby Nations Cup — Final Rd<div class="sub">Draft built · odds post ~Friday · USA-Spain centerpiece</div></div>
+      <div class="tl-event">Rugby Nations Cup — Final Rd<div class="sub">Georgia -12.5 anchor + USA -3.5 · only 2 of 6 matches priced · $550 at risk, $450 kept dry</div></div>
       <div class="tl-date">Jul 18</div>
-      <div class="tl-status"><span class="status-badge" style="background:rgba(255,193,7,.15);color:var(--amber);border:1px solid rgba(255,193,7,.4);">Queued</span></div>
+      <div class="tl-status"><span class="status-badge active">Active</span></div>
       <div class="tl-pl zero">$0.00</div>
-      <div class="tl-money">—</div>
-      <div class="tl-money">—</div>
-      <div class="tl-bal">$5,000.00</div>
+      <div class="tl-money">$550</div>
+      <div class="tl-money">$550</div>
+      <div class="tl-bal">$2,943.68</div>
     </div>
 
     <div class="tl-row archive linked" onclick="openCard('cards/wnba-jul15-betting-card.html')">
@@ -376,9 +376,9 @@
       <div class="slot-name">OPEN</div>
       <div class="slot-stake">World Cup settled −$369.14 · slot free</div>
     </div>
-    <div class="slot open">
-      <div class="slot-name">OPEN</div>
-      <div class="slot-stake">Rugby card queued — finalizes Friday</div>
+    <div class="slot used" onclick="openCard('cards/rugby-jul18-betting-card.html')">
+      <div class="slot-name">Rugby (Nations Cup)</div>
+      <div class="slot-stake">$550 at risk · settles Sat Jul 18</div>
     </div>
   </div>
 
@@ -419,10 +419,10 @@
       <div class="tl-status"><span class="status-badge active">Pending</span></div>
     </div>
     <div class="tl-row" style="grid-template-columns: 1fr 100px 70px 90px; min-width: 480px;">
-      <div class="tl-event">TBD at finalization</div>
+      <div class="tl-event">Georgia -12.5 + USA -3.5 parlay</div>
       <div class="tl-date">Rugby</div>
-      <div class="tl-money">TBD</div>
-      <div class="tl-status"><span class="status-badge" style="background:rgba(255,193,7,.15);color:var(--amber);border:1px solid rgba(255,193,7,.4);">Queued</span></div>
+      <div class="tl-money">+263</div>
+      <div class="tl-status"><span class="status-badge active">Pending</span></div>
     </div>
     <div class="tl-row" style="grid-template-columns: 1fr 100px 70px 90px; min-width: 480px;">
       <div class="tl-event">Willson Contreras outright <span style="font-size:10px;color:var(--silver);">(led R1 with 13 · out 9–8 to Schwarber on his last semifinal swing)</span></div>
@@ -440,7 +440,7 @@
       <div class="tl-event" style="color:var(--gold);">LONGSHOT RECORD</div>
       <div class="tl-date"></div>
       <div class="tl-money"></div>
-      <div class="tl-status" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);">0-for-6 · 1 live</div>
+      <div class="tl-status" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);">0-for-6 · 2 live</div>
     </div>
   </div>
 
@@ -603,7 +603,7 @@
   }
 
   /* ── 60s CHECK LOOP (no auto-reload: page only refreshes when YOU tap) ── */
-  var PAGE_BUILT = "2026-07-17T14:10:00Z";
+  var PAGE_BUILT = "2026-07-17T15:35:00Z";
   var CHECK_SECS = 60;
   var nextCheck = Date.now() + CHECK_SECS * 1000;
   function checkForNewPublish() {

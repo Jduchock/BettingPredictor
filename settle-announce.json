@@ -1,28 +1,9 @@
 {
-  "announcements": [
-    {
-      "id": "wnba-jul15-settle",
-      "kind": "settle",
-      "file": "announce-wnba-jul15-settle.mp3",
-      "ts": 1784175442,
-      "card": "WNBA Wednesday Slate",
-      "headline": "SETTLED 2\u20135 \u00b7 \u2212$446.85 \u2014 Valkyries 88\u201375; Clark 13 pts on a minutes cap",
-      "pl": -446.85
-    },
-    {
-      "id": "wc2026-settle",
-      "kind": "settle",
-      "file": "announce-wc2026-settle.mp3",
-      "ts": 1784175442,
-      "card": "World Cup 2026 \u2014 Final Four",
-      "headline": "SETTLED 2\u20135 \u00b7 \u2212$369.14 \u2014 Spain 2\u20130 France \u00b7 Argentina 2\u20131 England; both outrights dead",
-      "pl": -369.14
-    }
-  ],
+  "announcements": [],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784175442,
-    "headline": "Account $2,943.68 (\u221241.1%) \u00b7 The Open tees off Thu \u00b7 Rugby card Fri \u00b7 Spain\u2013Argentina final Sun"
+    "ts": 1784300893,
+    "headline": "Account $2,943.68 (−41.1%) · 2 live cards · Rugby Sat (Georgia anchor) · The Open ends Sun"
   },
-  "nextExpected": "The Open R2 in progress Friday \u2014 card tee times 9:36 AM\u20133:15 PM UK, leaderboard updates hourly; Rugby card finalizes Friday"
+  "nextExpected": "Rugby Nations Cup Saturday — Chile–Georgia ~2 PM CT, USA–Spain ~6:30 PM CT; grades that night"
 }
