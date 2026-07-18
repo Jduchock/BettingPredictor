@@ -1,9 +1,19 @@
 {
-  "announcements": [],
+  "announcements": [
+    {
+      "id": "rugby-jul18-u1",
+      "kind": "update",
+      "file": "announce-rugby-jul18-u1.mp3",
+      "ts": 1784416368,
+      "card": "Rugby Nations Cup — Final Rd",
+      "headline": "Georgia −12.5 WON — Georgia 49–22 Chile · card +$306.31 · USA–Spain tonight decides the rest",
+      "pl": 306.31
+    }
+  ],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784300893,
-    "headline": "Account $2,943.68 (−41.1%) · 2 live cards · Rugby Sat (Georgia anchor) · The Open ends Sun"
+    "ts": 1784416368,
+    "headline": "Account $3,249.99 (−35.0%) · Georgia leg cashed · USA–Spain tonight decides rugby card · The Open final Sun"
   },
-  "nextExpected": "Rugby Nations Cup Saturday — Chile–Georgia ~2 PM CT, USA–Spain ~6:30 PM CT; grades that night"
+  "nextExpected": "USA–Spain final (~8:15 PM CT) settles the rugby card tonight; The Open final round grades Sunday evening"
 }
