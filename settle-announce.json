@@ -26,12 +26,21 @@
       "card": "The Open Championship",
       "headline": "FOX WINS THE OPEN AT −10 · all 6 outrights ✗, 🎲 Koepka MISS · Scheffler + Fleetwood top-10s ✓ (+$224.39) · card −$445.61 · Rahm/Morikawa props pend",
       "pl": -445.61
+    },
+    {
+      "id": "open2026-settle",
+      "kind": "settle",
+      "file": "announce-open2026-settle.mp3",
+      "ts": 1784488724,
+      "card": "The Open Championship",
+      "headline": "THE OPEN SETTLED 2–9 · Fox won at −10 · Rahm T46 + Morikawa T18 — final props ✗ · card −$565.61 · balance $2,978.55 · board clean",
+      "pl": -565.61
     }
   ],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784485726,
-    "headline": "Account $3,098.55 (−38.0%) · Fox stole the Open at the last — 9/11 graded, −$445.61 · Rahm + Morikawa top-10s settle next update"
+    "ts": 1784488724,
+    "headline": "Account $2,978.55 (−40.4%) · board clean — all July cards settled · The Open −$565.61 (Fox at −10) · next card TBD"
   },
-  "nextExpected": "Rahm + Morikawa top-10 props grade off the full final board (next hourly run) — then The Open settles and the board is clean"
+  "nextExpected": "Board is clean — all cards settled. Next card TBD; hourly checks continue."
 }
