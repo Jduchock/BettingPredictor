@@ -17,12 +17,21 @@
       "card": "Rugby Nations Cup — Final Rd",
       "headline": "RUGBY CARD SETTLED 3-for-3 · USA 29–22 Spain covered −3.5 · 🎲 +263 parlay HIT (first longshot!) · card +$600.47 · balance $3,544.15",
       "pl": 600.47
+    },
+    {
+      "id": "open2026-u1",
+      "kind": "update",
+      "file": "announce-open2026-u1.mp3",
+      "ts": 1784485726,
+      "card": "The Open Championship",
+      "headline": "FOX WINS THE OPEN AT −10 · all 6 outrights ✗, 🎲 Koepka MISS · Scheffler + Fleetwood top-10s ✓ (+$224.39) · card −$445.61 · Rahm/Morikawa props pend",
+      "pl": -445.61
     }
   ],
   "greeting": {
     "file": "announce-greeting.mp3",
-    "ts": 1784427570,
-    "headline": "Account $3,544.15 (−29.1%) · Rugby swept +$600.47, first longshot HIT · The Open final round grades Sunday"
+    "ts": 1784485726,
+    "headline": "Account $3,098.55 (−38.0%) · Fox stole the Open at the last — 9/11 graded, −$445.61 · Rahm + Morikawa top-10s settle next update"
   },
-  "nextExpected": "The Open final round (Sun Jul 19) grades Sunday evening — last active card; Koepka +5000 ten back"
+  "nextExpected": "Rahm + Morikawa top-10 props grade off the full final board (next hourly run) — then The Open settles and the board is clean"
 }
