@@ -1,46 +1,9 @@
 {
-  "announcements": [
-    {
-      "id": "rugby-jul18-u1",
-      "kind": "update",
-      "file": "announce-rugby-jul18-u1.mp3",
-      "ts": 1784416368,
-      "card": "Rugby Nations Cup — Final Rd",
-      "headline": "Georgia −12.5 WON — Georgia 49–22 Chile · card +$306.31 · USA–Spain tonight decides the rest",
-      "pl": 306.31
-    },
-    {
-      "id": "rugby-jul18-settle",
-      "kind": "settle",
-      "file": "announce-rugby-jul18-settle.mp3",
-      "ts": 1784427570,
-      "card": "Rugby Nations Cup — Final Rd",
-      "headline": "RUGBY CARD SETTLED 3-for-3 · USA 29–22 Spain covered −3.5 · 🎲 +263 parlay HIT (first longshot!) · card +$600.47 · balance $3,544.15",
-      "pl": 600.47
-    },
-    {
-      "id": "open2026-u1",
-      "kind": "update",
-      "file": "announce-open2026-u1.mp3",
-      "ts": 1784485726,
-      "card": "The Open Championship",
-      "headline": "FOX WINS THE OPEN AT −10 · all 6 outrights ✗, 🎲 Koepka MISS · Scheffler + Fleetwood top-10s ✓ (+$224.39) · card −$445.61 · Rahm/Morikawa props pend",
-      "pl": -445.61
-    },
-    {
-      "id": "open2026-settle",
-      "kind": "settle",
-      "file": "announce-open2026-settle.mp3",
-      "ts": 1784488724,
-      "card": "The Open Championship",
-      "headline": "THE OPEN SETTLED 2–9 · Fox won at −10 · Rahm T46 + Morikawa T18 — final props ✗ · card −$565.61 · balance $2,978.55 · board clean",
-      "pl": -565.61
-    }
-  ],
+  "announcements": [],
   "greeting": {
     "file": "announce-greeting.mp3",
     "ts": 1784488724,
-    "headline": "Account $2,978.55 (−40.4%) · board clean — all July cards settled · The Open −$565.61 (Fox at −10) · next card TBD"
+    "headline": "Account $2,978.55 (\u221240.4%) \u00b7 board clean \u2014 all July cards settled \u00b7 The Open \u2212$565.61 (Fox at \u221210) \u00b7 next card TBD"
   },
-  "nextExpected": "Board is clean — all cards settled. Next card TBD; hourly checks continue."
+  "nextExpected": "Board is clean \u2014 all cards settled. Next card TBD; hourly checks continue."
 }
